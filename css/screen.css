@@ -48,8 +48,13 @@ h1{
     flex-direction: column;
     align-items: center;
     margin: 0;
-    gap: 6rem;
-    margin-top: 4rem;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+.c-trophytablet{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
 }
 
 .c-titeltablet{
@@ -61,7 +66,7 @@ h1{
 .c-startgame{
     background-color: var(--color-font);
     color: var(--backgroundcolor-tablet);
-    padding: 2rem 6rem;
+    padding: 1rem 4rem;
     border-radius: 1rem;
     font-size: var(--font-size-button);
     font-weight: var(--font-weight-subtitel);
