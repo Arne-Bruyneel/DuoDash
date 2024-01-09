@@ -1,0 +1,79 @@
+/*---------------------------------------*\
+#FONTS
+\*---------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+/*---------------------------------------*\
+#Variables
+\*---------------------------------------*/
+:root{
+    --backgroundcolor-tablet: #052732;
+    --color-font: #fff;
+
+    --font-size-titel: 96px;
+    --font-size-subtitel: 48px;
+    --font-size-button: 32px;
+    --font-size-text: 24px;
+
+    --font-weight-titel: 700;
+    --font-weight-subtitel: 500;
+    --font-weight-text: 400;
+
+}
+/*---------------------------------------/*
+ # GENERIC
+/*---------------------------------------*/
+html{
+    font-family: 'Inter', sans-serif;
+}
+h1{
+    font-size: var(--font-size-titel);
+    font-weight: var(--font-weight-titel);
+    margin: 0;
+}
+/*---------------------------------------/*
+ # ELEMENTS
+/*---------------------------------------*/
+
+/*---------------------------------------/*
+ # OBJECTS
+/*---------------------------------------*/
+
+/*---------------------------------------/*
+ # COMPONENTS
+/*---------------------------------------*/
+.c-bodytablet{
+    background-color: var(--backgroundcolor-tablet);
+    color: var(--color-font);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    gap: 6rem;
+    margin-top: 4rem;
+}
+
+.c-titeltablet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.c-startgame{
+    background-color: var(--color-font);
+    color: var(--backgroundcolor-tablet);
+    padding: 2rem 6rem;
+    border-radius: 1rem;
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-subtitel);
+}
+
+.c-footertablet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 4rem;
+}
+/*---------------------------------------/*
+ # UTILITIES
+/*---------------------------------------*/
