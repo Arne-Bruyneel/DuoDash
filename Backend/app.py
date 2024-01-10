@@ -8,9 +8,39 @@ import time
 import subprocess
 from Database.Database import get_db_connection, query_db
 from Database.Datarepository import Datarepository as dr
+import Database.main as db
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
+
+
+spelers_data = [
+    {
+        "id": 1,
+        "achternaam": "Jansen",
+        "voornaam": "Jan",
+        "email": "jan.jansen@example.com",
+        "winnaar": False,
+    },
+    {
+        "id": 2,
+        "achternaam": "De Vries",
+        "voornaam": "Anna",
+        "email": "anna.devries@example.com",
+        "winnaar": True,
+    },
+]
+
+metingen_data = [
+    {"speler_id": 1, "maxSnelheid": 25.5, "afstand": 700, "gemVermogen": 200},
+    {"speler_id": 2, "maxSnelheid": 22.0, "afstand": 850, "gemVermogen": 220},
+]
+
+game_data = {
+    'start_time': None,
+    'end_time': None,
+    'game_active': False
+}
 
 conn = get_db_connection()
 cursor = conn.cursor()
@@ -39,12 +69,44 @@ def leaderboard():
 def initial_connection():
     print('A new client connected')
 
-#socketio voor constante data stream -> tijdens het fietsen
 
-# @socketio.on('RaceStart')
-# def race_data():
-#     pass
+def start_game():
+    #start de game
+    print('start game')
+
+    #start de timer
+    game_data['start_time'] = datetime.now()
+    game_data['end_time'] = datetime.now() + timedelta(seconds=15)
+    game_data['game_active'] = True
+
+    #start de data stream
+    threading.Thread(target=data_stream).start()
     
+    #start de winnaar functie
+
+def countdown():
+    print('countdown')
+
+
+def data_stream():
+    while game_data['game_active']:
+        #stuur de data naar de frontend
+        socketio.emit('B2F_data', metingen_data)
+        socketio.sleep(0.01)
+        current_time = datetime.now()
+        if current_time > game_data['end_time']:
+            game_data['game_active'] = False
+            #start de end of game functie
+            end_of_game()
+            break
+
+def end_of_game():
+    print('end of game')
+    #start de data opslaan functie
+    db.opslaan_db(spelers_data, metingen_data)
+
+
+
 
 if __name__ == '__main__':
     try:
@@ -53,4 +115,9 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('KeyboardInterrupt exception is caught')
     finally:
-        print("finished")
+        print("Cleaning up resources and closing connections...")
+        cursor.close()  # Close the database cursor
+        conn.close()  # Close the database connection
+        socketio.stop()  # Stop the SocketIO server
+        print("Resources cleaned up, application shut down.")
+

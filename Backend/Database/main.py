@@ -1,30 +1,8 @@
-from Database import get_db_connection
-from Datarepository import Datarepository as dr
+from Database.Database import get_db_connection
+from Database.Datarepository import Datarepository as dr
 import sqlite3
 
-spelers_data = [
-    {
-        "id": 1,
-        "achternaam": "Jansen",
-        "voornaam": "Jan",
-        "email": "jan.jansen@example.com",
-        "winnaar": False,
-    },
-    {
-        "id": 2,
-        "achternaam": "De Vries",
-        "voornaam": "Anna",
-        "email": "anna.devries@example.com",
-        "winnaar": True,
-    },
-]
-
-metingen_data = [
-    {"speler_id": 1, "maxSnelheid": 25.5, "afstand": 700, "gemVermogen": 200},
-    {"speler_id": 2, "maxSnelheid": 22.0, "afstand": 850, "gemVermogen": 220},
-]
-
-def main():
+def opslaan_db(spelers_data, metingen_data):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -58,5 +36,3 @@ def main():
 
     print("Spelersdata is succesvol ingevoerd in de database.")
 
-if __name__ == "__main__":
-    main()
