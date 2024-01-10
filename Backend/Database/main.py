@@ -1,5 +1,5 @@
 from Database import get_db_connection
-from Datarepository import get_speler_id, insert_speler, insert_metingen, update_winnaar
+from Datarepository import Datarepository as dr
 import sqlite3
 
 spelers_data = [
@@ -35,14 +35,14 @@ def main():
                 wedstrijd_id = cursor.lastrowid
 
                 for speler in spelers_data:
-                    speler_id = get_speler_id(cursor, speler)
+                    speler_id = dr.get_speler_id(cursor, speler)
                     if speler_id is None:
-                        speler_id = insert_speler(cursor, speler)
+                        speler_id = dr.insert_speler(cursor, speler)
 
-                    insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data)
+                    dr.insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data)
 
                     if speler["winnaar"]:
-                        update_winnaar(cursor, speler_id, wedstrijd_id)
+                        dr.update_winnaar(cursor, speler_id, wedstrijd_id)
 
             except sqlite3.Error as e:
                 print(f"An error occurred while executing SQL: {e}")

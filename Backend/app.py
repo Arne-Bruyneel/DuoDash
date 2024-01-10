@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_socketio import SocketIO
 from flask_cors import CORS
 import sqlite3
@@ -6,23 +6,14 @@ from contextlib import closing
 import datetime
 import time
 import subprocess
+from Database.Database import get_db_connection, query_db
+from Database.Datarepository import Datarepository as dr
+
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 
-DATABASE = "pad naar database"
-
-def get_db():
-    db = sqlite3.connect(DATABASE)
-    db.row_factory = sqlite3.Row
-    return db
-
-def query_db(query, args=(), one = False):
-    with closing(get_db()) as db:
-        cursor = db.execute (query, args)
-        returnValue = cursor.fetchall()
-        cursor.close()
-        return (returnValue[0] if returnValue else None) if one else returnValue # if one is true, return the first row, else return all rows
-
+conn = get_db_connection()
+cursor = conn.cursor()
 
 # Flask and SocketIO setup
 app = Flask(__name__)
@@ -36,12 +27,24 @@ CORS(app)
 def hello():
     return "Server is running, er zijn momenteel geen API endpoints beschikbaar."
 
-
+@app.route('/leaderboard', methods=['GET'])
+def leaderboard():
+    if request.method == 'GET':
+        result = jsonify(dr.get_leaderboard(conn))
+        # print(f'leaderboard: {result}')
+        return result
+    
 # Socket IO Events
 @socketio.on('connect')
 def initial_connection():
     print('A new client connected')
 
+#socketio voor constante data stream -> tijdens het fietsen
+
+# @socketio.on('RaceStart')
+# def race_data():
+#     pass
+    
 
 if __name__ == '__main__':
     try:
