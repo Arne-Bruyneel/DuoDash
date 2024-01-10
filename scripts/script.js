@@ -9,22 +9,22 @@ let fietserWit;
 // #endregion
 
 // #region ***  Callback-Visualisation - show___         ***********
-const showFietser = function (classes) {
-  if (classes.contains('c-keuzeRood')) {
+const showFietser = function (id) {
+  if (id == 'radio-rood') {
     console.log('rood');
-  } else if (classes.contains('c-keuzeBlauw')) {
+  } else if (id == 'radio-blauw') {
     fietserBlauw.style.display = 'block';
     console.log('blauw');
-  } else if (classes.contains('c-keuzeGeel')) {
+  } else if (id == 'radio-geel') {
     fietserGeel.style.display = 'block';
     console.log('geel');
-  } else if (classes.contains('c-keuzeGroen')) {
+  } else if (id == 'radio-groen') {
     fietserGroen.style.display = 'block';
     console.log('groen');
-  } else if (classes.contains('c-keuzePaars')) {
+  } else if (id == 'radio-paars') {
     fietserPaars.style.display = 'block';
     console.log('paars');
-  } else if (classes.contains('c-keuzeWit')) {
+  } else if (id == 'radio-wit') {
     fietserWit.style.display = 'block';
     console.log('wit');
   }
@@ -46,8 +46,8 @@ const getRegistratie = function () {
       fietserPaars.style.display = 'none';
       fietserWit.style.display = 'none';
       console.log('clicked');
-      console.info(kleur.classList);
-      showFietser(kleur.classList);
+      console.info(kleur.id);
+      showFietser(kleur.id);
     });
   });
 };
