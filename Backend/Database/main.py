@@ -2,10 +2,10 @@ from Database.Database import get_db_connection
 from Database.Datarepository import Datarepository as dr
 import sqlite3
 
-def opslaan_db(spelers_data, metingen_data):
+def opslaan_db(spelers_data, metingen_data, conn, cursor):
     try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
+        # conn = get_db_connection()
+        # cursor = conn.cursor()
 
         with conn:
             try:
