@@ -64,6 +64,9 @@ h1{
 /*---------------------------------------/*
  # COMPONENTS
 /*---------------------------------------*/
+
+/*-------------------STARTSCHERM---------------------*/
+
 .c-bodytablet{
     background-color: var(--backgroundcolor-tablet);
     color: var(--color-font);
@@ -112,6 +115,9 @@ h1{
     position: fixed;
     bottom: 2rem;
 }
+
+
+/*-------------------SPELER-INPUT-----------------------*/
 
 .c-headertablet{
     width: 100%;
@@ -280,9 +286,6 @@ input:-webkit-autofill:active{
     margin: 0;
 }
 
-
-
-
 .c-knoptablet{
     background-color: var(--color-font);
     color: var(--backgroundcolor-tablet);
@@ -317,6 +320,20 @@ input:-webkit-autofill:active{
     align-items: end;
     justify-content: space-between;
     margin: 0 2rem;
+}
+
+
+/*---------------------MAP--------------------------*/
+
+.c-kiesmap{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.c-map{
+    width: 16.25rem;
+    height: 12.5rem;
 }
 
 
