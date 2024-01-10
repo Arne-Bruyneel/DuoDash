@@ -5,6 +5,9 @@ let fietserGeel;
 let fietserGroen;
 let fietserPaars;
 let fietserWit;
+let voornaamSpeler1;
+let achternaamSpeler1;
+let emailSpeler1;
 
 // #endregion
 
@@ -37,6 +40,7 @@ const showFietser = function (id) {
 // #region ***  Data Access - get___                     ***********
 const getRegistratie = function () {
   let htmlKleur = document.querySelectorAll('.js-kleur');
+  let htmlVolgende = document.querySelector('.js-volgende');
   htmlKleur.forEach((kleur) => {
     console.info(kleur);
     kleur.addEventListener('click', function () {
@@ -49,6 +53,15 @@ const getRegistratie = function () {
       console.info(kleur.id);
       showFietser(kleur.id);
     });
+  });
+  htmlVolgende.addEventListener('click', function () {
+    console.log('volgende');
+    let htmlVoornaam = document.querySelector('.js-voornaam');
+    let htmlAchternaam = document.querySelector('.js-achternaam');
+    let htmlEmail = document.querySelector('.js-email');
+    voornaamSpeler1 = htmlVoornaam.value;
+    achternaamSpeler1 = htmlAchternaam.value;
+    emailSpeler1 = htmlEmail.value;
   });
 };
 // #endregion
