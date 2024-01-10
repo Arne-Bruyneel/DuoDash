@@ -68,6 +68,13 @@ def leaderboard():
 @socketio.on('connect')
 def initial_connection():
     print('A new client connected')
+ 
+
+def countdown():
+    print('countdown')
+    for remaining in range(3, 0, -1):
+        socketio.sleep(1)  # Non-blocking sleep
+    start_game()
 
 
 def start_game():
@@ -84,11 +91,9 @@ def start_game():
     
     #start de winnaar functie
 
-def countdown():
-    print('countdown')
-
 
 def data_stream():
+    print('data stream')
     while game_data['game_active']:
         #stuur de data naar de frontend
         socketio.emit('B2F_data', metingen_data)
@@ -106,8 +111,6 @@ def end_of_game():
     db.opslaan_db(spelers_data, metingen_data)
 
 
-
-
 if __name__ == '__main__':
     try:
         print("**** Starting APP ****")
@@ -116,8 +119,8 @@ if __name__ == '__main__':
         print('KeyboardInterrupt exception is caught')
     finally:
         print("Cleaning up resources and closing connections...")
-        cursor.close()  # Close the database cursor
-        conn.close()  # Close the database connection
-        socketio.stop()  # Stop the SocketIO server
+        cursor.close()
+        conn.close()
+        socketio.stop() 
         print("Resources cleaned up, application shut down.")
 
