@@ -23,10 +23,19 @@
     --font-size-button: 32px;
     --font-size-bigtext: 24px;
     --font-size-smalltext: 16px;
+
+    --font-size-titelScherm: 180px;
+    --font-size-subtitelScherm: 55px;
+    --font-size-button: 32px;
+    --font-size-bigtextScherm: 80px;
+    --font-size-mediumtextScherm: 70px;
+    --font-size-smalltextScherm: 16px;
     
     --font-weight-titel: 700;
     --font-weight-subtitel: 500;
     --font-weight-text: 400;
+
+    --text-shadow: #000 0px 0px 20px;
 }
 /*---------------------------------------/*
  # GENERIC
@@ -435,6 +444,158 @@ input:-webkit-autofill:active{
     text-align: center;
 }
 
+/*---------------------ALGEMEEN SCHERM-----------------------*/
+
+.c-containerScherm{
+    /* height: 100vh; */
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.c-backgroundScherm{
+    width: 100%;
+    height: 100vh;
+    opacity: 0.7;
+}
+
+.c-backgroundScherm__vast{
+    width: 100%;
+    height: 100vh;
+    background-image: url(../img/goeivis.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.c-backgroundScherm__overlay{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--backgroundcolor-tablet);
+    opacity: 0.5;
+}
+
+.c-backgroundScherm:before, .c-backgroundScherm:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../img/goeivis.png);
+    background-size: cover;
+    animation: move 10s infinite linear;
+}
+
+.c-backgroundScherm:before{
+    right: 100%;
+}
+
+@keyframes move{
+    from {transform: translateX(  100%);}
+    to {transform: translateX(  0%);}
+}
+
+/*---------------------START-----------------------*/
+
+.c-tekstScherm{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: var(--color-font);
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+    text-shadow: var(--text-shadow);
+}
+
+.c-titelScherm{
+    font-size: var(--font-size-titelScherm);
+    font-weight: var(--font-weight-titel);
+    top: 5%;
+    left: 50%;
+}
+
+.c-subtitelScherm{
+    font-size: var(--font-size-subtitelScherm);
+    top: 40%;
+    left: 50%;
+}
+
+.c-doelScherm{
+    font-size: var(--font-size-bigtextScherm);
+    font-weight: var(--font-weight-subtitel);
+    top: 55%;
+    left: 50%;
+}
+
+/*---------------------LEADERBOARD-----------------------*/
+
+.c-podium{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    top: 10%;
+    left: 22.5%;
+    display: flex;
+    gap: 16px;
+}
+
+.c-podium__1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.c-podium__2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.c-podium__3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.c-beker{
+    height: 150px;
+    position: relative;
+
+}
+
+.c-beker__nummer{
+    position: absolute;
+    font-size: var(--font-size-mediumtextScherm);
+    top: 10%;
+}
+
+.c-beker__1{
+    fill: #F1D330;
+}
+
+.c-beker__2{
+    fill: #C3BC97;
+}
+
+.c-beker__3{
+    fill: #E59927;
+}
+
+.c-box{
+    background-color: var(--color-font);
+    border-radius: 10px;
+    height: 232px;
+    width: 270px;
+}
+
+.c-box__2{
+    height: calc(232px * 0.75);
+}
+
+.c-box__3{
+    height: calc(232px * 0.60);
+}
 
 /*---------------------------------------/*
  # UTILITIES
