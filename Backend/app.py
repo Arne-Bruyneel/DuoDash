@@ -107,7 +107,7 @@ def data_stream():
     while game_data['game_active']:
         #stuur de data naar de frontend
         socketio.emit('B2F_data', combined_data['metingen'])
-        socketio.sleep(0.01)
+        socketio.sleep(0.1)
         current_time = datetime.now()
         if current_time > game_data['end_time']:
             game_data['game_active'] = False
@@ -127,9 +127,10 @@ if __name__ == '__main__':
     try:
         print("**** Starting APP ****")
         # socketio.run(app, debug=True)
-        app.run(debug=False)
+        socketio.run(app, debug=False)
     except KeyboardInterrupt:
         print('KeyboardInterrupt exception is caught')
     finally:
         print('Einde')
+        conn.close()
 

@@ -31,8 +31,8 @@ def opslaan_db(spelers_data, metingen_data, conn, cursor):
         raise e
 
     finally:
-        if conn:
-            conn.close()
+        # conn.close()
+        print("Spelersdata is succesvol ingevoerd in de database.")
 
-    print("Spelersdata is succesvol ingevoerd in de database.")
+
 
