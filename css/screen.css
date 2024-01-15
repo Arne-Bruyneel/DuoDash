@@ -511,7 +511,7 @@ input:-webkit-autofill:active{
 
 .c-moving{
     display: block;
-    animation: move 10s infinite linear;
+    animation: move 15s infinite linear;
     height: 100vh;
 }
 
@@ -573,56 +573,19 @@ input:-webkit-autofill:active{
 
 .c-podium{
     position: absolute;
-    width: 100%;
-    z-index: 1;
-    top: 10%;
-    left: 22.5%;
+    top: 5%;
     display: flex;
     gap: 16px;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
 }
 
-.c-podium__1{
+.c-podium__stand{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-}
-
-.c-podium__2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.c-podium__3{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.c-beker{
-    height: 150px;
-    position: relative;
-}
-
-.c-beker__nummer{
-    position: absolute;
-    font-size: var(--font-size-mediumtextScherm);
-    top: 10%;
-}
-
-.c-beker__1{
-    fill: #F1D330;
-}
-
-.c-beker__2{
-    fill: #C3BC97;
-}
-
-.c-beker__3{
-    fill: #E59927;
 }
 
 .c-box{
@@ -638,6 +601,84 @@ input:-webkit-autofill:active{
 
 .c-box__3{
     height: calc(232px * 0.60);
+}
+
+.c-algemeenKlassement{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    height: 20rem;
+    width: 100%;
+    position: absolute;
+    bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.c-algemeenKlasseLinks{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 20rem;
+    width: calc(100% - 2rem);
+}
+
+.c-algemeenKlasseRechts{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 20rem;
+    width: 100%;
+}
+
+.c-klasse{
+    color: var(--backgroundcolor-tablet);
+    background-color: var(--color-font);
+    border-radius: 10px;
+    width: calc(100% - 6rem);
+    height: 4rem;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.c-klasseBegin{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+
+.c-klasseEind{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+
+.c-klasseNummer{
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-titel);
+}
+
+.c-klasseNaam{
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-titel);
+}
+
+.c-klasseAfstand{
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-subtitel);
+}
+
+.c-klasseSnelheid{
+    font-size: var(--font-size-bigtext);
+    font-weight: var(--font-weight-subtitel);
 }
 
 /*---------------------------------------/*
