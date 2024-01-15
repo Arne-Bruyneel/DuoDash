@@ -99,6 +99,8 @@ const listenToVolgende = function (voornaam, achternaam, email) {
     achternaamSpeler1 = achternaam.value;
     emailSpeler1 = email.value;
     kleurSpeler1 = fietserKleur;
+    console.info(voornaamSpeler1, achternaamSpeler1, emailSpeler1, kleurSpeler1)
+    // window.location.href = 'playerTwoTablet.html';
     registratieInit();
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
@@ -107,7 +109,7 @@ const listenToVolgende = function (voornaam, achternaam, email) {
     emailSpeler2 = email.value;
     kleurSpeler2 = fietserKleur;
   }
-}
+};
 // #endregion
 
 // #region ***  Init / DOMContentLoaded                  ***********
@@ -120,22 +122,13 @@ const registratieInit = function () {
   fietserGroen = document.querySelector('.js-fietserGroen');
   fietserPaars = document.querySelector('.js-fietserPaars');
   fietserWit = document.querySelector('.js-fietserWit');
-  
+
   fietserBlauw.style.display = 'none';
   fietserGeel.style.display = 'none';
   fietserGroen.style.display = 'none';
   fietserPaars.style.display = 'none';
   fietserWit.style.display = 'none';
 
-  voornaamSpeler1 = '';
-  achternaamSpeler1 = '';
-  emailSpeler1 = '';
-  kleurSpeler1 = '';
-  voornaamSpeler2 = '';
-  achternaamSpeler2 = '';
-  emailSpeler2 = '';
-  kleurSpeler2 = '';
-  
   getRegistratie();
 };
 
@@ -144,14 +137,24 @@ const mapInit = function () {
   getMap();
 };
 
+const startInit = function () {
+  console.log('start');
+  let htmlStart = document.querySelector('.js-start');
+  htmlStart.addEventListener('click', function () {
+    console.log('start');
+    window.location.href = 'playerOneTablet.html';
+  });
+};
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
-  if(htmlBody.classList.contains('js-spelerInit')) {
+  if (htmlBody.classList.contains('js-spelerInit')) {
     registratieInit();
-  } else if(htmlBody.classList.contains('js-mapInit')) {
+  } else if (htmlBody.classList.contains('js-mapInit')) {
     mapInit();
+  } else if (htmlBody.classList.contains('js-startInit')) {
+    startInit();
   }
 });
 
