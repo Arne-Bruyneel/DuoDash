@@ -70,29 +70,37 @@ const getRegistratie = function () {
     let htmlVoornaam = document.querySelector('.js-voornaam');
     let htmlAchternaam = document.querySelector('.js-achternaam');
     let htmlEmail = document.querySelector('.js-email');
-    listenToVolgende(htmlVoornaam, htmlAchternaam, htmlEmail);
+    listenToVolgendeSpeler(htmlVoornaam, htmlAchternaam, htmlEmail);
   });
 };
 
 const getMap = function () {
   const maps = document.querySelectorAll('.js-map');
+  let htmlVolgende = document.querySelector('.js-volgende');
   maps.forEach((map) => {
     map.addEventListener('click', function () {
       if (map.id == 'radio-eilanden') {
         chosenMap = 'eilanden';
+        localStorage.setItem('chosenMap', chosenMap);
       } else if (map.id == 'radio-jungle') {
         chosenMap = 'jungle';
+        localStorage.setItem('chosenMap', chosenMap);
       } else if (map.id == 'radio-water') {
         chosenMap = 'water';
+        localStorage.setItem('chosenMap', chosenMap);
       }
     });
+  });
+  htmlVolgende.addEventListener('click', function () {
+    console.log(chosenMap);
+    window.location.href = 'instructionTablet.html'
   });
 };
 // #endregion
 
 // #region ***  Event Listeners - listenTo___            ***********
 
-const listenToVolgende = function (voornaam, achternaam, email) {
+const listenToVolgendeSpeler = function (voornaam, achternaam, email) {
   if (htmlBody.classList.contains('speler1')) {
     console.log('speler1');
     voornaamSpeler1 = voornaam.value;
@@ -100,21 +108,32 @@ const listenToVolgende = function (voornaam, achternaam, email) {
     emailSpeler1 = email.value;
     kleurSpeler1 = fietserKleur;
     console.info(voornaamSpeler1, achternaamSpeler1, emailSpeler1, kleurSpeler1)
-    // window.location.href = 'playerTwoTablet.html';
-    registratieInit();
+    localStorage.setItem('voornaamSpeler1', voornaamSpeler1);
+    localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
+    localStorage.setItem('emailSpeler1', emailSpeler1);
+    localStorage.setItem('kleurSpeler1', kleurSpeler1);
+    window.location.href = 'playerTwoTablet.html';
+    // registratieInit();
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
     voornaamSpeler2 = voornaam.value;
     achternaamSpeler2 = achternaam.value;
     emailSpeler2 = email.value;
     kleurSpeler2 = fietserKleur;
+    console.info(voornaamSpeler2, achternaamSpeler2, emailSpeler2, kleurSpeler2)
+    localStorage.setItem('voornaamSpeler2', voornaamSpeler2);
+    localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
+    localStorage.setItem('emailSpeler2', emailSpeler2);
+    localStorage.setItem('kleurSpeler2', kleurSpeler2);
+    window.location.href = 'mapTablet.html';
   }
 };
+
 // #endregion
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
-const registratieInit = function () {
+const spelerInit = function () {
   console.log('start pagina');
   fietserRood = document.querySelector('.js-fietserRood');
   fietserBlauw = document.querySelector('.js-fietserBlauw');
@@ -150,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
   if (htmlBody.classList.contains('js-spelerInit')) {
-    registratieInit();
+    spelerInit();
   } else if (htmlBody.classList.contains('js-mapInit')) {
     mapInit();
   } else if (htmlBody.classList.contains('js-startInit')) {
