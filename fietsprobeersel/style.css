@@ -14,9 +14,9 @@ body{
 .cyclist{
     position: relative;
     height: 260px;
-    width: calc(8317px / 30);
-    background: url(rommel.png);
-    animation: cycle 1s steps(30) infinite;
+    width: calc(8316px / 30);
+    background: url(pix.png);
+    animation: cycle 0.5s steps(30) infinite;
 }
 
 @keyframes cycle{
@@ -24,6 +24,6 @@ body{
         background-position: 0;
     }
     to{
-        background-position: -8317px;
+        background-position: -8316px;
     }
 }
