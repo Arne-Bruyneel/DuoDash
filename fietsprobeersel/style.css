@@ -16,7 +16,7 @@ body{
     height: 260px;
     width: calc(8316px / 30);
     background: url(PAARSJEUH.png);
-    animation: cycle 0.5s steps(30) infinite;
+    animation: cycle 0.2s steps(30) infinite;
 }
 
 @keyframes cycle{
