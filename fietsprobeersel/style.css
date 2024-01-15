@@ -14,8 +14,8 @@ body{
 .cyclist{
     position: relative;
     height: 260px;
-    width: calc(14587px / 30);
-    background: url(rood.png);
+    width: calc(8317px / 30);
+    background: url(rommel.png);
     animation: cycle 1s steps(30) infinite;
 }
 
@@ -24,6 +24,6 @@ body{
         background-position: 0;
     }
     to{
-        background-position: -14587px;
+        background-position: -8317px;
     }
 }
