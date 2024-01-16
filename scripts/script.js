@@ -165,6 +165,15 @@ const startInit = function () {
   });
 };
 
+const uitlegInit = function () {
+  console.log('uitleg');
+  let htmlStart = document.querySelector('.js-start');
+  htmlStart.addEventListener('click', function () {
+    console.log('start');
+    window.location.href = 'instructionTablet.html';
+  });
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
@@ -174,6 +183,8 @@ document.addEventListener('DOMContentLoaded', function () {
     mapInit();
   } else if (htmlBody.classList.contains('js-startInit')) {
     startInit();
+  } else if (htmlBody.classList.contains('js-uitlegInit')){
+    uitlegInit();
   }
 });
 
