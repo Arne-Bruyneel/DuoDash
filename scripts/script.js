@@ -65,13 +65,6 @@ const getRegistratie = function () {
       showFietser(kleur.id);
     });
   });
-  htmlVolgende.addEventListener('click', function () {
-    console.log('volgende');
-    let htmlVoornaam = document.querySelector('.js-voornaam');
-    let htmlAchternaam = document.querySelector('.js-achternaam');
-    let htmlEmail = document.querySelector('.js-email');
-    listenToVolgendeSpeler(htmlVoornaam, htmlAchternaam, htmlEmail);
-  });
 };
 
 const getMap = function () {
@@ -100,7 +93,7 @@ const getMap = function () {
 
 // #region ***  Event Listeners - listenTo___            ***********
 
-const listenToVolgendeSpeler = function (voornaam, achternaam, email) {
+const listenToVolgendeSpeler = function () {
   if (htmlBody.classList.contains('speler1')) {
     console.log('speler1');
     voornaamSpeler1 = voornaam.value;
@@ -112,8 +105,6 @@ const listenToVolgendeSpeler = function (voornaam, achternaam, email) {
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
-    window.location.href = 'playerTwoTablet.html';
-    // registratieInit();
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
     voornaamSpeler2 = voornaam.value;
@@ -125,7 +116,6 @@ const listenToVolgendeSpeler = function (voornaam, achternaam, email) {
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
-    window.location.href = 'mapTablet.html';
   }
 };
 
