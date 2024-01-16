@@ -93,7 +93,7 @@ const getMap = function () {
   });
   htmlVolgende.addEventListener('click', function () {
     console.log(chosenMap);
-    window.location.href = 'instructionTablet.html'
+    window.location.href = 'speluitlegTablet.html'
   });
 };
 // #endregion
