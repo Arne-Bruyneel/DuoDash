@@ -1,96 +1,85 @@
 import asyncio
-import struct
+import sys
+import json
+import time
+from bleak import BleakClient
 
-device_address = "E3:B4:38:07:DA:17"
-characteristic_uuids = {
-    "speed": "00002ad2-0000-1000-8000-00805f9b34fb",
-    "power": "00002a63-0000-1000-8000-00805f9b34fb",
-}
+device1 = sys.argv[1]
+device2 = sys.argv[2]
+
+conencted1 = False
+connected2 = False
+
+characteristic_uuid = "00002ad2-0000-1000-8000-00805f9b34fb"
 
 
-async def notification_handler(
-    sender, data, characteristic, speed_values, power_values, elapsed_time
-):
-    """Callback for handling notifications."""
-    if len(data) >= 4:
-        value_bytes = data[2:4]
-        value = int.from_bytes(value_bytes, "little", signed=False)
-        if characteristic == "speed":
-            value /= 100
-            speed_values.append(value)
-            print(f"Instant Speed: {value} km/h")
+async def notification_handler(sender, data):
+    if len(data) >= 6:
+        speed_bytes = data[2:4]
+        instant_speed = int.from_bytes(speed_bytes, "little", signed=False)
+        instant_speed /= 100
 
-            # socketio.emit("live_speed", value)
+        deviceName = ""
 
-        elif characteristic == "power":
-            power_values.append(value)
-            print(f"Instantaneous Power: {value} Watts")
+        if conencted1:
+            deviceName = device1
+        elif conencted2:
+            deviceName = device2
 
-            # socketio.emit("live_power", value)
+        with open("data.json", "r") as file:
+            data = json.load(file)
+
+        data.append({"device": deviceName, "time": time.time(), "value": instant_speed})
+
+        with open("data.json", "w") as file:
+            json.dump(data, file)
 
     else:
-        print(f"{characteristic.capitalize()} data is too short.")
-
-    elapsed_time += 1
+        print("Data is too short.")
 
 
-async def main():
+async def conenct_to_device(device_address):
+    global conencted1
+    global connected2
+
     async with BleakClient(device_address) as client:
         if client.is_connected:
-            speed_values = []
-            power_values = []
+            if not conencted1:
+                conencted1 = True
+            else:
+                connected2 = True
 
-            elapsed_time = 0
+            await client.start_notify(characteristic_uuid, notification_handler)
+            print("Notification started")
 
-            await client.start_notify(
-                characteristic_uuids["speed"],
-                lambda sender, data: notification_handler(
-                    sender, data, "speed", speed_values, power_values, elapsed_time
-                ),
-            )
-            await client.start_notify(
-                characteristic_uuids["power"],
-                lambda sender, data: notification_handler(
-                    sender, data, "power", speed_values, power_values, elapsed_time
-                ),
-            )
-            print("Notifications started. Press Ctrl+C to stop...")
+            with open("devices.json", "r") as file:
+                data = json.load(file)
 
-            try:
-                # Countdown for 15 seconds
-                countdown = 15
-                while countdown > 0:
-                    print(f"Countdown: {countdown} seconds remaining...")
-                    await asyncio.sleep(1)
-                    countdown -= 1
+            if len(data) < 2:
+                data.append(device_address)
 
-                # Run for 15 seconds and collect data
-                for _ in range(15):
-                    await asyncio.sleep(1)
+                with open("devices.json", "w") as file:
+                    json.dump(data, file)
 
-                # Calculate max speed, total distance, and average power for the 15-second interval
-                max_speed = max(speed_values)
-                total_distance = (
-                    sum(speed_values) * 15 / 3600
-                )  # Calculate total distance in km
-                average_power = sum(power_values) / len(power_values)
-                print(f"Max Speed: {max_speed} km/h")
-                print(f"Total Distance: {total_distance} km")
-                print(f"Average Power: {average_power} Watts")
+            while True:
+                await asyncio.sleep(0.1)
 
-                # Emit the calculated values here
-
-                print("Stopping notifications...")
-                await client.stop_notify(characteristic_uuids["speed"])
-                await client.stop_notify(characteristic_uuids["power"])
-            except KeyboardInterrupt:
-                print("Stopping notifications...")
-                await client.stop_notify(characteristic_uuids["speed"])
-                await client.stop_notify(characteristic_uuids["power"])
         else:
             print(f"Failed to connect to {device_address}")
 
 
-if __name__ == "__main__":
-    # Flask-SocketIO app here
-    asyncio.run(main())
+async def connect_2devices(address1, address2):
+    with open("devices.json", "w") as file:
+        json.dump([], file)
+
+    with open("data.json", "w") as file:
+        json.dump([], file)
+
+    device1_handle = asyncio.create_task(conenct_to_device(address1))
+    # debugevice2_handle = asyncio.create_task(device2(address2))
+
+    # await asyncio.gather(device1_handle, device2_handle)
+    await asyncio.gather(device1_handle)
+
+
+asyncio.run(connect_2devices(device1, device2))
