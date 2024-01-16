@@ -35,7 +35,7 @@
     --font-weight-subtitel: 500;
     --font-weight-text: 400;
 
-    --text-shadow: #000 0px 0px 20px;
+    --text-shadow: #000000 0px 0px 20px;
 }
 /*---------------------------------------/*
  # GENERIC
@@ -71,6 +71,7 @@ h1{
     color: var(--backgroundcolor-tablet);
     z-index: 0;
 }
+
 /*---------------------------------------/*
  # COMPONENTS
 /*---------------------------------------*/
@@ -507,6 +508,9 @@ input:-webkit-autofill:active{
     background-image: url(../img/Achtergronden/water.svg);
     background-size: cover;
     background-position: center;
+    opacity: 0.9;
+    position: relative;
+    z-index: -2;
 }
 
 .c-moving{
@@ -779,6 +783,149 @@ input:-webkit-autofill:active{
     left: -2rem;
 }
 
+
+/*------------------SPELER-AANMAKEN-------------------*/
+
+.c-spring{
+    position: absolute;
+    top: 4rem;
+    color: var(--color-font);
+    font-size: var(--font-size-subtitelScherm);
+    font-weight: var(--font-weight-subtitel);
+    text-shadow: var(--text-shadow);
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
+.c-countdown{
+    position: absolute;
+    top: 16rem;
+    color: var(--color-font);
+    text-align: center;
+    font-size: var(--font-size-subtitelScherm);
+    font-weight: var(--font-weight-subtitel);
+    text-shadow: var(--text-shadow);
+    border: 6px solid var(--color-font);
+    border-radius: 100%;
+    padding: 2rem;
+    left: calc(100vw/2 - 5rem);
+    display: none;
+}
+
+.c-wachtfiets{
+    position: absolute;
+    bottom: 2rem;
+    z-index: 0;
+    scale: .8;
+}
+
+.c-wachtfiets--een{
+    /* display: none; */
+}
+
+.c-wachtfiets--twee{
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: -1;
+    /* display: none; */
+}
+
+.c-spelerAangemaakt{
+    position: absolute;
+    top: 4rem;
+    left: 8rem;
+    z-index: 1;
+    color: var(--color-font);
+    font-size: var(--font-size-subtitelScherm);
+    font-weight: var(--font-weight-subtitel);
+    text-shadow: var(--text-shadow);
+    width: 25rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.c-spelerAangemaakt--een{
+    display: none;
+}
+
+.c-spelerAangemaakt--twee{
+    position: absolute;
+    top: 4rem;
+    left: calc(100vw - 33rem);
+    display: none;
+}
+
+.c-spelerMaken{
+    position: absolute;
+    top: 4rem;
+    left: 8rem;
+    z-index: 1;
+    color: var(--color-font);
+    font-size: var(--font-size-subtitelScherm);
+    font-weight: var(--font-weight-subtitel);
+    text-shadow: var(--text-shadow);
+    width: 25rem;
+    text-align: center;
+}
+
+.c-spelerMaken--een{
+    display: none;
+}
+
+.c-spelerMaken--twee{
+    position: absolute;
+    top: 4rem;
+    left: calc(100vw - 33rem);
+    display: none;
+}
+
+.c-kaderSpeler{
+    width: 8.75rem;
+    height: 10.5rem;
+    background-color: var(--color-font);
+    color: var(--backgroundcolor-tablet);
+    border-radius: 1rem;
+    position: absolute;
+    top: 16rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-kaderSpeler--een{
+    left: 15rem;
+    /* display: none; */
+    animation: beweegLinks 15s infinite linear; /*----------------------*/
+}
+
+.c-kaderSpeler--twee{
+    left: calc(100vw - 24.75rem);
+    /* display: none; */
+}
+
+.c-rondje--klein{
+    width: 5rem;
+    height: 5rem;
+    top: 0;
+    left: 0rem;
+}
+
+.c-avatar--klein{
+    scale: .5;
+    top: -3.5rem;
+    left: -7.5rem;
+}
+
+.c-klasseNaam--kader{
+    font-size: var(--font-size-bigtext);
+    text-shadow: none;
+}
 
 /*---------------------------------------/*
  # UTILITIES
