@@ -15,7 +15,7 @@ body{
     position: relative;
     height: 260px;
     width: calc(8316px / 30);
-    background: url(PAARSJEUH.png);
+    background: url(groen.png);
     animation: cycle 1s steps(30) infinite;
 }
 
