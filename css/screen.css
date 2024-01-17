@@ -901,12 +901,22 @@ input:-webkit-autofill:active{
 .c-kaderSpeler--een{
     left: 15rem;
     /* display: none; */
-    animation: beweegLinks 15s infinite linear; /*----------------------*/
+    animation: beweegLinks 2s linear; 
+}
+@keyframes beweegLinks{
+    from {transform: translateX(  0%);}
+    to {top: 2rem; left: 2rem; z-index: -1;}
 }
 
 .c-kaderSpeler--twee{
     left: calc(100vw - 24.75rem);
     /* display: none; */
+    animation: beweegRechts 2s  linear; 
+}
+@keyframes beweegRechts{
+    from {transform: translateX(  0%);}
+    to {top: 2rem; left: calc(100vw - 10.75rem); z-index: -1;}
+    
 }
 
 .c-rondje--klein{
@@ -925,6 +935,21 @@ input:-webkit-autofill:active{
 .c-klasseNaam--kader{
     font-size: var(--font-size-bigtext);
     text-shadow: none;
+}
+
+.c-aftel{
+    font-size: var(--font-size-titelScherm);
+    font-weight: var(--font-weight-titel);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    place-content: center;
+    top: calc(100vh/2 - 6rem);
+    color: var(--color-font);
+
+    display: none;
 }
 
 /*---------------------------------------/*
