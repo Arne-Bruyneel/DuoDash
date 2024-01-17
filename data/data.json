@@ -13,10 +13,26 @@
             "voornaam": "Anna",
             "email": "anna.devries@example.com",
             "winnaar": false
+        },
+        {
+            "id": 3,
+            "achternaam": "Van der Berg",
+            "voornaam": "Peter",
+            "email": "peter.vanderberg@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 4,
+            "achternaam": "Van Dijk",
+            "voornaam": "Marieke",
+            "email": "mariekevandijk@example.com",
+            "winnaar": true
         }
         ],
     "metingen": [
         {"speler_id": 1, "maxSnelheid": 25.5, "afstand": 700, "gemVermogen": 200},
-        {"speler_id": 2, "maxSnelheid": 22.0, "afstand": 950, "gemVermogen": 220}
+        {"speler_id": 2, "maxSnelheid": 22.0, "afstand": 950, "gemVermogen": 220},
+        {"speler_id": 3, "maxSnelheid": 23.0, "afstand": 800, "gemVermogen": 210},
+        {"speler_id": 4, "maxSnelheid": 24.0, "afstand": 750, "gemVermogen": 230}
     ]
 }
