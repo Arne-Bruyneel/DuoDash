@@ -321,7 +321,7 @@ input:-webkit-autofill:active{
     margin: 0;
 }
 
-.c-kruisje{
+/* .c-kruisje{
     display: flex;
     width: 28px;
     height: 28px;
@@ -332,6 +332,90 @@ input:-webkit-autofill:active{
     position: absolute;
     border-radius: .5rem;
     border: 2px solid var(--color-font);
+} */
+
+.c-kruisje--rood{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+    display: none;
+}
+
+.c-kruisje--blauw{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+    display: none;
+}
+
+.c-kruisje--geel{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+    display: none;
+}
+
+.c-kruisje--groen{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+    display: none;
+}
+
+.c-kruisje--paars{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+    display: none;
+}
+
+.c-kruisje--wit{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+    display: none;
 }
 
 
