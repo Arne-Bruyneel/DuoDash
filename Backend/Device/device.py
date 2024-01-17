@@ -1,7 +1,6 @@
 import asyncio
 import sys
 import json
-import time
 from bleak import BleakClient
 
 device1 = sys.argv[1]
@@ -26,12 +25,12 @@ async def notification_handler(sender, data):
         elif conencted2:
             deviceName = device2
 
-        with open("data.json", "r") as file:
+        with open("Backend/Device/data.json", "r") as file:
             data = json.load(file)
 
-        data.append({"device": deviceName, "time": time.time(), "value": instant_speed})
+        data.append({"device": deviceName, "value": instant_speed})
 
-        with open("data.json", "w") as file:
+        with open("Backend/Device/data.json", "w") as file:
             json.dump(data, file)
 
     else:
@@ -50,31 +49,25 @@ async def conenct_to_device(device_address):
                 connected2 = True
 
             await client.start_notify(characteristic_uuid, notification_handler)
+
             print("Notification started")
 
-            with open("devices.json", "r") as file:
+            with open("Backend/Device/devices.json", "r") as file:
                 data = json.load(file)
 
-            if len(data) < 2:
-                data.append(device_address)
+            data.append(device_address)
 
-                with open("devices.json", "w") as file:
-                    json.dump(data, file)
+            with open("Backend/Device/devices.json", "w") as file:
+                json.dump(data, file)
 
             while True:
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.5)
 
         else:
             print(f"Failed to connect to {device_address}")
 
 
 async def connect_2devices(address1, address2):
-    with open("devices.json", "w") as file:
-        json.dump([], file)
-
-    with open("data.json", "w") as file:
-        json.dump([], file)
-
     device1_handle = asyncio.create_task(conenct_to_device(address1))
     # debugevice2_handle = asyncio.create_task(device2(address2))
 

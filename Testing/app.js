@@ -72,6 +72,15 @@ const listenSubmitPress = function () {
   }
 
   socketio.emit("F2B_connect", {"devices": arr});
+
+  const start = document.querySelector('.js-start');
+  start.addEventListener('click', listenStartPress);
+};
+
+const listenStartPress = function () {
+  console.log('start press')
+
+  socketio.emit("F2B_startgame");
 };
 
 const listenToUI = function () {
@@ -91,6 +100,15 @@ const listenToSocket = function () {
   socketio.on('B2F_devices', function (jsonObject) {
     console.log('Dit is de status van de devices');
     showDeviceData(jsonObject)
+  });
+
+  socketio.on('B2F_connected', function () {
+    console.log('fiets connected');
+  });
+
+  socketio.on('B2F_data', function (jsonObject) {
+    console.log('data ontvangen');
+    console.log(jsonObject.data['value']);
   });
 };
 //#endregion

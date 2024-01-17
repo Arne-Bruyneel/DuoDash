@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit, send
 from flask_cors import CORS
 import sqlite3
 from contextlib import closing
@@ -11,6 +11,9 @@ import time
 import subprocess
 import asyncio
 import subprocess
+import json
+from threading import Thread
+from bleak import BleakScanner
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -94,35 +97,60 @@ def start_bluetooth_scan():
 def handle_connect(jsonObject):
     print("submit")
     device_address = jsonObject["devices"][0]
-    subprocess.run(["python", "deviceapp.py", device_address, "none"])
+
+    with open("Backend/Device/devices.json", "w") as file:
+        json.dump([], file)
+
+    with open("Backend/Device/data.json", "w") as file:
+        json.dump([], file)
+
+    process = subprocess.Popen(
+        ["python", "Backend/Device/device.py", device_address, "none"]
+    )
+
+    print("ran second script")
+
+    while True:
+        with open("Backend/Device/devices.json", "r") as file:
+            data = json.load(file)
+
+        print(len(data))
+
+        if len(data) > 0:
+            emit("B2F_connected")
+            break
+
+        socketio.sleep(1)
+
+    print("connected status send to frontend")
 
 
 @socketio.on("F2B_startgame")
 def startgame():
-    game_data["start_time"] = datetime.now()
+    # game_data["start_time"] = datetime.now()
+
+    print("game started")
 
     countdown = 15
     while countdown > 0:
-        current_time = datetime.now()
-        first_record = False
-
-        with open("Device/data.json", "r") as file:
+        with open("Backend/Device/data.json", "r") as file:
             data = json.load(file)
 
-        for recording in data:
-            if recording["time"] >= current_time:
-                if not first_record:
-                    emit("B2F_devices", {"data": recording})
-                    first_record = True
+        most_recent_data = data[-1]
 
-        time.sleep(1)
+        print("sent data")
+        emit("B2F_data", {"data": most_recent_data})
+
+        socketio.sleep(1)
         countdown -= 1
 
-    game_data["end_time"] = datetime.now()
+    print("game stopped")
 
-    print(f'start time: {game_data["start_time"]}')
-    print(f'end time: {game_data["end_time"]}')
-    game_data["game_active"] = True
+    # game_data["end_time"] = datetime.now()
+
+    # print(f'start time: {game_data["start_time"]}')
+    # print(f'end time: {game_data["end_time"]}')
+    # game_data["game_active"] = True
 
 
 async def scan_for_ble_devices():
@@ -158,31 +186,31 @@ async def scan_for_ble_devices():
     return ble_devices
 
 
-def data_stream():
-    print("data stream")
-    while game_data["game_active"]:
-        # stuur de data naar de frontend
-        socketio.emit("B2F_data", combined_data["metingen"])
-        socketio.sleep(0.1)
-        current_time = datetime.now()
-        if current_time > game_data["end_time"]:
-            game_data["game_active"] = False
-            # start de end of game functie
-            end_of_game()
-            break
+# def data_stream():
+#     print("data stream")
+#     while game_data["game_active"]:
+#         # stuur de data naar de frontend
+#         socketio.emit("B2F_data", combined_data["metingen"])
+#         socketio.sleep(0.1)
+#         current_time = datetime.now()
+#         if current_time > game_data["end_time"]:
+#             game_data["game_active"] = False
+#             # start de end of game functie
+#             end_of_game()
+#             break
 
 
-def end_of_game():
-    print("end of game")
-    # start de data opslaan functie
-    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
+# def end_of_game():
+#     print("end of game")
+#     # start de data opslaan functie
+#     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
 
 
 if __name__ == "__main__":
     try:
         print("**** Starting APP ****")
         # socketio.run(app, debug=True)
-        socketio.run(app, debug=False)
+        socketio.run(app, debug=False, host="0.0.0.0")
     except KeyboardInterrupt:
         print("KeyboardInterrupt exception is caught")
     finally:
