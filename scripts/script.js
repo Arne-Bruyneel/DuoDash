@@ -46,6 +46,24 @@ const showFietser = function (id) {
     fietserKleur = 'wit';
   }
 };
+
+const showDisabledColor = function () {
+  let selectedColor = localStorage.getItem('kleurSpeler1');
+  if (selectedColor == 'rood') {
+    document.querySelector('#radio-rood').disabled = true;
+  } else if (selectedColor == 'blauw') {
+    document.querySelector('#radio-blauw').disabled = true;
+  } else if (selectedColor == 'geel') {
+    document.querySelector('#radio-geel').disabled = true;
+  } else if (selectedColor == 'groen') {
+    document.querySelector('#radio-groen').disabled = true;
+  } else if (selectedColor == 'paars') {
+    document.querySelector('#radio-paars').disabled = true;
+  } else if (selectedColor == 'wit') {
+    document.querySelector('#radio-wit').disabled = true;
+  }
+};
+
 // #endregion
 
 // #region ***  Callback-No Visualisation - callback___  ***********
@@ -54,7 +72,9 @@ const showFietser = function (id) {
 // #region ***  Data Access - get___                     ***********
 const getRegistratie = function () {
   let htmlKleur = document.querySelectorAll('.js-kleur');
-  let htmlVolgende = document.querySelector('.js-volgende');
+  if(htmlBody.classList.contains('speler2')){
+    showDisabledColor();
+  };
   htmlKleur.forEach((kleur) => {
     kleur.addEventListener('click', function () {
       fietserBlauw.style.display = 'none';
