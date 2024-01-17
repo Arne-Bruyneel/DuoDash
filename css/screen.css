@@ -160,6 +160,10 @@ h1{
     top: 4rem;
 }
 
+.c-formTablet{
+    width: 100%;
+}
+
 .c-label{
     font-size: var(--font-size-bigtext);
     font-weight: var(--font-weight-text);
@@ -246,6 +250,7 @@ input:-webkit-autofill:active{
     width: 2rem;
     height: 2rem;
     margin: 0;
+    position: relative;
 }
 .c-keuzeBlauw{
     background-color: var(--color-blauw);
@@ -253,6 +258,7 @@ input:-webkit-autofill:active{
     width: 2rem;
     height: 2rem;
     margin: 0;
+    position: relative;
 }
 .c-keuzeGeel{
     background-color: var(--color-geel);
@@ -260,6 +266,7 @@ input:-webkit-autofill:active{
     width: 2rem;
     height: 2rem;
     margin: 0;
+    position: relative;
 }
 .c-keuzeGroen{
     background-color: var(--color-groen);
@@ -267,6 +274,7 @@ input:-webkit-autofill:active{
     width: 2rem;
     height: 2rem;
     margin: 0;
+    position: relative;
 }
 .c-keuzePaars{
     background-color: var(--color-paars);
@@ -274,6 +282,7 @@ input:-webkit-autofill:active{
     width: 2rem;
     height: 2rem;
     margin: 0;
+    position: relative;
 }
 .c-keuzeWit{
     background-color: var(--color-wit);
@@ -281,6 +290,7 @@ input:-webkit-autofill:active{
     width: 2rem;
     height: 2rem;
     margin: 0;
+    position: relative;
 }
 
 .c-kleurkiezen{
@@ -310,6 +320,20 @@ input:-webkit-autofill:active{
     justify-content: center;
     margin: 0;
 }
+
+.c-kruisje{
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    position: absolute;
+    border-radius: .5rem;
+    border: 2px solid var(--color-font);
+}
+
 
 .c-knoptablet{
     background-color: var(--color-font);
@@ -806,11 +830,12 @@ input:-webkit-autofill:active{
     font-size: var(--font-size-subtitelScherm);
     font-weight: var(--font-weight-subtitel);
     text-shadow: var(--text-shadow);
-    border: 6px solid var(--color-font);
+    /* border: 6px solid var(--color-font); */
     border-radius: 100%;
     padding: 2rem;
     left: calc(100vw/2 - 5rem);
     display: none;
+    background-color: rgba(0, 0, 0, 0.3)
 }
 
 .c-wachtfiets{
@@ -901,7 +926,7 @@ input:-webkit-autofill:active{
 .c-kaderSpeler--een{
     left: 15rem;
     /* display: none; */
-    animation: beweegLinks 2s linear; 
+    /* animation: beweegLinks 2s linear;  */
 }
 @keyframes beweegLinks{
     from {transform: translateX(  0%);}
@@ -911,7 +936,7 @@ input:-webkit-autofill:active{
 .c-kaderSpeler--twee{
     left: calc(100vw - 24.75rem);
     /* display: none; */
-    animation: beweegRechts 2s  linear; 
+    /* animation: beweegRechts 2s  linear;  */
 }
 @keyframes beweegRechts{
     from {transform: translateX(  0%);}
@@ -951,6 +976,45 @@ input:-webkit-autofill:active{
 
     display: none;
 }
+
+
+/*------------------DE-RACE------------------*/
+
+.c-moving--race{
+    animation: move 8s infinite linear;
+}
+
+.c-kadersRace{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 2rem;
+    width: 100%;
+    height: max-content;
+    gap: 2rem;
+}
+
+.c-kaderSpeler--race{
+    height: 12rem;
+    gap: .5rem;
+    display: flex;
+    position: relative;
+    top: 0rem;
+    left: 2rem;
+}
+
+.c-kaderSpeler--raceTwee{
+    margin-right: 4rem;
+}
+
+.c-countdown-race{
+    display: block;
+    top: 3.5rem;
+    left: calc(100vw/2 - 4rem);
+}
+
 
 /*---------------------------------------/*
  # UTILITIES
