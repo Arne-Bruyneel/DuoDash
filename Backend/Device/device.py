@@ -41,30 +41,37 @@ async def conenct_to_device(device_address):
     global conencted1
     global connected2
 
-    async with BleakClient(device_address) as client:
-        if client.is_connected:
-            if not conencted1:
-                conencted1 = True
-            else:
-                connected2 = True
+    for attempt in range(1, 4):
+        try:
+            async with BleakClient(device_address) as client:
+                if client.is_connected:
+                    if not conencted1:
+                        conencted1 = True
+                    else:
+                        connected2 = True
 
-            await client.start_notify(characteristic_uuid, notification_handler)
+                    await client.start_notify(characteristic_uuid, notification_handler)
 
-            print("Notification started")
+                    print("Notification started")
 
-            with open("Backend/Device/devices.json", "r") as file:
-                data = json.load(file)
+                    with open("Backend/Device/devices.json", "r") as file:
+                        data = json.load(file)
 
-            data.append(device_address)
+                    data.append(device_address)
 
-            with open("Backend/Device/devices.json", "w") as file:
-                json.dump(data, file)
+                    with open("Backend/Device/devices.json", "w") as file:
+                        json.dump(data, file)
 
-            while True:
-                await asyncio.sleep(0.5)
+                    while True:
+                        await asyncio.sleep(0.5)
 
-        else:
-            print(f"Failed to connect to {device_address}")
+                else:
+                    print(f"Failed to connect to {device_address}")
+        except:
+            pass
+
+        print(f"attempt {attempt}")
+        await asyncio.sleep(1)
 
 
 async def connect_2devices(address1, address2):

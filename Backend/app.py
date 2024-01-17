@@ -42,9 +42,6 @@ combined_data = {
     ],
 }
 
-
-game_data = {"start_time": None, "end_time": None, "game_active": False}
-
 conn = get_db_connection()
 cursor = conn.cursor()
 
@@ -127,30 +124,44 @@ def handle_connect(jsonObject):
 
 @socketio.on("F2B_startgame")
 def startgame():
-    # game_data["start_time"] = datetime.now()
-
     print("game started")
+
+    player1_speeds = []
+    player2_speeds = []
 
     countdown = 15
     while countdown > 0:
-        with open("Backend/Device/data.json", "r") as file:
-            data = json.load(file)
+        try:
+            with open("Backend/Device/data.json", "r") as file:
+                data = json.load(file)
 
-        most_recent_data = data[-1]
+            most_recent_data = data[-1]
 
-        print("sent data")
-        emit("B2F_data", {"data": most_recent_data})
+            player1_speeds.append(most_recent_data["value"])
+            emit("B2F_data", {"data": most_recent_data})
+        except:
+            pass
 
         socketio.sleep(1)
         countdown -= 1
 
+    average_speed = sum(player1_speeds) / len(player1_speeds)
+    distance = average_speed * 15
+    max_speed = max(player1_speeds)
+
+    print(distance)
+    print(max_speed)
+
+    combined_data["metingen"][0]["maxSnelheid"] = max_speed
+    combined_data["metingen"][0]["afstand"] = distance
+
+    print(combined_data)
+
     print("game stopped")
 
-    # game_data["end_time"] = datetime.now()
+    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
 
-    # print(f'start time: {game_data["start_time"]}')
-    # print(f'end time: {game_data["end_time"]}')
-    # game_data["game_active"] = True
+    print("saved db")
 
 
 async def scan_for_ble_devices():
@@ -184,26 +195,6 @@ async def scan_for_ble_devices():
         ble_devices.append({"name": str(device), "address": device.address})
 
     return ble_devices
-
-
-# def data_stream():
-#     print("data stream")
-#     while game_data["game_active"]:
-#         # stuur de data naar de frontend
-#         socketio.emit("B2F_data", combined_data["metingen"])
-#         socketio.sleep(0.1)
-#         current_time = datetime.now()
-#         if current_time > game_data["end_time"]:
-#             game_data["game_active"] = False
-#             # start de end of game functie
-#             end_of_game()
-#             break
-
-
-# def end_of_game():
-#     print("end of game")
-#     # start de data opslaan functie
-#     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
 
 
 if __name__ == "__main__":
