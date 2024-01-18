@@ -596,6 +596,21 @@ input:-webkit-autofill:active{
     margin-top: 8rem;
 }
 
+.c-logoSport{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4rem;
+    padding: .5rem;
+}
+
+.c-logoHowest{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+}
+
 
 /*---------------------LEADERBOARD-----------------------*/
 
