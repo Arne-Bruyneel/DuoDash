@@ -4,14 +4,6 @@
 const getResult = function(data) {
     let spelers = data.spelers;
     let metingen = data.metingen;
-    let winnaar = spelers.filter(function(speler) {
-        return speler.winnaar === true;
-    });
-    metingen.forEach((meting) => {
-        let speler = spelers.find((speler) => speler.id === meting.speler_id);
-        console.log(speler);
-    });
-    var winnaardata = metingen.find((meting) => meting.speler_id === winnaar[0].id);
     
 };
 
