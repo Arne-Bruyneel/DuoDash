@@ -90,6 +90,10 @@ h1{
     overflow: hidden;
 }
 
+.c-bodytablet--start{
+    gap: 10rem;
+}
+
 .c-bodytablet--speler{
     gap: 2rem;
     justify-content: center;
@@ -107,6 +111,10 @@ h1{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.c-tabletTitelNaam{
+    line-height: 2rem;
 }
 
 /* .c-startgame{
@@ -543,10 +551,26 @@ input:-webkit-autofill:active{
 
 .c-maintablet--uitleg{
     height: max-content;
-    gap: 8rem;
+    gap: 4rem;
     position: absolute;
-    top: 8rem;
-    height: max-content;
+    top: 0;
+    margin-top: 10rem;
+    height: calc(100% - 10rem);
+    justify-content: flex-start;
+}
+
+.c-speluitleg{
+    width: 100%;
+}
+
+.c-speluitlegOnderTitel{
+    text-decoration: underline;
+    margin-bottom: .5rem;
+}
+
+.c-knoptablet--start{
+    position: absolute;
+    bottom: 6rem;
 }
 
 
@@ -848,8 +872,8 @@ input:-webkit-autofill:active{
 }
 
 .c-winnaarLinks{
-    width: 21.5rem;
-    height: 31rem;
+    width: 20rem;
+    height: 28rem;
     background-color: var(--color-font);
     position: relative;
     z-index: 1;
@@ -857,8 +881,8 @@ input:-webkit-autofill:active{
 }
 
 .c-winnaarRechts{
-    width: 21.5rem;
-    height: 31rem;
+    width: 20rem;
+    height: 28rem;
     background-color: var(--color-font);
     position: relative;
     z-index: 1;
@@ -867,8 +891,8 @@ input:-webkit-autofill:active{
 
 .c-rondje{
     border-radius: 100%;
-    height: 10.8rem;
-    width: 10.8rem;
+    height: 10rem;
+    width: 10rem;
     position: relative;
     border: 2px solid var(--backgroundcolor-tablet);
     top: 2rem;
@@ -889,7 +913,7 @@ input:-webkit-autofill:active{
     height: 100%;
     position: absolute;
     justify-content: flex-end;
-    bottom: 4rem;
+    bottom: 2rem;
     gap: 1rem;
     width: 100%;
 }
@@ -953,7 +977,7 @@ input:-webkit-autofill:active{
     bottom: 2rem;
     left: 2rem;
     z-index: -1;
-    /* display: none; */
+    display: none;
 }
 
 .c-spelerAangemaakt{
@@ -974,7 +998,7 @@ input:-webkit-autofill:active{
 }
 
 .c-spelerAangemaakt--een{
-    display: none;
+    /* display: none; */
 }
 
 .c-spelerAangemaakt--twee{
@@ -1005,7 +1029,7 @@ input:-webkit-autofill:active{
     position: absolute;
     top: 4rem;
     left: calc(100vw - 33rem);
-    display: none;
+    /* display: none; */
 }
 
 .c-kaderSpeler{
@@ -1034,7 +1058,7 @@ input:-webkit-autofill:active{
 
 .c-kaderSpeler--twee{
     left: calc(100vw - 24.75rem);
-    /* display: none; */
+    display: none;
     /* animation: beweegRechts 2s  linear;  */
 }
 @keyframes beweegRechts{
