@@ -551,10 +551,21 @@ input:-webkit-autofill:active{
 
 .c-maintablet--uitleg{
     height: max-content;
-    gap: 8rem;
+    gap: 4rem;
     position: absolute;
-    top: 8rem;
-    height: max-content;
+    top: 0;
+    margin-top: 10rem;
+    height: calc(100% - 10rem);
+    justify-content: flex-start;
+}
+
+.c-speluitleg{
+    width: 100%;
+}
+
+.c-knoptablet--start{
+    position: absolute;
+    bottom: 6rem;
 }
 
 
