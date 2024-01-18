@@ -5,14 +5,14 @@
             "achternaam": "Jansen",
             "voornaam": "Jan",
             "email": "jan.jansen@example.com",
-            "winnaar": true
+            "winnaar": false
         },
         {
             "id": 2,
             "achternaam": "De Vries",
             "voornaam": "Anna",
             "email": "anna.devries@example.com",
-            "winnaar": false
+            "winnaar": true
         }
         ],
     "metingen": [
