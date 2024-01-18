@@ -90,6 +90,10 @@ h1{
     overflow: hidden;
 }
 
+.c-bodytablet--start{
+    gap: 10rem;
+}
+
 .c-bodytablet--speler{
     gap: 2rem;
     justify-content: center;
@@ -107,6 +111,10 @@ h1{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.c-tabletTitelNaam{
+    line-height: 2rem;
 }
 
 /* .c-startgame{
