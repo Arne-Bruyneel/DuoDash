@@ -563,6 +563,11 @@ input:-webkit-autofill:active{
     width: 100%;
 }
 
+.c-speluitlegOnderTitel{
+    text-decoration: underline;
+    margin-bottom: .5rem;
+}
+
 .c-knoptablet--start{
     position: absolute;
     bottom: 6rem;
