@@ -134,36 +134,64 @@ def startgame():
 
     player1_speeds = []
     player2_speeds = []
+    player1_power = []
+    player2_power = []
 
     countdown = 15
     while countdown > 0:
         try:
-            with open("Backend/Device/data.json", "r") as file:
-                data = json.load(file)
+            speed = read_json_file("speed")
 
-            most_recent_data = data[-1]
-
-            player1_speeds.append(most_recent_data["value"])
-            emit("B2F_data", {"data": most_recent_data})
+            if speed[0]["device"] == device_left:
+                player1.append(speed[0]["value"])
+                player2.append(speed[1]["value"])
+            else:
+                player1.append(speed[1]["value"])
+                player2.append(speed[0]["value"])
         except:
-            pass
+            player1.append(get_average(player1_speeds))
+            player2.append(get_average(player2_speeds))
+
+        try:
+            power = read_json_file("power")
+
+            if power[0]["device"] == device_left:
+                player1.append(power[0]["value"])
+                player2.append(power[1]["value"])
+            else:
+                player1.append(power[1]["value"])
+                player2.append(power[0]["value"])
+
+        except:
+            player1.append(get_average(player1_power))
+            player2.append(get_average(player2_power))
+
+        emit(
+            "B2F_data",
+            {
+                "player1": [[player1_speeds][-1], [player1_power][-1]],
+                "player1": [[player2_speeds][-1], [player2_power][-1]],
+            },
+        )
 
         socketio.sleep(1)
         countdown -= 1
 
-    average_speed = sum(player1_speeds) / len(player1_speeds)
-    distance = average_speed * 15
-    max_speed = max(player1_speeds)
+    p1_top_speed = max(player1_speeds)
+    p1_dist = get_average(player1_speeds) * 15
+    p1_avg_power = get_average(player1_power)
 
-    print(distance)
-    print(max_speed)
+    p2_top_speed = max(player2_speeds)
+    p2_dist = get_average(player2_speeds) * 15
+    p2_avg_power = get_average(player2_power)
 
-    combined_data["metingen"][0]["maxSnelheid"] = max_speed
-    combined_data["metingen"][0]["afstand"] = distance
+    combined_data["metingen"][0]["maxSnelheid"] = p1_top_speed
+    combined_data["metingen"][0]["afstand"] = p1_dist
+    combined_data["metingen"][0]["gemVermogen"] = p1_avg_power
 
-    print(combined_data)
-
-    print("game stopped")
+    combined_data["metingen"][1]["maxSnelheid"] = p2_top_speed
+    combined_data["metingen"][1]["afstand"] = p2_dist
+    combined_data["metingen"][1]["gemVermogen"] = p2_avg_power
 
     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
 
@@ -201,6 +229,23 @@ async def scan_for_ble_devices():
         ble_devices.append({"name": str(device), "address": device.address})
 
     return ble_devices
+
+
+def get_average(list_of_values):
+    return sum(list_of_values) / len(list_of_values)
+
+
+def read_json_file(filename):
+    last_entry_per_device = {}
+
+    with open(f"Backend/Device/{filename}.json", "r") as file:
+        data = json.load(file)
+
+    for d in data:
+        device_id = d["device"]
+        last_entry_per_device[device_id] = d
+
+    return list(last_entry_per_device.values())
 
 
 if __name__ == "__main__":
