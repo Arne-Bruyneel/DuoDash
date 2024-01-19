@@ -18,7 +18,8 @@ from bleak import BleakScanner
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 
-
+device_left = ""
+device_right = ""
 combined_data = {
     "spelers": [
         {
@@ -92,21 +93,28 @@ def start_bluetooth_scan():
 
 @socketio.on("F2B_connect")
 def handle_connect(jsonObject):
-    print("submit")
+    print("F2B_connect")
     device_address = jsonObject["devices"][0]
 
+    # defining where which device is positioned
+    if device_address[0] == "L":
+        device_left = device_address[1:]
+    else:
+        device_right = device_address[1:]
+
+    # resetting files
     with open("Backend/Device/devices.json", "w") as file:
         json.dump([], file)
 
     with open("Backend/Device/data.json", "w") as file:
         json.dump([], file)
 
+    # startin extra python script for connection
     process = subprocess.Popen(
-        ["python", "Backend/Device/device.py", device_address, "none"]
+        ["python", "Backend/Device/device.py", device_address[1:], "none"]
     )
 
-    print("ran second script")
-
+    # checking if devices are connected
     while True:
         with open("Backend/Device/devices.json", "r") as file:
             data = json.load(file)
@@ -118,8 +126,6 @@ def handle_connect(jsonObject):
             break
 
         socketio.sleep(1)
-
-    print("connected status send to frontend")
 
 
 @socketio.on("F2B_startgame")

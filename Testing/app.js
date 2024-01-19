@@ -15,6 +15,13 @@ const showDeviceData = function(jsonObject) {
 
       cardString += `<div class="card js-device" data-address="${device["address"]}">
           <h3>${name.split(': ')[1]}</h3>
+          <div class="radio-container">
+            <input type="radio" name="direction" value="left" class="radio-input js-left">Left
+          </div>
+  
+        <div class="radio-container">
+          <input type="radio" name="direction" value="right" class="radio-input js-right">Right
+        </div>
         </div>`
     }
 
@@ -43,6 +50,7 @@ const getDestinationData = function(url) {
 //#region ***  Event Listeners - listenTo___            ***********
 const listenToDevicePress = function () {
   this.classList.toggle('selected');
+  
 
   const submit = document.querySelector('.js-submit');
   submit.addEventListener('click', listenSubmitPress);
@@ -67,6 +75,15 @@ const listenSubmitPress = function () {
 
   for (const card of document.querySelectorAll(".js-device")) {
     if (card.classList.contains('selected')) {
+
+      // const radioButtons = card.querySelectorAll('input[type="radio"]');
+
+      // radioButtons.forEach(function(radioButton) {
+      //   if (radioButton.checked) {
+      //     console.log(`Card "${card.querySelector('label').textContent}" selected: ${radioButton.value}`);
+      //   }
+      // });
+
       arr.push(card.dataset.address);
     }
   }
@@ -83,11 +100,24 @@ const listenStartPress = function () {
   socketio.emit("F2B_startgame");
 };
 
+const listenInstantConnectPress = function () {
+  console.log('instant connect press')
+
+  var arr = []
+
+  arr.push("LE3:B4:38:07:DA:17");
+
+  socketio.emit("F2B_connect", {"devices": arr})
+};
+
 const listenToUI = function () {
 
   const button = document.querySelector('.js-knop');
+  const instantConnect = document.querySelector('.js-submit2');
 
   button.addEventListener('click', listenButtonPress);
+
+  instantConnect.addEventListener('click', listenInstantConnectPress);
 
 };
 

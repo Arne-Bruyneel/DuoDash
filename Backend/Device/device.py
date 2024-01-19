@@ -9,32 +9,41 @@ device2 = sys.argv[2]
 conencted1 = False
 connected2 = False
 
-characteristic_uuid = "00002ad2-0000-1000-8000-00805f9b34fb"
+characteristic_speed = "00002ad2-0000-1000-8000-00805f9b34fb"
+characteristic_power = "00002a63-0000-1000-8000-00805f9b34fb"
+
+
+def process_bytes(data):
+    received_bytes = data[2:4]
+    int_value = int.from_bytes(received_bytes, "little", signed=False)
+    return int_value
+
+
+def write_to_json(filename, value):
+    deviceName = ""
+
+    if conencted1:
+        deviceName = device1
+    elif conencted2:
+        deviceName = device2
+
+    with open(f"Backend/Device/{filename}.json", "r") as file:
+        data = json.load(file)
+
+    data.append({"device": deviceName, "value": value})
+
+    with open(f"Backend/Device/{filename}.json", "w") as file:
+        json.dump(data, file)
 
 
 async def notification_handler(sender, data):
-    if len(data) >= 6:
-        speed_bytes = data[2:4]
-        instant_speed = int.from_bytes(speed_bytes, "little", signed=False)
-        instant_speed /= 100
-
-        deviceName = ""
-
-        if conencted1:
-            deviceName = device1
-        elif conencted2:
-            deviceName = device2
-
-        with open("Backend/Device/data.json", "r") as file:
-            data = json.load(file)
-
-        data.append({"device": deviceName, "value": instant_speed})
-
-        with open("Backend/Device/data.json", "w") as file:
-            json.dump(data, file)
-
+    if len(data) > 8:
+        power = process_bytes(data)
+        write_to_json("power", power)
     else:
-        print("Data is too short.")
+        speed = process_bytes(data)
+        speed /= 100
+        write_to_json("speed", speed)
 
 
 async def conenct_to_device(device_address):
@@ -50,7 +59,12 @@ async def conenct_to_device(device_address):
                     else:
                         connected2 = True
 
-                    await client.start_notify(characteristic_uuid, notification_handler)
+                    await client.start_notify(
+                        characteristic_speed, notification_handler
+                    )
+                    await client.start_notify(
+                        characteristic_power, notification_handler
+                    )
 
                     print("Notification started")
 
@@ -70,7 +84,7 @@ async def conenct_to_device(device_address):
         except:
             pass
 
-        print(f"attempt {attempt}")
+        print(f"attempt {attempt + 1}")
         await asyncio.sleep(1)
 
 
