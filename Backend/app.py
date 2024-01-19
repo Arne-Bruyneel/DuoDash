@@ -123,45 +123,67 @@ def handle_connect(jsonObject):
 
 
 @socketio.on("F2B_startgame")
-def startgame():
+def startgame(json=None):
+    #uncomment later!
+
+    # print("game started")
+
+    # player1_speeds = []
+    # player2_speeds = []
+
+    # countdown = 15
+    # while countdown > 0:
+    #     try:
+    #         with open("Backend/Device/data.json", "r") as file:
+    #             data = json.load(file)
+
+    #         most_recent_data = data[-1]
+
+    #         player1_speeds.append(most_recent_data["value"])
+
+    #         emit("B2F_data", {"data": most_recent_data})
+    #     except:
+    #         pass
+
+    #for testing remove later!
+
     print("game started")
 
-    player1_speeds = []
-    player2_speeds = []
+    device = "E3:B4:38:07:DA:17"
+    value = 0.0
 
     countdown = 15
     while countdown > 0:
         try:
-            with open("Backend/Device/data.json", "r") as file:
-                data = json.load(file)
+            # Emit test data with Socket.IO
+            emit("B2F_data", {"device": device, "value": value}, broadcast=True)
+            print('emitted data')
 
-            most_recent_data = data[-1]
-
-            player1_speeds.append(most_recent_data["value"])
-            emit("B2F_data", {"data": most_recent_data})
+            value += 1.0
+            
         except:
             pass
 
         socketio.sleep(1)
         countdown -= 1
 
-    average_speed = sum(player1_speeds) / len(player1_speeds)
-    distance = average_speed * 15
-    max_speed = max(player1_speeds)
+    # average_speed = sum(player1_speeds) / len(player1_speeds)
+    # distance = average_speed * 15
+    # max_speed = max(player1_speeds)
 
-    print(distance)
-    print(max_speed)
+    # print(distance)
+    # print(max_speed)
 
-    combined_data["metingen"][0]["maxSnelheid"] = max_speed
-    combined_data["metingen"][0]["afstand"] = distance
+    # combined_data["metingen"][0]["maxSnelheid"] = max_speed
+    # combined_data["metingen"][0]["afstand"] = distance
 
-    print(combined_data)
+    # print(combined_data)
 
-    print("game stopped")
+    # print("game stopped")
 
-    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
+    # db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
 
-    print("saved db")
+    # print("saved db")
 
 
 async def scan_for_ble_devices():
