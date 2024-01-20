@@ -195,7 +195,7 @@ const uitlegInit = function () {
   let htmlStart = document.querySelector('.js-start');
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    socketio.emit('F2B_startGame');
+    // socketio.emit('F2B_startGame');
     window.location.href = 'instructionTablet.html';
   });
 };
