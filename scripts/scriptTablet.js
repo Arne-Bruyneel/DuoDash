@@ -200,6 +200,26 @@ const uitlegInit = function () {
   });
 };
 
+const keuzeInit = function () {
+  console.log('keuze');
+  let htmlScorebord = document.querySelector('.js-scorebord');
+  let htmlOpnieuw = document.querySelector('.js-opnieuw');
+  let htmlNieuwspel = document.querySelector('.js-nieuwspel');
+  htmlScorebord.addEventListener('click', function () {
+    console.log('scorebord');
+    socketio.emit('F2B_showleaderboard');
+  });
+  htmlOpnieuw.addEventListener('click', function () {
+    console.log('opnieuw');
+    socketio.emit('F2B_restartGame');
+  });
+  htmlNieuwspel.addEventListener('click', function () {
+    console.log('nieuwspel');
+    socketio.emit('F2B_newGame');
+    window.location.href = 'startTablet.html';
+  });
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
@@ -211,6 +231,8 @@ document.addEventListener('DOMContentLoaded', function () {
     startInit();
   } else if (htmlBody.classList.contains('js-uitlegInit')){
     uitlegInit();
+  } else if (htmlBody.classList.contains('js-keuzeInit')){
+    keuzeInit();
   }
 });
 
