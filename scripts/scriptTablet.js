@@ -110,6 +110,7 @@ const getMap = function () {
       }
     });
   });
+  // socketio.emit('F2B_showMap');
   htmlVolgende.addEventListener('click', function () {
     console.log(chosenMap);
     window.location.href = 'speluitlegTablet.html'
@@ -131,6 +132,7 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
+    socketio.emit('F2B_showPlayer1Setup');
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
     voornaamSpeler2 = voornaam.value;
@@ -142,6 +144,7 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
+    socketio.emit('F2B_showPlayer2Setup');
   }
 };
 
@@ -175,8 +178,14 @@ const mapInit = function () {
 const startInit = function () {
   console.log('start');
   let htmlStart = document.querySelector('.js-start');
+  let htmlTrophy = document.querySelector('.js-trophy');
+  htmlTrophy.addEventListener('click', function () {
+    console.log('trophy');
+    socketio.emit('F2B_showleaderboard');
+  });
   htmlStart.addEventListener('click', function () {
     console.log('start');
+    socketio.emit('F2B_showPlayerSetup');
     window.location.href = 'playerOneTablet.html';
   });
 };
@@ -186,6 +195,7 @@ const uitlegInit = function () {
   let htmlStart = document.querySelector('.js-start');
   htmlStart.addEventListener('click', function () {
     console.log('start');
+    socketio.emit('F2B_startGame');
     window.location.href = 'instructionTablet.html';
   });
 };
