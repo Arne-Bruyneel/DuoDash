@@ -1,0 +1,8 @@
+socketio.on('B2F_showLeaderboard')
+socketio.on('B2F_showPlayerSetup')
+socketio.on('B2F_showPlayer1Setup')
+socketio.on('B2F_showPlayer2Setup')
+socketio.on('B2F_showMap')
+socketio.on('B2F_startGame')
+socketio.on('B2F_restartGame')
+socketio.on('B2F_newGame')
