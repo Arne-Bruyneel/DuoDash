@@ -110,7 +110,9 @@ const getMap = function () {
       }
     });
   });
-  // socketio.emit('F2B_showMap');
+  // socketio.emit('F2B_showMap', { 
+  // chosenMap 
+  // });}});
   htmlVolgende.addEventListener('click', function () {
     console.log(chosenMap);
     window.location.href = 'speluitlegTablet.html'
@@ -132,7 +134,12 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
-    socketio.emit('F2B_showPlayer1Setup');
+    socketio.emit('F2B_showPlayer1Setup', {
+      voornaamSpeler1,
+      achternaamSpeler1,
+      emailSpeler1,
+      kleurSpeler1,
+    });
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
     voornaamSpeler2 = voornaam.value;
@@ -144,7 +151,12 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
-    socketio.emit('F2B_showPlayer2Setup');
+    socketio.emit('F2B_showPlayer2Setup', {
+      voornaamSpeler2,
+      achternaamSpeler2,
+      emailSpeler2,
+      kleurSpeler2,
+    });
   }
 };
 
