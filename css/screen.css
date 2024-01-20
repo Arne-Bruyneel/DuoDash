@@ -649,6 +649,7 @@ input:-webkit-autofill:active{
     display: block;
     animation: move 15s infinite linear;
     height: 100vh;
+    z-index: -1;
 }
 
 @keyframes move{
@@ -982,7 +983,7 @@ input:-webkit-autofill:active{
 
 .c-spelerAangemaakt{
     position: absolute;
-    top: 4rem;
+    top: 8rem;
     left: 8rem;
     z-index: 1;
     color: var(--color-font);
@@ -1010,7 +1011,7 @@ input:-webkit-autofill:active{
 
 .c-spelerMaken{
     position: absolute;
-    top: 4rem;
+    top: 8rem;
     left: 8rem;
     z-index: 1;
     color: var(--color-font);
@@ -1027,7 +1028,7 @@ input:-webkit-autofill:active{
 
 .c-spelerMaken--twee{
     position: absolute;
-    top: 4rem;
+    top: 8rem;
     left: calc(100vw - 33rem);
     /* display: none; */
 }
