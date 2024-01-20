@@ -1,14 +1,17 @@
 from Database.Database import get_db_connection
 from Database.Datarepository import Datarepository as dr
-import sqlite3
+from pysqlcipher3 import dbapi2 as sqlite
 
-def opslaan_db(spelers_data, metingen_data, conn, cursor):
+def opslaan_db(spelers_data, metingen_data, conn, cursor, paswoord):
     try:
         # conn = get_db_connection()
         # cursor = conn.cursor()
 
         with conn:
             try:
+                cursor.execute(f"PRAGMA key = '{paswoord}';")
+                if paswoord is None:
+                    raise EnvironmentError("Database password not set in environment variables")
                 cursor.execute("INSERT INTO wedstrijden DEFAULT VALUES")
                 wedstrijd_id = cursor.lastrowid
 
@@ -22,7 +25,7 @@ def opslaan_db(spelers_data, metingen_data, conn, cursor):
                     if speler["winnaar"]:
                         dr.update_winnaar(cursor, speler_id, wedstrijd_id)
 
-            except sqlite3.Error as e:
+            except sqlite.Error as e:
                 print(f"An error occurred while executing SQL: {e}")
                 raise e
 

@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_socketio import SocketIO, emit, send
 from flask_cors import CORS
-import sqlite3
 from contextlib import closing
 from datetime import datetime, timedelta
 from Database.Database import get_db_connection, query_db
@@ -14,6 +13,8 @@ import subprocess
 import json
 from threading import Thread
 from bleak import BleakScanner
+from dotenv import load_dotenv
+import os
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -44,6 +45,8 @@ combined_data = {
 
 conn = get_db_connection()
 cursor = conn.cursor()
+load_dotenv()
+paswoord = os.getenv("DB_PWD")
 
 # Flask and SocketIO setup
 app = Flask(__name__)
@@ -123,7 +126,7 @@ def handle_connect(jsonObject):
 
 
 @socketio.on("F2B_startgame")
-def startgame():
+def startgame(json=None):
     print("game started")
 
     player1_speeds = []
@@ -159,7 +162,7 @@ def startgame():
 
     print("game stopped")
 
-    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
+    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
 
     print("saved db")
 
