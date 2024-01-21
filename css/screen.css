@@ -642,7 +642,14 @@ input:-webkit-autofill:active{
     background-position: center;
     opacity: 0.9;
     position: relative;
-    z-index: -2;
+    z-index: -2;   
+}
+
+.c-backgroundScherm__vast--leader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
 }
 
 .c-moving{
@@ -664,6 +671,7 @@ input:-webkit-autofill:active{
     top: 0;
     right: 0;
     background-color: rgba(0,0,0,0.4);
+    z-index: -1;
 }
 
 /*---------------------START-----------------------*/
@@ -724,13 +732,12 @@ input:-webkit-autofill:active{
 /*---------------------LEADERBOARD-----------------------*/
 
 .c-podium{
-    position: absolute;
-    top: 5%;
     display: flex;
     gap: 16px;
     justify-content: center;
     align-items: flex-end;
     width: 100%;
+    height: max-content;
 }
 
 .c-podium__stand{
@@ -774,11 +781,8 @@ input:-webkit-autofill:active{
 .c-algemeenKlassement{
     display: flex;
     flex-direction: row;
-    /* gap: 1rem; */
     height: 20rem;
     width: 100%;
-    position: absolute;
-    bottom: 1rem;
     justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
