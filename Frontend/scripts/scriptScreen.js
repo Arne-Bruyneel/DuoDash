@@ -1,7 +1,7 @@
 // #region ***  DOM references                           ***********
 let countdownInterval;
 let countdownValue;
-let htmlBody;
+// let htmlBody;
 // #endregion
 
 // #region ***  Callback-Visualisation - show___         ***********
@@ -68,8 +68,9 @@ const showMap = function (map) {
 };
 
 const showCountdown = function () {
-  document.querySelectorAll('.js-spelertekst').style.display = 'none';
-  countdownValue = document.querySelector('.js-countdown').innerHTML;
+  //commented for testing
+  // document.querySelectorAll('.js-spelertekst').style.display = 'none';
+  // countdownValue = document.querySelector('.js-countdown').innerHTML;
   getCountdown();
   countdownInterval = setInterval(getCountdown, 1000);
 };
