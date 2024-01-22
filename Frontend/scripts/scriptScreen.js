@@ -70,26 +70,26 @@ const getCountdown = function () {
 
 
 
-socketio.on('B2FS_show_player_setup', function () {
-  console.log('show player setup');
-  showPlayerSetup();
-});
-socketio.on('B2FS_show_player1_setup', function (player1) {
-  console.log('show player 1 setup');
-  getPlayer1Setup(player1);
-});
-socketio.on('B2FS_show_player2_setup', function (player2) {
-  console.log('show player 2 setup');
-  getPlayer2Setup(player2);
-});
-socketio.on('B2FS_show_map', function (map) {
-  console.log('show map');
-  showMap(map);
-});
-socketio.on('B2FS_start_countdown', function () {
-  console.log('start game');
-  showCountdown();
-});
+// socketio.on('B2FS_show_player_setup', function () {
+//   console.log('show player setup');
+//   showPlayerSetup();
+// });
+// socketio.on('B2FS_show_player1_setup', function (player1) {
+//   console.log('show player 1 setup');
+//   getPlayer1Setup(player1);
+// });
+// socketio.on('B2FS_show_player2_setup', function (player2) {
+//   console.log('show player 2 setup');
+//   getPlayer2Setup(player2);
+// });
+// socketio.on('B2FS_show_map', function (map) {
+//   console.log('show map');
+//   showMap(map);
+// });
+// socketio.on('B2FS_start_countdown', function () {
+//   console.log('start game');
+//   showCountdown();
+// });
 // #endregion
 
 // #region ***  Init / DOMContentLoaded                  ***********
@@ -102,7 +102,17 @@ const countdownInit = function () {
 };
 
 const raceInit = function () {
-
+  console.info('race init')
+  let map = localStorage.getItem('chosenMap');
+  console.info(map);
+  let htmlImg = document.querySelector('.js-move');
+  htmlImg.src = `../../img/Achtergronden/Moving/${map}Twee.svg`;
+  let htmlNaam1 = document.querySelector('.js-naam1');
+  let htmlNaam2 = document.querySelector('.js-naam2');
+  let naam1 = localStorage.getItem('voornaamSpeler1');
+  let naam2 = localStorage.getItem('voornaamSpeler2');
+  htmlNaam1.innerHTML = naam1;
+  htmlNaam2.innerHTML = naam2;
 };
 
 const resultInit = function () {
@@ -116,15 +126,15 @@ const leaderboardInit = function () {
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
-  if(htmlBody.classList.contains('.js-laadInit')){
+  if(htmlBody.classList.contains('js-laadInit')){
     laadInit();
-  } else if(htmlBody.classList.contains('.js-countdownInit')){
+  } else if(htmlBody.classList.contains('js-countdownInit')){
     countdownInit();
-  } else if(htmlBody.classList.contains('.js-raceInit')){
+  } else if(htmlBody.classList.contains('js-raceInit')){
     raceInit();
-  } else if(htmlBody.classList.contains('.js-resultInit')){
+  } else if(htmlBody.classList.contains('js-resultInit')){
     resultInit();
-  } else if(htmlBody.classList.contains('.js-leaderboardInit')){
+  } else if(htmlBody.classList.contains('js-leaderboardInit')){
     leaderboardInit();
   }
 });
