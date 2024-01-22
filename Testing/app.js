@@ -80,7 +80,7 @@ const listenSubmitPress = function () {
 const listenStartPress = function () {
   console.log('start press')
 
-  socketio.emit("F2B_startgame");
+  socketio.emit("F2B_start_game");
 };
 
 const listenToUI = function () {

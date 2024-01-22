@@ -63,18 +63,41 @@ def hello():
     return "Server is running, er zijn momenteel geen API endpoints beschikbaar."
 
 
-@app.route("/leaderboard", methods=["GET"])
-def leaderboard():
-    if request.method == "GET":
-        result = jsonify(dr.get_leaderboard(conn))
-        # print(f'leaderboard: {result}')
-        return result
+# @app.route("/leaderboard", methods=["GET"])
+# def leaderboard():
+#     if request.method == "GET":
+#         result = jsonify(dr.get_leaderboard(conn))
+#         # print(f'leaderboard: {result}')
+#         return result
+
 
 
 # Socket IO Events
 @socketio.on("connect")
 def initial_connection():
     print("A new client connected")
+
+@socketio.on("FT2B_show_leaderboard") 
+def leaderboard():
+    result = jsonify(dr.get_leaderboard(cursor, paswoord))
+    emit("B2FS_show_leaderboard", {"leaderboard": result})
+
+
+@socketio.on("FT2B_show_map")
+def show_map(jsonObject):
+    emit("B2FS_show_map", jsonObject)
+
+@socketio.on("FT2B_show_player1_setup")
+def show_player1(jsonObject):
+    emit("B2FS_show_player1_setup", jsonObject)
+
+@socketio.on("FT2B_show_player2_setup") 
+def show_player2(jsonObject):
+    emit("B2FS_show_player2_setup", jsonObject)
+
+@socketio.on("FT2B_show_player_setup")
+def show_player(jsonObject):
+    emit("B2FS_show_player_setup", jsonObject)
 
 
 @socketio.on("F2B_start_bluetooth_scan")
@@ -125,7 +148,7 @@ def handle_connect(jsonObject):
     print("connected status send to frontend")
 
 
-@socketio.on("F2B_startgame")
+@socketio.on("FS2B_start_game")
 def startgame(json=None):
     print("game started")
 
