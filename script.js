@@ -1,9 +1,11 @@
 const showWinnaar = function (result, winnaar) {
   let medailleLinks = document.querySelector('.c-medaille--links');
   let medailleRechts = document.querySelector('.c-medaille--rechts');
-  console.info(medailleLinks);
-  console.info(medailleRechts);
-  medailleRechts.style.display = 'none';
+  if(result[0].id === winnaar[0].id){
+    medailleRechts.style.display = 'none';
+  } else if(result[1].id === winnaar[0].id){
+    medailleLinks.style.display = 'none';
+  }
 };
 
 const showResult = function (result, winnaar) {
@@ -64,9 +66,9 @@ const getResult = function (data) {
       wattage: meting.gemVermogen,
     });
   });
-  var winnaar = spelers.filter(function(speler) {
+  var winnaar = spelers.filter(function (speler) {
     return speler.winnaar === true;
-});
+  });
   showResult(result, winnaar);
 };
 
