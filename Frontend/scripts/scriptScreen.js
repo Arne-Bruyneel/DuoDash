@@ -2,6 +2,10 @@
 let countdownInterval;
 let countdownValue;
 // let htmlBody;
+
+const lanIP = `${window.location.hostname}:5000`;
+// const socketio = io(`http://${lanIP}`);
+
 // #endregion
 
 // #region ***  Callback-Visualisation - show___         ***********
@@ -156,21 +160,14 @@ const getCountdown = function () {
 //   console.log('start game');
 //   showCountdown();
 // });
+
+
+
 // #endregion
 
 // #region ***  Init / DOMContentLoaded                  ***********
 function fetchLeaderboardData() {
-  fetch('./data/data.json')
-    .then((response) => response.json())
-    .then((data) => {
-      // You can use the JSON data here
-      console.log(data);
-      console.log('fetch done');
-      getLeaderboard(data);
-    })
-    .catch((error) => {
-      console.error('An error occurred while fetching JSON data: ' + error);
-    });
+  handleData(`http://${lanIP}/api/v1/leaderboard`, getLeaderboard);
 }
 
 const laadInit = function () {
@@ -215,7 +212,8 @@ document.addEventListener('DOMContentLoaded', function () {
   } else if(htmlBody.classList.contains('js-resultInit')){
     resultInit();
   } else if(htmlBody.classList.contains('js-leaderboardInit')){
-    leaderboardInit();
+    console.log('leaderboard init');
+    fetchLeaderboardData();
   }
 });
 // #endregion

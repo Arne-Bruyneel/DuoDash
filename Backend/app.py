@@ -63,12 +63,12 @@ def hello():
     return "Server is running, er zijn momenteel geen API endpoints beschikbaar."
 
 
-# @app.route("/leaderboard", methods=["GET"])
-# def leaderboard():
-#     if request.method == "GET":
-#         result = jsonify(dr.get_leaderboard(conn))
-#         # print(f'leaderboard: {result}')
-#         return result
+@app.route("/api/v1/leaderboard", methods=["GET"])
+def leaderboard():
+    if request.method == "GET":
+        result = jsonify(dr.get_leaderboard(conn))
+        # print(f'leaderboard: {result}')
+        return result
 
 
 
@@ -77,10 +77,10 @@ def hello():
 def initial_connection():
     print("A new client connected")
 
-@socketio.on("FT2B_show_leaderboard") 
-def leaderboard():
-    result = jsonify(dr.get_leaderboard(cursor, paswoord))
-    emit("B2FS_show_leaderboard", {"leaderboard": result})
+# @socketio.on("FT2B_show_leaderboard") 
+# def leaderboard(json=None):
+#     result = jsonify(dr.get_leaderboard(cursor, paswoord))
+#     emit("B2FS_show_leaderboard", {"leaderboard": result})
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
