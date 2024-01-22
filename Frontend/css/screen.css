@@ -966,7 +966,7 @@ input:-webkit-autofill:active{
     display: none;
 }
 
-.c-countdown{
+/* .c-countdown{
     position: absolute;
     top: 16rem;
     color: var(--color-font);
@@ -974,13 +974,79 @@ input:-webkit-autofill:active{
     font-size: var(--font-size-subtitelScherm);
     font-weight: var(--font-weight-subtitel);
     text-shadow: var(--text-shadow);
-    /* border: 6px solid var(--color-font); */
+    border: 6px solid var(--color-font);
     border-radius: 100%;
     padding: 2rem;
     left: calc(100vw/2 - 5rem);
     display: none;
     background-color: rgba(0, 0, 0, 0.3)
+} */
+
+
+
+
+@property --t {
+    syntax: "<number>";
+    initial-value: 20;
+    inherits: true;
 }
+
+@property --s {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: true;
+}
+
+.c-countdown {
+    --s: calc(var(--t)/1);
+    display: grid;
+    width: 10rem;
+    height: 10rem;
+    animation: t 20s linear;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    position: absolute;
+    top: 3rem;
+    left: calc(100vw/2 - 5rem);
+}
+
+.c-countdown::after {
+    grid-column: 1;
+    grid-row: 1;
+    place-self: center;
+    font-size: var(--font-size-mediumtextScherm);
+    counter-reset: s var(--s);
+    content: counter(s);
+    color: var(--color-font);
+    text-shadow:  var(--text-shadow);
+}
+  
+@keyframes t {
+    to {
+      --t: 0 ;
+    }
+}
+
+svg {
+    grid-column: 1;
+    grid-row: 1;
+}
+  
+[r] {
+    fill: none;
+    stroke: silver;
+}
+
+[r] + [r] {
+    --k: calc(var(--t)/20);
+    transform: rotate(-90deg);
+    stroke-linecap: round;
+    stroke: #fff;
+    stroke-dasharray: var(--k) 1;
+}
+
+
+
 
 .c-wachtfiets{
     position: absolute;

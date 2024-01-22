@@ -1,0 +1,86 @@
+{
+    "spelers": [
+        {
+            "id": 1,
+            "achternaam": "Jansen",
+            "voornaam": "Jan",
+            "email": "jan.jansen@example.com",
+            "winnaar": true
+        },
+        {
+            "id": 2,
+            "achternaam": "De Vries",
+            "voornaam": "Anna",
+            "email": "anna.devries@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 3,
+            "achternaam": "Van der Berg",
+            "voornaam": "Peter",
+            "email": "peter.vanderberg@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 4,
+            "achternaam": "Van Dijk",
+            "voornaam": "Marieke",
+            "email": "mariekevandijk@example.com",
+            "winnaar": true
+        },
+        {
+            "id": 5,
+            "achternaam": "Bakker",
+            "voornaam": "Hans",
+            "email": "hans.bakker@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 6,
+            "achternaam": "Dekker",
+            "voornaam": "Sanne",
+            "email": "sanne.dekker@example.com",
+            "winnaar": true
+        },
+        {
+            "id": 7,
+            "achternaam": "Mulder",
+            "voornaam": "Erik",
+            "email": "erik.mulder@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 8,
+            "achternaam": "Visser",
+            "voornaam": "Linda",
+            "email": "linda.visser@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 9,
+            "achternaam": "Smit",
+            "voornaam": "Jeroen",
+            "email": "jeroen.smit@example.com",
+            "winnaar": false
+        },
+        {
+            "id": 10,
+            "achternaam": "Meijer",
+            "voornaam": "Suzanne",
+            "email": "suz.meijer@example.com",
+            "winnaar": true
+        }
+        ],
+    "metingen": [
+        {"speler_id": 1, "maxSnelheid": 25.5, "afstand": 700, "gemVermogen": 200},
+        {"speler_id": 2, "maxSnelheid": 22.0, "afstand": 950, "gemVermogen": 220},
+        {"speler_id": 3, "maxSnelheid": 23.0, "afstand": 800, "gemVermogen": 210},
+        {"speler_id": 4, "maxSnelheid": 24.0, "afstand": 750, "gemVermogen": 230},
+        {"speler_id": 5, "maxSnelheid": 21.5, "afstand": 1000, "gemVermogen": 200},
+        {"speler_id": 6, "maxSnelheid": 25.0, "afstand": 700, "gemVermogen": 210},
+        {"speler_id": 7, "maxSnelheid": 22.5, "afstand": 900, "gemVermogen": 220},
+        {"speler_id": 8, "maxSnelheid": 23.5, "afstand": 800, "gemVermogen": 230},
+        {"speler_id": 9, "maxSnelheid": 24.5, "afstand": 750, "gemVermogen": 210},
+        {"speler_id": 10, "maxSnelheid": 21.0, "afstand": 1000, "gemVermogen": 200}
+    ]
+}

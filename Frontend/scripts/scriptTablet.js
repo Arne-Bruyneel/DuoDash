@@ -104,13 +104,13 @@ const getMap = function () {
   maps.forEach((map) => {
     map.addEventListener('click', function () {
       if (map.id == 'radio-eilanden') {
-        chosenMap = 'eilanden';
+        chosenMap = 'Palmbomen';
         localStorage.setItem('chosenMap', chosenMap);
       } else if (map.id == 'radio-jungle') {
-        chosenMap = 'jungle';
+        chosenMap = 'Jungle';
         localStorage.setItem('chosenMap', chosenMap);
       } else if (map.id == 'radio-water') {
-        chosenMap = 'water';
+        chosenMap = 'Water';
         localStorage.setItem('chosenMap', chosenMap);
       }
     });

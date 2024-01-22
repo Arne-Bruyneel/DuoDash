@@ -7,6 +7,7 @@
     <title>CountdownScreen</title>
     <link rel="stylesheet" href="../../css/screen.css">
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
+    <script src="../../scripts/scriptScreen.js"></script>
 </head>
 
 <body class="c-containerScherm js-countdownInit">
@@ -19,7 +20,14 @@
 
     <div class="c-spring">Spring op de fiets en zet je klaar</div>
 
-    <div class="c-countdown js-countdown">20</div>
+    <!-- <div class="c-countdown js-countdown">20</div> -->
+
+    <div class="c-countdown js-countdown">
+        <svg viewBox="-50 -50 100 100" stroke-width="6">
+          <circle r="47"></circle>
+          <circle r="47" pathLength="1"></circle>
+        </svg>
+    </div>
 
     <div class="c-spelerTonen c-spelerTonen--een">
         <div class="c-spelerMaken c-spelerMaken--een js-spelertekst">
