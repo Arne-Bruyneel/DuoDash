@@ -92,9 +92,6 @@ socketio.on('B2FS_startCountdown', function () {
   console.log('start game');
   showCountdown();
 });
-socketio.on('B2FS_restartGame');
-socketio.on('B2FS_newGame');
-
 // #endregion
 
 // #region ***  Init / DOMContentLoaded                  ***********
