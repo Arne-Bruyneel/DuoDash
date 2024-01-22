@@ -1001,10 +1001,30 @@ input:-webkit-autofill:active{
     display: none;
 }
 
-.c-spelerAangemaakt{
+.c-spelerTonen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 8rem;
-    left: 8rem;
+    left: 6rem;
+    gap: 2rem;
+    height: fit-content;
+    width: fit-content;
+}
+
+.c-spelerTonen--een{
+}
+
+.c-spelerTonen--twee{
+    position: absolute;
+    left: calc(100vw - 32rem);
+}
+
+.c-spelerAangemaakt{
+    /* position: absolute; */
+    /* top: 8rem;
+    left: 8rem; */
     z-index: 1;
     color: var(--color-font);
     font-size: var(--font-size-subtitelScherm);
@@ -1023,16 +1043,16 @@ input:-webkit-autofill:active{
 }
 
 .c-spelerAangemaakt--twee{
-    position: absolute;
+    /* position: absolute; */
     top: 4rem;
     left: calc(100vw - 33rem);
     display: none;
 }
 
 .c-spelerMaken{
-    position: absolute;
-    top: 8rem;
-    left: 8rem;
+    /* position: absolute; */
+    /* top: 8rem;
+    left: 8rem; */
     z-index: 1;
     color: var(--color-font);
     font-size: var(--font-size-subtitelScherm);
@@ -1047,7 +1067,7 @@ input:-webkit-autofill:active{
 }
 
 .c-spelerMaken--twee{
-    position: absolute;
+    /* position: absolute; */
     top: 8rem;
     left: calc(100vw - 33rem);
     /* display: none; */
@@ -1059,7 +1079,7 @@ input:-webkit-autofill:active{
     background-color: var(--color-font);
     color: var(--backgroundcolor-tablet);
     border-radius: 1rem;
-    position: absolute;
+    /* position: absolute; */
     top: 16rem;
     display: flex;
     flex-direction: column;
