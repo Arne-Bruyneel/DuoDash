@@ -1,9 +1,22 @@
 const showWinnaar = function (result, winnaar) {
+  
   let medailleLinks = document.querySelector('.c-medaille--links');
   let medailleRechts = document.querySelector('.c-medaille--rechts');
-  if(result[0].id === winnaar[0].id){
+  const canvasLinks = document.getElementById('#canvas_links');
+  const canvasRechts = document.getElementById('#canvas_rechts');
+  if (result[0].id === winnaar[0].id) {
+    const jsConfettiLinks = new JSConfetti({ canvasLinks });
+    jsConfettiLinks.addConfetti({
+      confettiRadius: 8,
+      confettiNumber: 500,
+    });
     medailleRechts.style.display = 'none';
-  } else if(result[1].id === winnaar[0].id){
+  } else if (result[1].id === winnaar[0].id) {
+    const jsConfettiRechts = new JSConfetti({ canvasRechts });
+    jsConfettiRechts.addConfetti({
+      confettiRadius: 8,
+      confettiNumber: 500,
+    });
     medailleLinks.style.display = 'none';
   }
 };
@@ -11,7 +24,9 @@ const showWinnaar = function (result, winnaar) {
 const showResult = function (result, winnaar) {
   let winnaarLinks = document.querySelector('.js-winnaarlinks');
   let winnaarRechts = document.querySelector('.js-winnaarrechts');
-  let htmlString1 = `<div class="c-rondje">
+  let htmlString1 = `
+  <canvas id="canvas_links" class="c-winnaarcanvas"></canvas>
+  <div class="c-rondje">
   <img class="c-avatar" src="../../img/fietser1_rood.png" alt="Rood">
 </div>
 <div class="c-winnaarStats">
@@ -30,7 +45,9 @@ const showResult = function (result, winnaar) {
   <rect id="first-icon" width="83" height="117" fill="url(#pattern)" />
 </svg>`;
   winnaarLinks.innerHTML = htmlString1;
-  let htmlString2 = `<div class="c-rondje">
+  let htmlString2 = `
+  <canvas id="canvas_rechts" class="c-winnaarcanvas"></canvas>
+  <div class="c-rondje">
   <img class="c-avatar" src="../../img/fietser1_blauw.png" alt="Blauw">
 </div>
 <div class="c-winnaarStats">

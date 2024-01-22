@@ -832,6 +832,15 @@ input:-webkit-autofill:active{
     gap: calc(100% / 8);
 }
 
+.c-winnaarcanvas{
+    position: absolute;
+    height: 31rem;
+    width: 100%;
+    border: #000000 1px solid;
+    z-index: 2;
+    border-radius: 1rem;
+}
+
 .c-winnaarLinks{
     width: 21.5rem;
     height: 31rem;
