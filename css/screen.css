@@ -586,6 +586,15 @@ input:-webkit-autofill:active{
 .c-instructie{
     place-content: center;
     text-align: center;
+    font-size: var(--font-size-bigtextScherm);
+    width: 75rem;
+}
+
+.c-instructie__pijl{
+    transform: rotate(90deg);
+    width: 10rem;
+    height: 10rem;
+    padding-left: 4rem;
 }
 
 
