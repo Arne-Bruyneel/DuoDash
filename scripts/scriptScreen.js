@@ -88,7 +88,7 @@ socketio.on('B2FS_show_map', function (map) {
   console.log('show map');
   showMap(map);
 });
-socketio.on('B2FS_startCountdown', function () {
+socketio.on('B2FS_start_countdown', function () {
   console.log('start game');
   showCountdown();
 });
