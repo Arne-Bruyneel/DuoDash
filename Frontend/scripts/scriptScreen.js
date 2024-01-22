@@ -1,6 +1,7 @@
 // #region ***  DOM references                           ***********
 let countdownInterval;
 let countdownValue;
+let htmlBody;
 // #endregion
 
 // #region ***  Callback-Visualisation - show___         ***********
@@ -68,10 +69,7 @@ const getCountdown = function () {
 
 // #region ***  Event Listeners - listenTo___            ***********
 
-socketio.on('B2FS_show_leaderboard', function () {
-  console.log('show leaderboard');
-  getLeaderboard();
-});
+
 
 socketio.on('B2FS_show_player_setup', function () {
   console.log('show player setup');
@@ -96,5 +94,39 @@ socketio.on('B2FS_start_countdown', function () {
 // #endregion
 
 // #region ***  Init / DOMContentLoaded                  ***********
+const laadInit = function () {
 
+};
+
+const countdownInit = function () {
+
+};
+
+const raceInit = function () {
+
+};
+
+const resultInit = function () {
+
+};
+
+const leaderboardInit = function () {
+  
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('DOM loaded');
+  htmlBody = document.querySelector('body');
+  if(htmlBody.classList.contains('.js-laadInit')){
+    laadInit();
+  } else if(htmlBody.classList.contains('.js-countdownInit')){
+    countdownInit();
+  } else if(htmlBody.classList.contains('.js-raceInit')){
+    raceInit();
+  } else if(htmlBody.classList.contains('.js-resultInit')){
+    resultInit();
+  } else if(htmlBody.classList.contains('.js-leaderboardInit')){
+    leaderboardInit();
+  }
+});
 // #endregion
