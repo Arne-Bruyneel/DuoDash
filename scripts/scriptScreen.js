@@ -57,7 +57,7 @@ const getCountdown = function () {
     countdownValue--;
     if (countdownValue == 0) {
       clearInterval(countdownInterval);
-      socketio.emit('FS2B_startGame')
+      socketio.emit('FS2B_startGame');
       window.location.href = 'raceScreen.html';
     }
   }
