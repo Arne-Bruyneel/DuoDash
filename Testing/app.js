@@ -84,14 +84,16 @@ const listenSubmitPress = function () {
       //   }
       // });
 
-      arr.push(card.dataset.address);
+      if (card.dataset.address == "E3:B4:38:07:DA:17") {
+        arr.push("L" + card.dataset.address);
+      } else {
+        arr.push("R" + card.dataset.address);
+      }
+
     }
   }
 
   socketio.emit("F2B_connect", {"devices": arr});
-
-  const start = document.querySelector('.js-start');
-  start.addEventListener('click', listenStartPress);
 };
 
 const listenStartPress = function () {
@@ -105,7 +107,8 @@ const listenInstantConnectPress = function () {
 
   var arr = []
 
-  arr.push("LE3:B4:38:07:DA:17");
+  arr.push("RE3:B4:38:07:DA:17");
+  arr.push("LEE:C9:4D:93:35:3E");
 
   socketio.emit("F2B_connect", {"devices": arr})
 };
@@ -118,6 +121,9 @@ const listenToUI = function () {
   button.addEventListener('click', listenButtonPress);
 
   instantConnect.addEventListener('click', listenInstantConnectPress);
+
+  const start = document.querySelector('.js-start');
+  start.addEventListener('click', listenStartPress);
 
 };
 
@@ -138,7 +144,12 @@ const listenToSocket = function () {
 
   socketio.on('B2F_data', function (jsonObject) {
     console.log('data ontvangen');
-    console.log(jsonObject.data['value']);
+
+    for (const device of jsonObject) {
+
+      console.log(device["side"] + ' s:' + device["data"]["speed"] + ' p:' + device["data"]["power"])
+    }
+
   });
 };
 //#endregion

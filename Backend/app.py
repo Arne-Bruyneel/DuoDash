@@ -8,18 +8,19 @@ from Database.Database import get_db_connection, query_db
 from Database.Datarepository import Datarepository as dr
 import Database.functions as db
 import time
-import subprocess
 import asyncio
-import subprocess
 import json
-from threading import Thread
-from bleak import BleakScanner
+import threading
+from bleak import BleakScanner, BleakClient
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 
 device_left = ""
-device_right = ""
+characteristic_speed = "00002ad2-0000-1000-8000-00805f9b34fb"
+characteristic_power = "00002a63-0000-1000-8000-00805f9b34fb"
+device_data = {}
+
 combined_data = {
     "spelers": [
         {
@@ -93,109 +94,72 @@ def start_bluetooth_scan():
 
 @socketio.on("F2B_connect")
 def handle_connect(jsonObject):
+    global device_left
     print("F2B_connect")
-    device_address = jsonObject["devices"][0]
+    device_address1 = jsonObject["devices"][0]
+    device_address2 = jsonObject["devices"][1]
 
     # defining where which device is positioned
-    if device_address[0] == "L":
-        device_left = device_address[1:]
+    if device_address1[0] == "L":
+        device_left = device_address1[1:]
     else:
-        device_right = device_address[1:]
+        device_left = device_address2[1:]
 
-    # resetting files
-    with open("Backend/Device/devices.json", "w") as file:
-        json.dump([], file)
+    thread1 = start_bleak_thread(device_address1[1:])
+    thread2 = start_bleak_thread(device_address2[1:])
 
-    with open("Backend/Device/data.json", "w") as file:
-        json.dump([], file)
-
-    # startin extra python script for connection
-    process = subprocess.Popen(
-        ["python", "Backend/Device/device.py", device_address[1:], "none"]
-    )
-
-    # checking if devices are connected
-    while True:
-        with open("Backend/Device/devices.json", "r") as file:
-            data = json.load(file)
-
-        print(len(data))
-
-        if len(data) > 0:
-            emit("B2F_connected")
-            break
-
-        socketio.sleep(1)
+    print("print after threading")
 
 
 @socketio.on("F2B_startgame")
 def startgame():
     print("game started")
 
+    global device_left
+
     player1_speeds = []
     player2_speeds = []
     player1_power = []
     player2_power = []
 
-    countdown = 15
+    countdown = 150
     while countdown > 0:
-        try:
-            speed = read_json_file("speed")
-
-            if speed[0]["device"] == device_left:
-                player1.append(speed[0]["value"])
-                player2.append(speed[1]["value"])
-            else:
-                player1.append(speed[1]["value"])
-                player2.append(speed[0]["value"])
-        except:
-            player1.append(get_average(player1_speeds))
-            player2.append(get_average(player2_speeds))
-
-        try:
-            power = read_json_file("power")
-
-            if power[0]["device"] == device_left:
-                player1.append(power[0]["value"])
-                player2.append(power[1]["value"])
-            else:
-                player1.append(power[1]["value"])
-                player2.append(power[0]["value"])
-
-        except:
-            player1.append(get_average(player1_power))
-            player2.append(get_average(player2_power))
-
-        emit(
-            "B2F_data",
+        data_list = [
             {
-                "player1": [[player1_speeds][-1], [player1_power][-1]],
-                "player1": [[player2_speeds][-1], [player2_power][-1]],
-            },
-        )
+                "side": "left" if identifier == device_left else "right",
+                "data": data,
+            }
+            for identifier, data in device_data.items()
+        ]
 
-        socketio.sleep(1)
+        emit("B2F_data", data_list, broadcast=True)
+
+        socketio.sleep(0.1)
         countdown -= 1
 
-    p1_top_speed = max(player1_speeds)
-    p1_dist = get_average(player1_speeds) * 15
-    p1_avg_power = get_average(player1_power)
+    print("done")
+    device_data.clear()
+    print("cleared")
 
-    p2_top_speed = max(player2_speeds)
-    p2_dist = get_average(player2_speeds) * 15
-    p2_avg_power = get_average(player2_power)
+    # p1_top_speed = max(player1_speeds)
+    # p1_dist = get_average(player1_speeds) * 15
+    # p1_avg_power = get_average(player1_power)
 
-    combined_data["metingen"][0]["maxSnelheid"] = p1_top_speed
-    combined_data["metingen"][0]["afstand"] = p1_dist
-    combined_data["metingen"][0]["gemVermogen"] = p1_avg_power
+    # p2_top_speed = max(player2_speeds)
+    # p2_dist = get_average(player2_speeds) * 15
+    # p2_avg_power = get_average(player2_power)
 
-    combined_data["metingen"][1]["maxSnelheid"] = p2_top_speed
-    combined_data["metingen"][1]["afstand"] = p2_dist
-    combined_data["metingen"][1]["gemVermogen"] = p2_avg_power
+    # combined_data["metingen"][0]["maxSnelheid"] = p1_top_speed
+    # combined_data["metingen"][0]["afstand"] = p1_dist
+    # combined_data["metingen"][0]["gemVermogen"] = p1_avg_power
 
-    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
+    # combined_data["metingen"][1]["maxSnelheid"] = p2_top_speed
+    # combined_data["metingen"][1]["afstand"] = p2_dist
+    # combined_data["metingen"][1]["gemVermogen"] = p2_avg_power
 
-    print("saved db")
+    # db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
+
+    # print("saved db")
 
 
 async def scan_for_ble_devices():
@@ -231,21 +195,61 @@ async def scan_for_ble_devices():
     return ble_devices
 
 
+def process_bytes(data):
+    received_bytes = data[2:4]
+    int_value = int.from_bytes(received_bytes, "little", signed=False)
+    return int_value
+
+
+def create_notification_handler(device_identifier):
+    async def notification_handler(sender, data):
+        if len(data) > 8:
+            power = process_bytes(data)
+            device_data[device_identifier] = device_data.get(device_identifier, {})
+            device_data[device_identifier]["power"] = power
+        else:
+            speed = process_bytes(data)
+            speed /= 100
+            device_data[device_identifier] = device_data.get(device_identifier, {})
+            device_data[device_identifier]["speed"] = speed
+
+    return notification_handler
+
+
+async def connect_and_run(address):
+    for attempt in range(1, 10):
+        try:
+            async with BleakClient(address) as client:
+                if client.is_connected:
+                    print(f"connected {address}")
+
+                    device_handler = create_notification_handler(address)
+
+                    await client.start_notify(characteristic_speed, device_handler)
+                    await client.start_notify(characteristic_power, device_handler)
+
+                    while True:
+                        await asyncio.sleep(0.5)
+
+        except:
+            pass
+
+        print(f"attempt {attempt + 1} {address}")
+        await asyncio.sleep(1)
+
+
+def run_bleak(address):
+    asyncio.run(connect_and_run(address))
+
+
+def start_bleak_thread(address):
+    thread = threading.Thread(target=run_bleak, args=(address,))
+    thread.start()
+    return thread
+
+
 def get_average(list_of_values):
     return sum(list_of_values) / len(list_of_values)
-
-
-def read_json_file(filename):
-    last_entry_per_device = {}
-
-    with open(f"Backend/Device/{filename}.json", "r") as file:
-        data = json.load(file)
-
-    for d in data:
-        device_id = d["device"]
-        last_entry_per_device[device_id] = d
-
-    return list(last_entry_per_device.values())
 
 
 if __name__ == "__main__":
