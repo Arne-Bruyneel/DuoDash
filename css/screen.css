@@ -212,7 +212,7 @@ h1{
     background-color: var(--backgroundcolor-tablet);
     border-bottom: 1px solid var(--color-font);
     padding: .5rem;
-    padding-left: 0;
+    padding-left: 0.5rem;
     color: var(--color-font);
 }
 
@@ -222,7 +222,6 @@ h1{
     caret-color: var(--color-font);
 }
 
-
 input:-webkit-autofill{
     -webkit-text-fill-color: var(--color-font) !important;
 }
@@ -231,6 +230,9 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px var(--backgroundcolor-tablet) inset !important;
+    outline: none;
+    /* border: none;
+    border-bottom: 1px solid var(--color-font); */
 }
 
 .c-fietserbox{
@@ -541,7 +543,7 @@ input:-webkit-autofill:active{
     height: max-content;
     gap: 4rem;
     position: relative;
-    top: 0;
+    top: 2rem;
     margin-top: 10rem;
     height: calc(100% - 10rem);
     justify-content: flex-start;
@@ -565,7 +567,7 @@ input:-webkit-autofill:active{
 
 .c-knoptablet--start{
     position: absolute;
-    bottom: 6rem;
+    bottom: 11.5rem;
 }
 
 
@@ -589,7 +591,6 @@ input:-webkit-autofill:active{
     transform: rotate(90deg);
     width: 10rem;
     height: 10rem;
-    padding-left: 4rem;
 }
 
 
