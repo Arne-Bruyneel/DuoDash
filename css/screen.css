@@ -422,6 +422,11 @@ input:-webkit-autofill:active{
     z-index: 10;
 }
 
+.c-knoptablet--home{
+    margin: 2rem;
+    animation: tekstverschijn 3s infinite ease-in-out;
+}
+
 .c-knoptablet:focus{
     outline: 3px solid var(--focus-color);
     z-index: 1;
@@ -535,11 +540,18 @@ input:-webkit-autofill:active{
 .c-maintablet--uitleg{
     height: max-content;
     gap: 4rem;
-    position: absolute;
+    position: relative;
     top: 0;
     margin-top: 10rem;
     height: calc(100% - 10rem);
     justify-content: flex-start;
+    max-width: 70rem;
+}
+
+.c-speluitlegIcon{
+    position: absolute;
+    top: 0;
+    right: 6rem;
 }
 
 .c-speluitleg{
@@ -666,6 +678,10 @@ input:-webkit-autofill:active{
     z-index: -1;
 }
 
+.c-overlay--start{
+    z-index: 0;
+}
+
 /*---------------------START-----------------------*/
 
 .c-tekstScherm{
@@ -703,6 +719,13 @@ input:-webkit-autofill:active{
     font-weight: var(--font-weight-subtitel);
     line-height: 4.375rem;
     margin-top: 8rem;
+    /* animation: tekstverschijn 5s infinite ease-in-out; */
+}
+
+@keyframes tekstverschijn{
+    0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 0;}
 }
 
 .c-logoSport{
