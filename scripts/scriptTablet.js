@@ -197,7 +197,7 @@ const startInit = function () {
   });
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    socketio.emit('F2B_showPlayerSetup');
+    // socketio.emit('F2B_showPlayerSetup');
     window.location.href = 'playerOneTablet.html';
   });
 };

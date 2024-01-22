@@ -48,8 +48,6 @@ const getPlayer2Setup = function (player2) {
 };
 
 const getCountdown = function () {
-  document.querySelector('.js-countdown').innerHTML = countdownValue;
-
   countdownValue--;
 
   if (countdownValue < 0) {
