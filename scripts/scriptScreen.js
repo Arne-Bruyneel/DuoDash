@@ -23,6 +23,7 @@ const showMap = function (map) {
 };
 
 const showCountdown = function () {
+  document.querySelectorAll('.js-spelertekst').style.display = 'none';
   countdownValue = document.querySelector('.js-countdown').innerHTML;
   getCountdown();
   countdownInterval = setInterval(getCountdown, 1000);
@@ -50,8 +51,14 @@ const getPlayer2Setup = function (player2) {
 const getCountdown = function () {
   countdownValue--;
 
-  if (countdownValue < 0) {
-    clearInterval(countdownInterval);
+  if (countdownValue < 4) {
+    document.querySelector('.js-countdown').style.display = 'none';
+    countdownValue = document.querySelector('.js-aftel').innerHTML;
+    countdownValue--;
+    if (countdownValue == 0) {
+      clearInterval(countdownInterval);
+      window.location.href = 'raceScreen.html';
+    }
   }
 };
 
