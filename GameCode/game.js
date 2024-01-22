@@ -1,81 +1,128 @@
-const lanIP = `${window.location.hostname}:5000`;
-const socketio = io(`http://${lanIP}`);
+document.addEventListener('DOMContentLoaded', () => {
+    const left = document.querySelector('.js-left');
+    const right = document.querySelector('.js-right');
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
-var config = {
-    type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 0 },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    },
-    parent: 'game-container',
-};
+    const lanIP = `${window.location.hostname}:5000`;
+    const socketio = io(`http://${lanIP}`);
 
-var game = new Phaser.Game(config);
-var cyclist;
+    // Set canvas to full screen
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-function preload() {
-    this.load.image('cyclist', 'images/fietser01.png'); // Make sure the path is correct 
+     // Image properties
+     const imgWidth = 278 /2; // Adjust as needed
+     const imgHeight = 261 /2; // Adjust as needed
+     const yPos = canvas.height - imgHeight; // Bottom of the screen
+     let currentX1 = 0; // Current X position of the first image
+     let targetX1 = 0; // Target X position for the first image
+     let currentX2 = 0; // Current X position of the second image
+     let targetX2 = 0; // Target X position for the second image
+ 
+     // Load images
+     const bike1Image = new Image();
+     bike1Image.src = 'images/bike1.png'; // Replace with your image path
+     const bike2Image = new Image();
+     bike2Image.src = 'images/bike2.png'; // Replace with your image path
+ 
+    // Function to check overlap
+    function isOverlapping(x1, x2, width) {
+        return Math.abs(x1 - x2) < width;
+    }
 
-}
-
-function create() {
-    // Define the road dimensions and the cyclist's start position
-    const roadWidth = this.physics.world.bounds.width;
-    const roadHeight = this.physics.world.bounds.height;
-    const startX = roadWidth * (3 / 60); // Start at the extreme left of the screen
-    const startY = roadHeight - 65; // Adjust this to place the cyclist on the road
+    // Function to draw the rectangles
+    function drawRectangles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     
-    // Create the cyclist sprite
-    cyclist = this.physics.add.sprite(startX, startY, 'cyclist');
-    cyclist.setScale(0.5); // Adjust this to scale the cyclist
+        // Check if images are overlapping
+        const overlapping = isOverlapping(currentX1, currentX2, imgWidth);
     
-    this.roadLine = this.add.graphics();
-    this.roadLine.clear(); // Clear any previous line style
-    this.roadLine.lineStyle(5, 0xFFFF00, 1); // Set line thickness to 5 and color to yellow
-    this.roadLine.beginPath();
-    this.roadLine.moveTo(0, roadHeight); // Start at the left of the screen, on the bottom
-    this.roadLine.lineTo(roadWidth, roadHeight); // Draw to the right, on the bottom
-    this.roadLine.strokePath();
+        // Draw first image
+        ctx.globalAlpha = overlapping && currentX1 > currentX2 ? 0.5 : 1; // Reduce opacity if overlapped and in front
+        ctx.drawImage(bike1Image, currentX1, yPos, imgWidth, imgHeight);
     
-    // Create a reference to the scene for use in the Socket.IO callback
-    const self = this;
+        // Draw second image
+        ctx.globalAlpha = overlapping && currentX2 > currentX1 ? 0.5 : 1; // Reduce opacity if overlapped and in front
+        ctx.drawImage(bike2Image, currentX2, yPos, imgWidth, imgHeight);
+    
+        // Reset globalAlpha to default
+        ctx.globalAlpha = 1;
+    }
 
-    // Setup Socket.IO client
-    socketio.on('B2F_data', function (jsonObject) {
-        if (jsonObject && typeof jsonObject['value'] === 'number') {
-            console.log('Data received:', jsonObject['value']);
-            const value = jsonObject['value'];
-            const newX = Phaser.Math.Clamp(roadWidth * (value / 100), 0, roadWidth - cyclist.width);
+    // Animation function
+    function animate() {
+        const distance1 = targetX1 - currentX1;
+        const speed1 = distance1 / 20;
 
-            // Move the cyclist smoothly to the new position
-            self.tweens.add({
-                targets: cyclist,
-                x: newX,
-                ease: 'Linear',
-                duration: 500, // Adjust duration for faster/slower movement
-            });
+        const distance2 = targetX2 - currentX2;
+        const speed2 = distance2 / 20;
+
+        let animationNeeded = false;
+
+        if (Math.abs(distance1) > 0.5) {
+            currentX1 += speed1;
+            animationNeeded = true;
         } else {
-            console.error('Unexpected data format:', jsonObject);
+            currentX1 = targetX1;
+        }
+
+        if (Math.abs(distance2) > 0.5) {
+            currentX2 += speed2;
+            animationNeeded = true;
+        } else {
+            currentX2 = targetX2;
+        }
+
+        drawRectangles();
+
+        if (animationNeeded) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    // Function to move the rectangles
+    function moveRectangle(bike, value) {
+        if (bike === 1) {
+            targetX1 = (canvas.width - imgWidth) * (value / 30); // Use imgWidth here
+        } else if (bike === 2) {
+            targetX2 = (canvas.width - imgWidth) * (value / 30); // Use imgWidth here
+        }
+        requestAnimationFrame(animate);
+    }
+    
+
+    // Initially draw the rectangles
+    drawRectangles();
+
+    moveRectangle(2, 2);
+
+    socketio.on('connect', function (jsonObject) {
+        console.info('verbonden met de server');
+    });
+   
+
+    socketio.on('B2F_data', function (jsonObject) {
+
+        for (const device of jsonObject) {
+            if (device["side"] == 'left') {
+                left.innerHTML = device["data"]["speed"] + " km/u";
+                moveRectangle(1, device["data"]["speed"]);
+            } else {
+                right.innerHTML = device["data"]["speed"] + " km/u";
+                moveRectangle(2, device["data"]["speed"]);
+
+            }   
         }
     });
-}
 
 
-function update() {
-    // Handle game updates here if necessary
-    
-}
-
-window.onload = () => {
-    game = new Phaser.Game(config);
-}
+    // Adjust canvas size on window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        targetX1 = currentX1 / (canvas.width - rectWidth) * 30; // Adjust position based on new width
+        targetX2 = currentX2 / (canvas.width - rectWidth) * 30; // Adjust position based on new width
+        requestAnimationFrame(animate);
+    });
+});
