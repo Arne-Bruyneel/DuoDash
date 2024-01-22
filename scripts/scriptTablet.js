@@ -110,7 +110,7 @@ const getMap = function () {
       }
     });
   });
-  // socketio.emit('F2B_showMap', { 
+  // socketio.emit('FT2B_showMap', { 
   // chosenMap 
   // });}});
   htmlVolgende.addEventListener('click', function () {
@@ -134,7 +134,7 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
-    socketio.emit('F2B_showPlayer1Setup', {
+    socketio.emit('FT2B_showPlayer1Setup', {
       voornaamSpeler1,
       achternaamSpeler1,
       emailSpeler1,
@@ -151,7 +151,7 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
-    socketio.emit('F2B_showPlayer2Setup', {
+    socketio.emit('FT2B_showPlayer2Setup', {
       voornaamSpeler2,
       achternaamSpeler2,
       emailSpeler2,
@@ -193,11 +193,11 @@ const startInit = function () {
   let htmlTrophy = document.querySelector('.js-trophy');
   htmlTrophy.addEventListener('click', function () {
     console.log('trophy');
-    socketio.emit('F2B_showleaderboard');
+    socketio.emit('FT2B_showleaderboard');
   });
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    // socketio.emit('F2B_showPlayerSetup');
+    // socketio.emit('FT2B_showPlayerSetup');
     window.location.href = 'playerOneTablet.html';
   });
 };
@@ -207,7 +207,7 @@ const uitlegInit = function () {
   let htmlStart = document.querySelector('.js-start');
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    // socketio.emit('F2B_startGame');
+    // socketio.emit('FT2B_startCountdown');
     window.location.href = 'instructionTablet.html';
   });
 };
@@ -219,15 +219,15 @@ const keuzeInit = function () {
   let htmlNieuwspel = document.querySelector('.js-nieuwspel');
   htmlScorebord.addEventListener('click', function () {
     console.log('scorebord');
-    socketio.emit('F2B_showleaderboard');
+    socketio.emit('FT2B_showleaderboard');
   });
   htmlOpnieuw.addEventListener('click', function () {
     console.log('opnieuw');
-    socketio.emit('F2B_restartGame');
+    socketio.emit('FT2B_restartGame');
   });
   htmlNieuwspel.addEventListener('click', function () {
     console.log('nieuwspel');
-    socketio.emit('F2B_newGame');
+    socketio.emit('FT2B_newGame');
     window.location.href = 'startTablet.html';
   });
 };
