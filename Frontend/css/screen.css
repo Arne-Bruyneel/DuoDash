@@ -966,23 +966,6 @@ input:-webkit-autofill:active{
     display: none;
 }
 
-/* .c-countdown{
-    position: absolute;
-    top: 16rem;
-    color: var(--color-font);
-    text-align: center;
-    font-size: var(--font-size-subtitelScherm);
-    font-weight: var(--font-weight-subtitel);
-    text-shadow: var(--text-shadow);
-    border: 6px solid var(--color-font);
-    border-radius: 100%;
-    padding: 2rem;
-    left: calc(100vw/2 - 5rem);
-    display: none;
-    background-color: rgba(0, 0, 0, 0.3)
-} */
-
-
 
 
 @property --t {
@@ -990,13 +973,11 @@ input:-webkit-autofill:active{
     initial-value: 20;
     inherits: true;
 }
-
 @property --s {
     syntax: "<integer>";
     initial-value: 0;
     inherits: true;
 }
-
 .c-countdown {
     --s: calc(var(--t)/1);
     display: grid;
@@ -1009,7 +990,6 @@ input:-webkit-autofill:active{
     top: 3rem;
     left: calc(100vw/2 - 5rem);
 }
-
 .c-countdown::after {
     grid-column: 1;
     grid-row: 1;
@@ -1019,24 +999,20 @@ input:-webkit-autofill:active{
     content: counter(s);
     color: var(--color-font);
     text-shadow:  var(--text-shadow);
-}
-  
+} 
 @keyframes t {
     to {
       --t: 0 ;
     }
 }
-
 svg {
     grid-column: 1;
     grid-row: 1;
-}
-  
+}  
 [r] {
     fill: none;
     stroke: silver;
 }
-
 [r] + [r] {
     --k: calc(var(--t)/20);
     transform: rotate(-90deg);
@@ -1045,6 +1021,60 @@ svg {
     stroke-dasharray: var(--k) 1;
 }
 
+
+
+@property --z {
+    syntax: "<number>";
+    initial-value: 15;
+    inherits: true;
+}
+@property --l {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: true;
+}
+.c-countdownTwee {
+    --l: calc(var(--z)/1);
+    display: grid;
+    width: 10rem;
+    height: 10rem;
+    animation: z 15s linear;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    position: absolute;
+    top: 3rem;
+    left: calc(100vw/2 - 5rem);
+}
+.c-countdownTwee::after {
+    grid-column: 1;
+    grid-row: 1;
+    place-self: center;
+    font-size: var(--font-size-mediumtextScherm);
+    counter-reset: l var(--l);
+    content: counter(l);
+    color: var(--color-font);
+    text-shadow:  var(--text-shadow);
+}
+@keyframes z {
+    to {
+      --z: 0 ;
+    }
+}
+svg {
+    grid-column: 1;
+    grid-row: 1;
+}
+[r] {
+    fill: none;
+    stroke: silver;
+}
+[r] + [r] {
+    --p: calc(var(--z)/15);
+    transform: rotate(-90deg);
+    stroke-linecap: round;
+    stroke: #fff;
+    stroke-dasharray: var(--p) 1;
+}
 
 
 
