@@ -1,4 +1,9 @@
 // #region ***  DOM references                           ***********
+
+const lanIP = `${window.location.hostname}:5000`;
+const socketio = io(`http://${lanIP}`);
+
+
 let fietserRood;
 let fietserBlauw;
 let fietserGeel;
@@ -207,8 +212,8 @@ const uitlegInit = function () {
   let htmlStart = document.querySelector('.js-start');
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    // socketio.emit('FT2B_startCountdown');
-    window.location.href = 'instructionTablet.html';
+    socketio.emit('FT2B_start_countdown');
+    // window.location.href = 'instructionTablet.html';
   });
 };
 

@@ -82,6 +82,11 @@ def leaderboard():
     result = jsonify(dr.get_leaderboard(cursor, paswoord))
     emit("B2FS_show_leaderboard", {"leaderboard": result})
 
+@socketio.on("FT2B_start_countdown")
+def start_countdown(json=None):
+    print("start countdown")
+    emit("B2FS_start_countdown", broadcast=True)
+
 
 @socketio.on("FT2B_show_map")
 def show_map(jsonObject):
