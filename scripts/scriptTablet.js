@@ -110,7 +110,7 @@ const getMap = function () {
       }
     });
   });
-  // socketio.emit('FT2B_showMap', { 
+  // socketio.emit('FT2B_show_map', { 
   // chosenMap 
   // });}});
   htmlVolgende.addEventListener('click', function () {
@@ -134,7 +134,7 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
-    socketio.emit('FT2B_showPlayer1Setup', {
+    socketio.emit('FT2B_show_player1_setup', {
       voornaamSpeler1,
       achternaamSpeler1,
       emailSpeler1,
@@ -151,7 +151,7 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
-    socketio.emit('FT2B_showPlayer2Setup', {
+    socketio.emit('FT2B_show_player2_setup', {
       voornaamSpeler2,
       achternaamSpeler2,
       emailSpeler2,
@@ -193,11 +193,11 @@ const startInit = function () {
   let htmlTrophy = document.querySelector('.js-trophy');
   htmlTrophy.addEventListener('click', function () {
     console.log('trophy');
-    socketio.emit('FT2B_showleaderboard');
+    socketio.emit('FT2B_show_leaderboard');
   });
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    // socketio.emit('FT2B_showPlayerSetup');
+    // socketio.emit('FT2B_show_player_setup');
     window.location.href = 'playerOneTablet.html';
   });
 };
@@ -219,7 +219,7 @@ const keuzeInit = function () {
   let htmlNieuwspel = document.querySelector('.js-nieuwspel');
   htmlScorebord.addEventListener('click', function () {
     console.log('scorebord');
-    socketio.emit('FT2B_showleaderboard');
+    socketio.emit('FT2B_show_leaderboard');
   });
   htmlOpnieuw.addEventListener('click', function () {
     console.log('opnieuw');

@@ -57,7 +57,7 @@ const getCountdown = function () {
     countdownValue--;
     if (countdownValue == 0) {
       clearInterval(countdownInterval);
-      socketio.emit('FS2B_startGame');
+      socketio.emit('FS2B_start_game');
       window.location.href = 'raceScreen.html';
     }
   }
@@ -67,24 +67,24 @@ const getCountdown = function () {
 
 // #region ***  Event Listeners - listenTo___            ***********
 
-socketio.on('B2FS_showLeaderboard', function () {
+socketio.on('B2FS_show_leaderboard', function () {
   console.log('show leaderboard');
   getLeaderboard();
 });
 
-socketio.on('B2FS_showPlayerSetup', function () {
+socketio.on('B2FS_show_player_setup', function () {
   console.log('show player setup');
   showPlayerSetup();
 });
-socketio.on('B2FS_showPlayer1Setup', function (player1) {
+socketio.on('B2FS_show_player1_setup', function (player1) {
   console.log('show player 1 setup');
   getPlayer1Setup(player1);
 });
-socketio.on('B2FS_showPlayer2Setup', function (player2) {
+socketio.on('B2FS_show_player2_setup', function (player2) {
   console.log('show player 2 setup');
   getPlayer2Setup(player2);
 });
-socketio.on('B2FS_showMap', function (map) {
+socketio.on('B2FS_show_map', function (map) {
   console.log('show map');
   showMap(map);
 });
