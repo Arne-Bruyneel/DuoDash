@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapTablet</title>
+    <link rel="stylesheet" href="../../css/screen.css">
+    <script src="../../scripts/scriptTablet.js"></script>
+</head>
+
+<body class="c-bodytablet c-bodytablet--map map js-mapInit">
+    <header class="c-headertablet">
+        <a href="playerTwoTablet.html"><img src="../../img/Icons/pijltje.svg" alt="pijltje" height="28px"></a>
+        <div>3/4</div>
+        <a href="startTablet.html"><img src="../../img/Icons/home.svg" alt="homescreen" height="28px"></a>
+    </header>
+    <h1 class="c-titelspeler">Kies een wereld</h1>
+    <main class="c-maintablet c-maintablet--wereld">
+        <div class="c-kiesmap">
+
+            <label class="c-map">
+                <div class="c-mapfoto c-mapfoto--1"></div>
+
+                <input class="c-mapradio js-map" type="radio" id="radio-eilanden" name="radio" checked="checked">
+                <span class="c-mapspan">Strand</span>
+            </label>
+
+            <label class="c-map">
+                <div class="c-mapfoto c-mapfoto--2"></div>
+
+                <input class="c-mapradio js-map" type="radio" id="radio-jungle" name="radio">
+                <span class="c-mapspan">Jungle</span>
+            </label>
+
+            <label class="c-map">
+                <div class="c-mapfoto c-mapfoto--3"></div>
+
+                <input class="c-mapradio js-map" type="radio" id="radio-water" name="radio">
+                <span class="c-mapspan">Water</span>
+            </label>
+
+        </div>
+
+        <button class="c-knoptablet js-volgende">Volgende</button>
+    </main>
+
+</body>
+
+</html>
