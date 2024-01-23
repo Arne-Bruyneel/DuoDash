@@ -66,7 +66,7 @@ def hello():
 @app.route("/api/v1/leaderboard", methods=["GET"])
 def leaderboard():
     if request.method == "GET":
-        result = jsonify(dr.get_leaderboard(conn))
+        result = jsonify(dr.get_leaderboard(conn, paswoord))
         # print(f'leaderboard: {result}')
         return result
 

@@ -16,7 +16,7 @@ const showLeaderboard = function (leads) {
   let htmlPodium3 = document.querySelector('.js-podium3');
   let htmlKlasseLinks = document.querySelector('.js-klasselinks');
   let htmlKlasseRechts = document.querySelector('.js-klasserechts');
-  let htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div>
+  let htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
     <div class="c-klasseAfstand">${leads[0].afstand}</div>
     <div class="c-klasseSnelheid">${leads[0].snelheid} km/u</div>`;
   htmlPodium1.innerHTML = htmlString1;
@@ -86,29 +86,24 @@ const showCountdown = function () {
 
 // #region ***  Data Access - get___                     ***********
 
-const getLeaderboard = function (data) {
-  console.info(data.spelers);
-  console.info(data.metingen);
-  let metingen = data.metingen;
-  let spelers = data.spelers;
-  let leaderboard = [];
 
-  metingen.sort(function (a, b) {
-    return b.afstand - a.afstand;
+const getLeaderboard = function (leaderboardData) {
+  //sort data
+  leaderboardData.sort(function (a, b) {
+    return b[3] - a[3];
   });
-  console.log(JSON.stringify(data, null, 2));
+  const formattedLeaderboard = leaderboardData.map(player => {
+    return {
+      naam: player[1] + ' ' + player[2].charAt(0) + '.',
+      afstand: player[3] + ' m',
+      snelheid: parseFloat(player[4]).toFixed(1)
+    };
+  });
 
-  metingen.forEach((meting) => {
-    let speler = spelers.find((speler) => speler.id === meting.speler_id);
-    leaderboard.push({
-      naam: speler.voornaam + ' ' + speler.achternaam.charAt(0) + '.',
-      afstand: meting.afstand,
-      snelheid: meting.maxSnelheid,
-    });
-  });
-  console.log(leaderboard);
-  showLeaderboard(leaderboard);
+  // displayen van de data
+  showLeaderboard(formattedLeaderboard);
 };
+
 
 const getPlayer1Setup = function (player1) {
   showPlayer1Setup();

@@ -40,28 +40,25 @@ class Datarepository:
 
     def get_leaderboard(cursor, paswoord):
         cursor.execute(f"PRAGMA key = '{paswoord}';")
-        players = cursor.execute(
-            """
-            SELECT 
-                s.id, 
-                s.voornaam, 
-                s.achternaam, 
-                m.afstand
-            FROM 
-                spelers s
-            JOIN (
-                SELECT 
-                    speler_id, 
-                    afstand,
-                    RANK() OVER (PARTITION BY speler_id ORDER BY afstand DESC) as rank
-                FROM 
-                    metingen
-            ) m ON s.id = m.speler_id
-            WHERE 
-                m.rank = 1
-            ORDER BY 
-                m.afstand DESC
-            LIMIT 11;
+
+        # Simplified SQL query
+        query = """
+        SELECT 
+            s.id, 
+            s.voornaam, 
+            s.achternaam, 
+            MAX(m.afstand) AS max_afstand,
+            MAX(m.maxSnelheid) AS max_snelheid
+        FROM 
+            spelers s
+        JOIN 
+            metingen m ON s.id = m.speler_id
+        GROUP BY 
+            s.id, s.voornaam, s.achternaam
+        ORDER BY 
+            max_afstand DESC
+        LIMIT 11;
         """
-        ).fetchall()
+
+        players = cursor.execute(query).fetchall()
         return players
