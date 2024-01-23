@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = window.innerHeight;
 
      // Image properties
-     const imgWidth = 278 /2; // Adjust as needed
-     const imgHeight = 261 /2; // Adjust as needed
+     const imgWidth = 8316 / 1.5// Adjust as needed
+     const imgHeight = 261 / 1.5; // Adjust as needed
      const yPos = canvas.height - imgHeight; // Bottom of the screen
      let currentX1 = 0; // Current X position of the first image
      let targetX1 = 0; // Target X position for the first image
@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
  
      // Load images
      const bike1Image = new Image();
-     bike1Image.src = 'images/bike1.png'; // Replace with your image path
+     bike1Image.src = 'images/blauw.png'; // Replace with your image path
      const bike2Image = new Image();
-     bike2Image.src = 'images/bike2.png'; // Replace with your image path
+     bike2Image.src = 'images/groen.png'; // Replace with your image path
  
     // Function to check overlap
     function isOverlapping(x1, x2, width) {
@@ -94,6 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initially draw the rectangles
     drawRectangles();
+
+    // var spriteFrameWidth = 8316 / 30;
+    // var spriteFrameHeight = 260; // Assuming 260px is the height of each frame
+    // var currentFrame = 0;
+
+    // var xPosition = canvas.width / 2 - spriteFrameWidth / 2; // Center the sprite horizontally
+    // var yPosition = canvas.height / 2 - spriteFrameHeight / 2; // Center the sprite vertically
+
+    // img.onload = function() {
+    //     animate();
+    // };
+
+    // function animate() {
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+    //     // Draw a frame of the sprite
+    //     ctx.drawImage(img, spriteFrameWidth * currentFrame, 0, spriteFrameWidth, spriteFrameHeight, xPosition, yPosition, spriteFrameWidth, spriteFrameHeight);
+
+    //     // Update to the next frame
+    //     currentFrame = (currentFrame + 1) % 30;
+
+    //     requestAnimationFrame(animate);
+    // }
 
     moveRectangle(2, 2);
 
