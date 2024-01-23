@@ -42,20 +42,24 @@ const showLeaderboard = function (leads) {
     </div>`;
   });
   htmlKlasseLinks.innerHTML = htmlStringLinks;
-    let htmlStringRechts = '';
-    leads.slice(7, 11).forEach((lead, index) => {
-        htmlStringRechts += `<div class="c-klasse">
-        <div class="c-klasseBegin">
-            <div class="c-klasseNummer">${index + 8}.</div>
-            <div class="c-klasseNaam">${lead.naam}</div>
-        </div>
-        <div class="c-klasseEind">
-            <div class="c-klasseAfstand">${lead.afstand}</div>
-            <div class="c-klasseSnelheid">${lead.snelheid} km/u</div>
-        </div>
+  const getRankClass = (rank) => {
+    return rank === 10 ? 'c-klasseBegin c-klasseBegin--tien' : 'c-klasseBegin';
+  };
+  let htmlStringRechts = '';
+  leads.slice(7, 11).forEach((lead, index) => {
+    const rankClass = getRankClass(index + 8);
+    htmlStringRechts += `<div class="c-klasse">
+      <div class="${rankClass}">
+        <div class="c-klasseNummer">${index + 8}.</div>
+        <div class="c-klasseNaam">${lead.naam}</div>
+      </div>
+      <div class="c-klasseEind">
+        <div class="c-klasseAfstand">${lead.afstand}</div>
+        <div class="c-klasseSnelheid">${lead.snelheid} km/u</div>
+      </div>
     </div>`;
-    });
-    htmlKlasseRechts.innerHTML = htmlStringRechts;
+  });
+  htmlKlasseRechts.innerHTML = htmlStringRechts;
 };
 
 const showPlayerSetup = function () {
