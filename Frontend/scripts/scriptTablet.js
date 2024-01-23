@@ -86,8 +86,14 @@ const showDisabledColor = function () {
 // #region ***  Data Access - get___                     ***********
 const getRegistratie = function () {
   let htmlKleur = document.querySelectorAll('.js-kleur');
+  voornaam.value = localStorage.getItem('voornaamSpeler1');
+  achternaam.value = localStorage.getItem('achternaamSpeler1');
+  email.value = localStorage.getItem('emailSpeler1');
   if(htmlBody.classList.contains('speler2')){
     showDisabledColor();
+    voornaam.value = localStorage.getItem('voornaamSpeler2');
+    achternaam.value = localStorage.getItem('achternaamSpeler2');
+    email.value = localStorage.getItem('emailSpeler2');
   };
   fietserKleur = 'rood';
   htmlKleur.forEach((kleur) => {
