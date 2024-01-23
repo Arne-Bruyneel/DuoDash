@@ -57,6 +57,9 @@ const showDisabledColor = function () {
   if (selectedColor == 'rood') {
     document.querySelector('#radio-rood').disabled = true;
     document.querySelector('.c-kruisje--rood').style.display = 'block';
+    fietserRood.style.display = 'none';
+    fietserBlauw.style.display = 'block';
+    document.querySelector('#radio-blauw').checked = true;
   } else if (selectedColor == 'blauw') {
     document.querySelector('#radio-blauw').disabled = true;
     document.querySelector('.c-kruisje--blauw').style.display = 'block';
@@ -86,6 +89,7 @@ const getRegistratie = function () {
   if(htmlBody.classList.contains('speler2')){
     showDisabledColor();
   };
+  fietserKleur = 'rood';
   htmlKleur.forEach((kleur) => {
     kleur.addEventListener('click', function () {
       fietserBlauw.style.display = 'none';
