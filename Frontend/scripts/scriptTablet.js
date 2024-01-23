@@ -105,6 +105,7 @@ const getRegistratie = function () {
 const getMap = function () {
   const maps = document.querySelectorAll('.js-map');
   let htmlVolgende = document.querySelector('.js-volgende');
+  chosenMap = 'Palmbomen';
   maps.forEach((map) => {
     map.addEventListener('click', function () {
       if (map.id == 'radio-eilanden') {
