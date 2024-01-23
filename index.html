@@ -5,19 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResultScreen</title>
-    <link rel="stylesheet" href="../../css/screen.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
-    <script src="../../scripts/scriptScreen.js"></script>
-
+    <script src="script.js"></script>
 </head>
 
 <body class="c-containerScherm">
-    <div class="c-backgroundScherm__vast js-background js-resultInit">
-        <!-- <img class="c-moving" src="../../img/Achtergronden/Moving/WaterTwee.svg" alt="Vissen Achtergrond"> -->
+    <div class="c-backgroundScherm__vast">
         <div class="c-overlay"></div>
-
         <div class="c-winnaar">
-            <div class="c-winnaarLinks">
+            <div class="c-winnaarLinks js-winnaarlinks">
                 <div class="c-rondje">
                     <img class="c-avatar" src="../../img/fietser1_rood.png" alt="Rood">
                 </div>
@@ -27,8 +24,8 @@
                     <div class="c-klasseSnelheid">35 km/u</div>
                     <div class="c-klasseWatt">110 W</div>
                 </div>
-                <svg class="c-medaille" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="83" height="117" viewBox="0 0 83 117">
+                <svg class="c-medaille c-medaille--links" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" width="83" height="117" viewBox="0 0 83 117">
                     <defs>
                         <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%"
                             viewBox="0 0 362 512">
@@ -41,7 +38,7 @@
 
             </div>
 
-            <div class="c-winnaarRechts">
+            <div class="c-winnaarRechts js-winnaarrechts">
                 <div class="c-rondje">
                     <img class="c-avatar" src="../../img/fietser1_blauw.png" alt="Blauw">
                 </div>
@@ -51,8 +48,8 @@
                     <div class="c-klasseSnelheid">33 km/u</div>
                     <div class="c-klasseWatt">100 W</div>
                 </div>
-                <svg class="c-medaille" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="83" height="117" viewBox="0 0 83 117">
+                <svg class="c-medaille c-medaille--rechts" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" width="83" height="117" viewBox="0 0 83 117">
                     <defs>
                         <pattern id="pattern2" preserveAspectRatio="none" width="100%" height="100%"
                             viewBox="0 0 362 512">
