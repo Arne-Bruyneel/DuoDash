@@ -57,6 +57,9 @@ const showDisabledColor = function () {
   if (selectedColor == 'rood') {
     document.querySelector('#radio-rood').disabled = true;
     document.querySelector('.c-kruisje--rood').style.display = 'block';
+    fietserRood.style.display = 'none';
+    fietserBlauw.style.display = 'block';
+    document.querySelector('#radio-blauw').checked = true;
   } else if (selectedColor == 'blauw') {
     document.querySelector('#radio-blauw').disabled = true;
     document.querySelector('.c-kruisje--blauw').style.display = 'block';
@@ -83,9 +86,16 @@ const showDisabledColor = function () {
 // #region ***  Data Access - get___                     ***********
 const getRegistratie = function () {
   let htmlKleur = document.querySelectorAll('.js-kleur');
+  voornaam.value = localStorage.getItem('voornaamSpeler1');
+  achternaam.value = localStorage.getItem('achternaamSpeler1');
+  email.value = localStorage.getItem('emailSpeler1');
   if(htmlBody.classList.contains('speler2')){
     showDisabledColor();
+    voornaam.value = localStorage.getItem('voornaamSpeler2');
+    achternaam.value = localStorage.getItem('achternaamSpeler2');
+    email.value = localStorage.getItem('emailSpeler2');
   };
+  fietserKleur = 'rood';
   htmlKleur.forEach((kleur) => {
     kleur.addEventListener('click', function () {
       fietserBlauw.style.display = 'none';
@@ -101,6 +111,8 @@ const getRegistratie = function () {
 const getMap = function () {
   const maps = document.querySelectorAll('.js-map');
   let htmlVolgende = document.querySelector('.js-volgende');
+  chosenMap = 'Palmbomen';
+  localStorage.setItem('chosenMap', chosenMap);
   maps.forEach((map) => {
     map.addEventListener('click', function () {
       if (map.id == 'radio-eilanden') {
@@ -245,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else if (htmlBody.classList.contains('js-mapInit')) {
     mapInit();
   } else if (htmlBody.classList.contains('js-startInit')) {
+    localStorage.clear();
     startInit();
   } else if (htmlBody.classList.contains('js-uitlegInit')){
     uitlegInit();
