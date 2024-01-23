@@ -630,6 +630,74 @@ input:-webkit-autofill:active{
 }
 
 
+/*----------------FIETS-CONNECTEREN----------------*/
+
+.c-connect__titel{
+    font-size: var(--font-size-subtitel);
+    font-weight: var(--font-weight-titel);
+    margin-bottom: 2rem;
+}
+
+.c-connect__midden{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    height: 20rem;
+    width: 28.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.c-connect__doe{
+    font-size: var(--font-size-bigtext);
+    font-weight: var(--font-weight-subtitel);
+    color: var(--color-font);
+}
+
+.c-connect__list{
+    width: 100%;
+    padding: 0;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    /* list-style: disc;
+    list-style-position: inside;
+     */
+}
+
+.c-connect__fiets{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: var(--font-size-bigtext);
+    font-weight: var(--font-weight-subtitel);
+}
+
+.c-connect__select{
+    border: none;
+    background-color: var(--backgroundcolor-tablet);
+    border-radius: 10px;
+    color: var(--color-font);
+    width: 7.5rem;
+    height: 2rem;
+    font-size: var(--font-size-smalltext);
+    padding: 0 .5rem ;
+}
+
+.c-connect__knoppen{
+    display: flex;
+    width: 32.75rem;
+    justify-content: space-between;
+}
+
+.c-connect__start{
+    position: absolute;
+    bottom: 4rem;
+    right: 4rem;
+}
+
 
 /*--------------------ALGEMEEN SCHERM---------------------*/
 
@@ -1278,71 +1346,32 @@ svg {
 
 /*----------------FIETS-CONNECTEREN----------------*/
 
-
-.c-connect__titel{
-    font-size: var(--font-size-subtitel);
-    font-weight: var(--font-weight-titel);
-    margin-bottom: 2rem;
-}
-
-.c-connect__midden{
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 1rem;
-    padding: 1rem 2rem;
-    height: 20rem;
-    width: 28.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.c-connect__doe{
-    font-size: var(--font-size-bigtext);
-    font-weight: var(--font-weight-subtitel);
-    color: var(--color-font);
-}
-
-.c-connect__list{
-    width: 100%;
-    padding: 0;
-    gap: 1rem;
-    display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
-    /* list-style: disc;
-    list-style-position: inside;
-     */
-}
-
-.c-connect__fiets{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: var(--font-size-bigtext);
-    font-weight: var(--font-weight-subtitel);
-}
-
-.c-connect__select{
-    border: none;
-    background-color: var(--backgroundcolor-tablet);
-    border-radius: 10px;
-    color: var(--color-font);
-    width: 7.5rem;
-    height: 2rem;
-    font-size: var(--font-size-smalltext);
-    padding: 0 .5rem ;
-}
-
-.c-connect__knoppen{
-    display: flex;
-    width: 32.75rem;
-    justify-content: space-between;
-}
-
-.c-connect__start{
+.c-connectie{
     position: absolute;
-    bottom: 4rem;
-    right: 4rem;
+    top: 4rem;
+    text-align: center;
+    color: var(--color-font);
+    font-size: var(--font-size-subtitelScherm);
+    font-weight: var(--font-weight-subtitel);
+    text-shadow: var(--text-shadow);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.c-connectie__fiets{
+    position: absolute;
+    top: 16rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    animation: draaifiets 2s ease-out infinite;
+}
+
+@keyframes draaifiets{
+    0% {transform: rotate(  0deg);}
+    80% {transform: rotate(  360deg);}
+    100% {transform: rotate(  360deg);}
 }
 
 
