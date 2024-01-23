@@ -247,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
   if (htmlBody.classList.contains('js-spelerInit')) {
+    localStorage.clear();
     spelerInit();
   } else if (htmlBody.classList.contains('js-mapInit')) {
     mapInit();
