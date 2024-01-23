@@ -4,7 +4,7 @@ let countdownValue;
 // let htmlBody;
 
 const lanIP = `${window.location.hostname}:5000`;
-// const socketio = io(`http://${lanIP}`);
+const socketio = io(`http://${lanIP}`);
 
 // #endregion
 
@@ -197,24 +197,38 @@ const getCountdown = function () {
   }
 };
 
-const getResult = function () {
-  let spelers = data.spelers;
-  let metingen = data.metingen;
-  let result = [];
-  metingen.forEach((meting) => {
-    let speler = spelers.find((speler) => speler.id === meting.speler_id);
-    result.push({
-      id: speler.id,
-      naam: speler.voornaam + ' ' + speler.achternaam.charAt(0) + '.',
-      afstand: meting.afstand,
-      snelheid: meting.maxSnelheid,
-      wattage: meting.gemVermogen,
-    });
+const getResult = function (data) {
+  if (!data || !data.metings) {
+    console.error("Data is not defined or malformed", data);
+    return; // Exit the function if data is not correct
+  }
+
+  let result = []; // This will hold the processed results
+
+  // Process each 'meting' to combine it with 'speler' data
+  data.metings.forEach((meting) => {
+    // Find the corresponding player ('speler') for this 'meting'
+    let speler = data.spelers.find((speler) => speler.id === meting.speler_id);
+    
+    // If a player was found, create a result object
+    if (speler) {
+      result.push({
+        id: speler.id,
+        naam: speler.voornaam + ' ' + speler.achternaam.charAt(0) + '.',
+        afstand: meting.afstand,
+        snelheid: meting.maxSnelheid,
+        wattage: meting.gemVermogen,
+      });
+    } else {
+      console.error('No player found for meting:', meting);
+    }
   });
-  var winnaar = spelers.filter(function (speler) {
-    return speler.winnaar === true;
-  });
-  showResult(result, winnaar);
+
+  // Find the winner(s) based on 'winnaar' property
+  let winners = data.spelers.filter((speler) => speler.winnaar);
+
+  // Call a function to display the result - assuming you have this function defined
+  showResult(result, winners);
 };
 
 // #endregion
@@ -243,19 +257,31 @@ const getResult = function () {
 //   console.log('start game');
 //   showCountdown();
 // });
+socketio.on('connect', function () {
+  console.log('verbonden met socket webserver');
+});
 
+socketio.on('B2FS_show_result', function () {
+  console.log('show result');
+  // window.location.href = `http://${lanIP}/Frontend/html/Screen/resultScreen.html`;
+  window.location.href = 'resultScreen.html';
+});
 
 
 // #endregion
 
-// #region ***  Init / DOMContentLoaded                  ***********
 function fetchLeaderboardData() {
   handleData(`http://${lanIP}/api/v1/leaderboard`, getLeaderboard);
 }
 
 function fetchResultData() {
-  getResult();
+  handleData(`http://${lanIP}/api/v1/results`, getResult);
+  
 }
+
+
+// #region ***  Init / DOMContentLoaded                  ***********
+
 
 const laadInit = function () {
 
@@ -280,7 +306,6 @@ const raceInit = function () {
 };
 
 const resultInit = function () {
-  console.info('result init')
   fetchResultData();
 };
 
@@ -298,6 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else if(htmlBody.classList.contains('js-raceInit')){
     raceInit();
   } else if(htmlBody.classList.contains('js-resultInit')){
+    console.log("result init");
     resultInit();
   } else if(htmlBody.classList.contains('js-leaderboardInit')){
     console.log('leaderboard init');

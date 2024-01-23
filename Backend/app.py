@@ -71,16 +71,50 @@ def leaderboard():
         return result
 
 
+@app.route("/api/v1/results", methods=["GET"])
+def results():
+    if request.method == "GET":
+        try:
+            # Print out to check if this part of the code is reached
+            print("GET request received for /api/v1/results")
+            
+            # Retrieve the results from the database
+            data = dr.get_results(cursor, paswoord)
+            
+            # Debug print to check what data is returned from the database
+            print(f"Data retrieved from get_results: {data}")
+            
+            # Convert the data to a JSON response
+            result = jsonify(data)
+            
+            # Print the result before sending it to check its size and content
+            print(f"JSON results: {result}")
+            
+            # Return the JSON response
+            return result
+        except Exception as e:
+            # Print any exception that occurs and return an error response
+            print(f"An error occurred: {e}")
+            return jsonify({"error": str(e)}), 500
+    else:
+        return jsonify({"error": "Method not allowed"}), 405
+
+
+
 
 # Socket IO Events
 @socketio.on("connect")
 def initial_connection():
     print("A new client connected")
 
-# @socketio.on("FT2B_show_leaderboard") 
-# def leaderboard(json=None):
-#     result = jsonify(dr.get_leaderboard(cursor, paswoord))
-#     emit("B2FS_show_leaderboard", {"leaderboard": result})
+##test
+@socketio.on("test_getresults")
+def get_results(json=None):
+    print('socket_showresults')
+    emit("B2FS_show_result", {"data": combined_data}, broadcast=True)
+
+#test
+
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
@@ -191,6 +225,7 @@ def startgame(json=None):
     print("game stopped")
 
     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
+    socketio.emit("B2FS_show_results", broadcast=True)
 
     print("saved db")
 
