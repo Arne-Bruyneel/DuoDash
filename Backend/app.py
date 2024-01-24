@@ -310,24 +310,24 @@ def get_average(list_of_values):
     return sum(list_of_values) / len(list_of_values)
 
 
-def check_heartbeat():
-    while True:
-        print("checking heartbeat")
+# def check_heartbeat():
+#     while True:
+#         print("checking heartbeat")
 
-        if len(device_data) > 0:
-            for device_identifier, data in device_data.items():
-                timestamp = data["time"]
-                current_time = time.time()
-                seconds_ago = current_time - timestamp
+#         if len(device_data) > 0:
+#             for device_identifier, data in device_data.items():
+#                 timestamp = data["time"]
+#                 current_time = time.time()
+#                 seconds_ago = current_time - timestamp
 
-                if int(seconds_ago) < 5:
-                    print("emit")
-                    socketio.emit("B2F_heartbeat", broadcast=True)
+#                 if int(seconds_ago) < 5:
+#                     print("emit")
+#                     socketio.emit("B2F_heartbeat", broadcast=True)
 
-        time.sleep(5)
+#         time.sleep(5)
 
 
-threading.Timer(5, check_heartbeat).start()
+# threading.Timer(5, check_heartbeat).start()
 
 if __name__ == "__main__":
     try:
