@@ -21,24 +21,27 @@
     <main class="c-maintablet__speler">
         <form class="c-formTablet" action="playerTwoTablet.html" autocomplete="off">
             <div class="c-inputfietser">
-                <p class="c-form-field">
-                    <label class="c-label" for="voornaam">
-                        Voornaam
-                    </label>
-                    <input class="c-input js-voornaam" type="text" name="voornaam" id="voornaam" required>
-                </p>
-                <p class="c-form-field c-form-field--achter">
-                    <label class="c-label" for="achternaam">
-                        Naam
-                    </label>
-                    <input class="c-input js-achternaam" type="text" name="achternaam" id="achternaam" required>
-                </p>
-                <p class="c-form-field">
-                    <label class="c-label" for="email">
-                        Email
-                    </label>
-                    <input class="c-input js-email" type="email" name="email" id="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" required>
-                </p>
+                <div class="c-inputfietser__boven">
+                    <p class="c-form-field">
+                        <label class="c-label" for="voornaam">
+                            Voornaam
+                        </label>
+                        <input class="c-input js-voornaam" type="text" name="voornaam" id="voornaam" required>
+                    </p>
+                    <p class="c-form-field c-form-field--achter">
+                        <label class="c-label" for="achternaam">
+                            Naam
+                        </label>
+                        <input class="c-input js-achternaam" type="text" name="achternaam" id="achternaam" required>
+                    </p>
+                    <p class="c-form-field">
+                        <label class="c-label" for="email">
+                            Email
+                        </label>
+                        <input class="c-input js-email" type="email" name="email" id="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" required>
+                    </p>
+                </div>
+                <button class="c-knoptablet js-volgende" type="submit" onclick="listenToVolgendeSpeler()">Volgende</button>
             </div>
             <div class="c-onderstetabletspeler">
                 <div class="c-kleurkiezen">
@@ -78,8 +81,8 @@
                         </label>
                     </div>
                 </div>
-                <button class="c-knoptablet js-volgende" type="submit" onclick="listenToVolgendeSpeler()">Volgende</button>
             </div>
+
         </form>
     </main>
 
