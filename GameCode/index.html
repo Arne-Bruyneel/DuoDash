@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Full Screen Bike Game</title>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* Hide scrollbars */
+            position: relative;
+            /* For positioning the km/h indicators */
+            background-color: white;
+            /* Ensure contrast for visibility */
+        }
+
+        #gameCanvas {
+            display: block;
+            /* Removes default margin */
+            position: relative;
+            z-index: 1;
+            /* Ensures canvas is behind indicators */
+        }
+
+        .speed-indicator {
+            position: absolute;
+            top: 10px;
+            color: black;
+            /* High contrast color */
+            font-size: 20px;
+            z-index: 2;
+            /* Higher z-index to be above canvas */
+        }
+
+        #left-indicator {
+            left: 10px;
+        }
+
+        #right-indicator {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="left-indicator" class="speed-indicator js-left">0 km/h</div>
+    <div id="right-indicator" class="speed-indicator js-right">60 km/h</div>
+    <script src="game.js"></script>
+</body>
+
+</html>
