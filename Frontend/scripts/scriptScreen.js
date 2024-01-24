@@ -251,7 +251,7 @@ const getResult = function (data) {
 
 socketio.on('B2FS_show_map', function (map) {
   console.log('show map');
-  window.location.href = 'countdownScreen.html';
+  // window.location.href = 'countdownScreen.html';
   console.log("emit received map");
   console.log(map);
   showMap(map);
