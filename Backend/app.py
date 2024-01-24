@@ -85,20 +85,20 @@ def results():
         return jsonify({"error": "Method not allowed"}), 405
 
 
-
-
 # Socket IO Events
 @socketio.on("connect")
 def initial_connection():
     print("A new client connected")
 
+
 ##test
 @socketio.on("test_getresults")
 def get_results(json=None):
-    print('socket_showresults')
+    print("socket_showresults")
     emit("B2FS_show_result", {"data": combined_data}, broadcast=True)
 
-#test
+
+# test
 
 
 @socketio.on("FT2B_start_countdown")
@@ -111,13 +111,16 @@ def start_countdown(json=None):
 def show_map(jsonObject):
     emit("B2FS_show_map", jsonObject)
 
+
 @socketio.on("FT2B_show_player1_setup")
 def show_player1(jsonObject):
     emit("B2FS_show_player1_setup", jsonObject)
 
-@socketio.on("FT2B_show_player2_setup") 
+
+@socketio.on("FT2B_show_player2_setup")
 def show_player2(jsonObject):
     emit("B2FS_show_player2_setup", jsonObject)
+
 
 @socketio.on("FT2B_show_player_setup")
 def show_player(jsonObject):
