@@ -21,6 +21,7 @@
     <main class="c-maintablet__speler">
         <form class="c-formTablet" action="mapTablet.html" autocomplete="off">
             <div class="c-inputfietser">
+                <div class="c-inputfietser__boven">
                 <p class="c-form-field">
                     <label class="c-label" for="voornaam">
                         Voornaam
@@ -40,6 +41,9 @@
                     <input class="c-input js-email" type="email" name="email" id="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" required>
                 </p>
             </div>
+            <button class="c-knoptablet js-volgende" type="submit"
+                    onclick="listenToVolgendeSpeler()">Volgende</button>
+                </div>
             <div class="c-onderstetabletspeler">
                 <div class="c-kleurkiezen">
                     <div class="c-fietserbox">
@@ -90,8 +94,7 @@
                         </label>
                     </div>
                 </div>
-                <button class="c-knoptablet js-volgende" type="submit"
-                    onclick="listenToVolgendeSpeler()">Volgende</button>
+                
             </div>
         </form>
     </main>
