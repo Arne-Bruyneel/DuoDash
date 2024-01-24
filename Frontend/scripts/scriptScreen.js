@@ -248,14 +248,21 @@ const getResult = function (data) {
 //   console.log('show player 2 setup');
 //   getPlayer2Setup(player2);
 // });
-// socketio.on('B2FS_show_map', function (map) {
-//   console.log('show map');
-//   showMap(map);
-// });
-// socketio.on('B2FS_start_countdown', function () {
-//   console.log('start game');
-//   showCountdown();
-// });
+
+socketio.on('B2FS_show_map', function (map) {
+  console.log('show map');
+  window.location.href = 'countdownScreen.html';
+  console.log("emit received map");
+  console.log(map);
+  showMap(map);
+});
+
+socketio.on('B2FS_start_countdown', function () {
+  console.log('start game');
+  window.location.href = 'raceScreen.html';
+  showCountdown();
+});
+
 socketio.on('connect', function () {
   console.log('verbonden met socket webserver');
 });
