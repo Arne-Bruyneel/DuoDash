@@ -108,8 +108,8 @@ def start_countdown(json=None):
 
 
 @socketio.on("FT2B_show_map")
-def show_map(map):
-    emit("B2FS_show_map", map, broadcast=True)
+def show_map(jsonObject):
+    emit("B2FS_show_map", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player1_setup")
@@ -310,9 +310,9 @@ def get_average(list_of_values):
     return sum(list_of_values) / len(list_of_values)
 
 
-# def check_heartbeat():
-#     while True:
-#         print("checking heartbeat")
+def check_heartbeat():
+    while True:
+        print("checking heartbeat")
 
 #         if len(device_data) > 0:
 #             for device_identifier, data in device_data.items():
