@@ -15,6 +15,13 @@ const showDeviceData = function(jsonObject) {
 
       cardString += `<div class="card js-device" data-address="${device["address"]}">
           <h3>${name.split(': ')[1]}</h3>
+          <div class="radio-container">
+            <input type="radio" name="direction" value="left" class="radio-input js-left">Left
+          </div>
+  
+        <div class="radio-container">
+          <input type="radio" name="direction" value="right" class="radio-input js-right">Right
+        </div>
         </div>`
     }
 
@@ -43,6 +50,7 @@ const getDestinationData = function(url) {
 //#region ***  Event Listeners - listenTo___            ***********
 const listenToDevicePress = function () {
   this.classList.toggle('selected');
+  
 
   const submit = document.querySelector('.js-submit');
   submit.addEventListener('click', listenSubmitPress);
@@ -67,14 +75,25 @@ const listenSubmitPress = function () {
 
   for (const card of document.querySelectorAll(".js-device")) {
     if (card.classList.contains('selected')) {
-      arr.push(card.dataset.address);
+
+      // const radioButtons = card.querySelectorAll('input[type="radio"]');
+
+      // radioButtons.forEach(function(radioButton) {
+      //   if (radioButton.checked) {
+      //     console.log(`Card "${card.querySelector('label').textContent}" selected: ${radioButton.value}`);
+      //   }
+      // });
+
+      if (card.dataset.address == "E3:B4:38:07:DA:17") {
+        arr.push("L" + card.dataset.address);
+      } else {
+        arr.push("R" + card.dataset.address);
+      }
+
     }
   }
 
   socketio.emit("F2B_connect", {"devices": arr});
-
-  const start = document.querySelector('.js-start');
-  start.addEventListener('click', listenStartPress);
 };
 
 const listenStartPress = function () {
@@ -83,11 +102,28 @@ const listenStartPress = function () {
   socketio.emit("F2B_start_game");
 };
 
+const listenInstantConnectPress = function () {
+  console.log('instant connect press')
+
+  var arr = []
+
+  arr.push("RE3:B4:38:07:DA:17");
+  arr.push("LEE:C9:4D:93:35:3E");
+
+  socketio.emit("F2B_connect", {"devices": arr})
+};
+
 const listenToUI = function () {
 
   const button = document.querySelector('.js-knop');
+  const instantConnect = document.querySelector('.js-submit2');
 
   button.addEventListener('click', listenButtonPress);
+
+  instantConnect.addEventListener('click', listenInstantConnectPress);
+
+  const start = document.querySelector('.js-start');
+  start.addEventListener('click', listenStartPress);
 
 };
 
@@ -103,12 +139,22 @@ const listenToSocket = function () {
   });
 
   socketio.on('B2F_connected', function () {
-    console.log('fiets connected');
+    console.log('fietsen connected');
   });
+
+  socketio.on('B2F_heartbeat', function (jsonObject) {
+    console.log('heart beat bitches');
+  });
+
 
   socketio.on('B2F_data', function (jsonObject) {
     console.log('data ontvangen');
-    console.log(jsonObject.data['value']);
+
+    for (const device of jsonObject) {
+
+      console.log(device["side"] + ' s:' + device["data"]["speed"] + ' p:' + device["data"]["power"])
+    }
+
   });
 };
 //#endregion

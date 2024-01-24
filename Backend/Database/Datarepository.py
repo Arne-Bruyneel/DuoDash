@@ -61,27 +61,27 @@ class Datarepository:
         players = cursor.execute(query).fetchall()
         return players
 
-    def get_results(cursor, paswoord):
-        cursor.execute(f"PRAGMA key = '{paswoord}';")
-        query = """ 
-        SELECT 
-            s.voornaam, 
-            s.achternaam, 
-            m.afstand, 
-            m.maxSnelheid, 
-            m.gemVermogen
-        FROM 
-            metingen m
-        JOIN 
-            spelers s ON m.speler_id = s.id
-        JOIN 
-            (SELECT MAX(nummer) AS laatste_wedstrijd FROM wedstrijden) lw ON m.wedstrijd_id = lw.laatste_wedstrijd
-        ORDER BY 
-            m.afstand DESC;
+    # def get_results(cursor, paswoord):
+    #     cursor.execute(f"PRAGMA key = '{paswoord}';")
+    #     query = """ 
+    #     SELECT 
+    #         s.voornaam, 
+    #         s.achternaam, 
+    #         m.afstand, 
+    #         m.maxSnelheid, 
+    #         m.gemVermogen
+    #     FROM 
+    #         metingen m
+    #     JOIN 
+    #         spelers s ON m.speler_id = s.id
+    #     JOIN 
+    #         (SELECT MAX(nummer) AS laatste_wedstrijd FROM wedstrijden) lw ON m.wedstrijd_id = lw.laatste_wedstrijd
+    #     ORDER BY 
+    #         m.afstand DESC;
 
-        """
-        results = cursor.execute(query).fetchall()
-        return results
+    #     """
+    #     results = cursor.execute(query).fetchall()
+    #     return results
 
 
 
