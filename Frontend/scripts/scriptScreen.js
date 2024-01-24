@@ -182,7 +182,7 @@ const getLeaderboard = function (leaderboardData) {
 
 
 const getPlayer1Setup = function (player1) {
-  showPlayer1Setup();
+  showPlayer1Setup(player1);
 };
 
 const getPlayer2Setup = function (player2) {
@@ -227,10 +227,15 @@ const getResult = function (data) {
 //   console.log('show player setup');
 //   showPlayerSetup();
 // });
-// socketio.on('B2FS_show_player1_setup', function (player1) {
-//   console.log('show player 1 setup');
-//   getPlayer1Setup(player1);
-// });
+
+socketio.on('B2FS_show_player1_setup', function (JsonObject) {
+  console.log('show player 1 setup');
+  data = JsonObject.data;
+  console.log(data.speler1Json);
+  // window.location.href = 'countdownScreen.html';
+  getPlayer1Setup(data.speler1Json);
+});
+
 // socketio.on('B2FS_show_player2_setup', function (player2) {
 //   console.log('show player 2 setup');
 //   getPlayer2Setup(player2);

@@ -114,17 +114,18 @@ def show_map(jsonObject):
 
 @socketio.on("FT2B_show_player1_setup")
 def show_player1(jsonObject):
-    emit("B2FS_show_player1_setup", jsonObject)
+    print("show player 1")
+    emit("B2FS_show_player1_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player2_setup")
 def show_player2(jsonObject):
-    emit("B2FS_show_player2_setup", jsonObject)
+    emit("B2FS_show_player2_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player_setup")
 def show_player(jsonObject):
-    emit("B2FS_show_player_setup", jsonObject)
+    emit("B2FS_show_player_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("F2B_start_bluetooth_scan")
