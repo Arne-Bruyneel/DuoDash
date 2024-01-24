@@ -65,7 +65,7 @@ const showLeaderboard = function (leads) {
 const showPlayer1Setup = function (player1) {
   document.querySelector('.js-speler1nk').style.display = 'none';
   document.querySelector('.js-speler1k').style.display = 'block';
-  document.querySelector('.js-kader1').style.display = 'block';
+  document.querySelector('.js-kader1').style.display = 'flex';
   document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
   document.querySelector('.js-avatar1').src = `../../img/fietser1_${player1.kleur}.png`;
 };
@@ -73,7 +73,7 @@ const showPlayer1Setup = function (player1) {
 const showPlayer2Setup = function (player2) {
   document.querySelector('.js-speler2nk').style.display = 'none';
   document.querySelector('.js-speler2k').style.display = 'block';
-  document.querySelector('.js-kader2').style.display = 'block';
+  document.querySelector('.js-kader2').style.display = 'flex';
   document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
   document.querySelector('.js-avatar2').src = `../../img/fietser1_${player2.kleur}.png`;
 };
