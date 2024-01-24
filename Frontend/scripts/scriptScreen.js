@@ -69,7 +69,7 @@ const showPlayerSetup = function () {
 const showPlayer1Setup = function (player1) {
   document.querySelector('.js-speler1nk').style.display = 'none';
   document.querySelector('.js-speler1k').style.display = 'block';
-  document.querySelector('js-kader1').style.display = 'block';
+  document.querySelector('.js-kader1').style.display = 'block';
   document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
   document.querySelector('.js-avatar1').src = `../../img/fietser1_${player1.kleur}.png`;
 };
@@ -77,9 +77,9 @@ const showPlayer1Setup = function (player1) {
 const showPlayer2Setup = function (player2) {
   document.querySelector('.js-speler2nk').style.display = 'none';
   document.querySelector('.js-speler2k').style.display = 'block';
-  document.querySelector('js-kader2').style.display = 'block';
+  document.querySelector('.js-kader2').style.display = 'block';
   document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
-  document.querySelector('.js-avatar2').src = `../../img/fietser2_${player2.kleur}.png`;
+  document.querySelector('.js-avatar2').src = `../../img/fietser1_${player2.kleur}.png`;
 };
 
 const showMap = function (map) {
@@ -191,7 +191,7 @@ const getPlayer1Setup = function (player1) {
 };
 
 const getPlayer2Setup = function (player2) {
-  showPlayer2Setup();
+  showPlayer2Setup(player2);
 };
 
 const getResult = function (data) {
@@ -236,15 +236,17 @@ const getResult = function (data) {
 socketio.on('B2FS_show_player1_setup', function (JsonObject) {
   console.log('show player 1 setup');
   data = JsonObject.data;
-  console.log(data.speler1Json);
+  console.log(data);
   // window.location.href = 'countdownScreen.html';
   getPlayer1Setup(data.speler1Json);
 });
 
-// socketio.on('B2FS_show_player2_setup', function (player2) {
-//   console.log('show player 2 setup');
-//   getPlayer2Setup(player2);
-// });
+socketio.on('B2FS_show_player2_setup', function (JsonObject) {
+  console.log('show player 2 setup');
+  data = JsonObject.data
+  console.log(data.speler2Json);
+  getPlayer2Setup(data.speler2Json);
+});
 
 socketio.on('B2FS_show_map', function (JsonObject) {
   console.log('show map');
