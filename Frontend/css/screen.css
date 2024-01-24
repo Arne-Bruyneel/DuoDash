@@ -1170,14 +1170,15 @@ svg {
 }
 
 .c-wachtfiets--een{
-    /* display: none; */
+    display: none;
+    z-index: -1;
 }
 
 .c-wachtfiets--twee{
     position: absolute;
     bottom: 2rem;
     left: 2rem;
-    z-index: -1;
+    z-index: -2;
     display: none;
 }
 
@@ -1202,9 +1203,6 @@ svg {
 }
 
 .c-spelerAangemaakt{
-    /* position: absolute; */
-    /* top: 8rem;
-    left: 8rem; */
     z-index: 1;
     color: var(--color-font);
     font-size: var(--font-size-subtitelScherm);
@@ -1219,20 +1217,17 @@ svg {
 }
 
 .c-spelerAangemaakt--een{
-    /* display: none; */
+    display: none;
 }
 
 .c-spelerAangemaakt--twee{
-    /* position: absolute; */
+    position: absolute;
     top: 4rem;
     left: calc(100vw - 33rem);
     display: none;
 }
 
 .c-spelerMaken{
-    /* position: absolute; */
-    /* top: 8rem;
-    left: 8rem; */
     z-index: 1;
     color: var(--color-font);
     font-size: var(--font-size-subtitelScherm);
@@ -1243,11 +1238,10 @@ svg {
 }
 
 .c-spelerMaken--een{
-    display: none;
+    /* display: none; */
 }
 
 .c-spelerMaken--twee{
-    /* position: absolute; */
     top: 8rem;
     left: calc(100vw - 33rem);
     /* display: none; */
@@ -1259,7 +1253,6 @@ svg {
     background-color: var(--color-font);
     color: var(--backgroundcolor-tablet);
     border-radius: 1rem;
-    /* position: absolute; */
     top: 16rem;
     display: flex;
     flex-direction: column;
@@ -1269,7 +1262,7 @@ svg {
 
 .c-kaderSpeler--een{
     left: 15rem;
-    /* display: none; */
+    display: none;
     /* animation: beweegLinks 2s linear;  */
 }
 @keyframes beweegLinks{

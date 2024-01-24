@@ -150,11 +150,14 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
+    let speler1Json = {
+      "voornaam": voornaamSpeler1,
+      "achternaam": achternaamSpeler1,
+      "email": emailSpeler1,
+      "kleur": kleurSpeler1
+    }
     socketio.emit('FT2B_show_player1_setup', {
-      voornaamSpeler1,
-      achternaamSpeler1,
-      emailSpeler1,
-      kleurSpeler1,
+      speler1Json
     });
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
@@ -167,11 +170,14 @@ const listenToVolgendeSpeler = function () {
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
+    let speler2Json = {
+      "voornaam": voornaamSpeler2,
+      "achternaam": achternaamSpeler2,
+      "email": emailSpeler2,
+      "kleur": kleurSpeler2
+    }
     socketio.emit('FT2B_show_player2_setup', {
-      voornaamSpeler2,
-      achternaamSpeler2,
-      emailSpeler2,
-      kleurSpeler2,
+      speler2Json
     });
   }
 };
