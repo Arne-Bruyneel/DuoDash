@@ -1235,7 +1235,6 @@ svg {
 }
 
 .c-spelerAangemaakt--twee{
-    position: absolute;
     top: 4rem;
     left: calc(100vw - 33rem);
     display: none;
