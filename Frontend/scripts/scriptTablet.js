@@ -224,7 +224,7 @@ const uitlegInit = function () {
   htmlStart.addEventListener('click', function () {
     console.log('start');
     socketio.emit('FT2B_start_countdown');
-    // window.location.href = 'instructionTablet.html';
+    window.location.href = 'instructionTablet.html';
   });
 };
 

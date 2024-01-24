@@ -72,7 +72,7 @@ const showPlayer2Setup = function () {};
 
 const showMap = function (map) {
   let htmlBackground = document.querySelector('.js-background');
-  htmlBackground.style.backgroundImage = `url(..img/Achtergronden/${map}.svg)`;
+  htmlBackground.style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
 };
 
 const showCountdown = function () {
@@ -249,12 +249,13 @@ const getResult = function (data) {
 //   getPlayer2Setup(player2);
 // });
 
-socketio.on('B2FS_show_map', function (map) {
+socketio.on('B2FS_show_map', function (JsonObject) {
   console.log('show map');
   // window.location.href = 'countdownScreen.html';
   console.log("emit received map");
-  console.log(map);
-  showMap(map);
+  map =  JsonObject.data;
+  console.log(map.chosenMap);
+  showMap(map.chosenMap);
 });
 
 socketio.on('B2FS_start_countdown', function () {
