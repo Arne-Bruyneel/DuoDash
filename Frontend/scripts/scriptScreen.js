@@ -66,9 +66,16 @@ const showPlayerSetup = function () {
   window.location.href = 'countdownScreen.html';
 };
 
-const showPlayer1Setup = function () {};
+const showPlayer1Setup = function (player1) {
+  document.querySelector('.js-speler1nk').style.display = 'none';
+  document.querySelector('.js-speler1k').style.display = 'block';
+  document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
+  document.querySelector('.js-avatar1').src = `../../img/fietser1_${player1.kleur}.png`;
+};
 
-const showPlayer2Setup = function () {};
+const showPlayer2Setup = function (player2) {
+
+};
 
 const showMap = function (map) {
   let htmlBackground = document.querySelector('.js-background');
@@ -76,11 +83,7 @@ const showMap = function (map) {
 };
 
 const showCountdown = function () {
-  //commented for testing
-  // document.querySelectorAll('.js-spelertekst').style.display = 'none';
-  // countdownValue = document.querySelector('.js-countdown').innerHTML;
-  getCountdown();
-  countdownInterval = setInterval(getCountdown, 1000);
+  document.querySelector('.js-countdown').style.display = 'block';
 };
 
 const showResult = function (result, winnaar) {
@@ -186,22 +189,6 @@ const getPlayer2Setup = function (player2) {
   showPlayer2Setup();
 };
 
-const getCountdown = function () {
-  countdownValue--;
-
-  if (countdownValue < 4) {
-    document.querySelector('.js-countdown').style.display = 'none';
-    countdownValue = document.querySelector('.js-aftel').innerHTML;
-    countdownValue--;
-    if (countdownValue == 0) {
-      clearInterval(countdownInterval);
-      console.log('start game');
-      socketio.emit('FS2B_start_game');
-      window.location.href = 'raceScreen.html';
-    }
-  }
-};
-
 const getResult = function (data) {
   if (!data || !data.metingen) {
     console.error("Data is not defined or malformed", data);
@@ -295,7 +282,6 @@ const laadInit = function () {
 };
 
 const countdownInit = function () {
-
 };
 
 const raceInit = function () {
