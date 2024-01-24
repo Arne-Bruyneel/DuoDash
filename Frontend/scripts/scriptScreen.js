@@ -67,7 +67,10 @@ const showPlayerSetup = function () {
 };
 
 const showPlayer1Setup = function (player1) {
-  
+  document.querySelector('.js-speler1nk').style.display = 'none';
+  document.querySelector('.js-speler1k').style.display = 'block';
+  document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
+  document.querySelector('.js-avatar1').src = `../../img/fietser1_${player1.kleur}.png`;
 };
 
 const showPlayer2Setup = function (player2) {
