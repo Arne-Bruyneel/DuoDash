@@ -62,10 +62,6 @@ const showLeaderboard = function (leads) {
   htmlKlasseRechts.innerHTML = htmlStringRechts;
 };
 
-const showPlayerSetup = function () {
-  window.location.href = 'countdownScreen.html';
-};
-
 const showPlayer1Setup = function (player1) {
   document.querySelector('.js-speler1nk').style.display = 'none';
   document.querySelector('.js-speler1k').style.display = 'block';
@@ -228,16 +224,11 @@ const getResult = function (data) {
 
 
 
-// socketio.on('B2FS_show_player_setup', function () {
-//   console.log('show player setup');
-//   showPlayerSetup();
-// });
-
 socketio.on('B2FS_show_player1_setup', function (JsonObject) {
   console.log('show player 1 setup');
   data = JsonObject.data;
   console.log(data);
-  // window.location.href = 'countdownScreen.html';
+  window.location.href = 'countdownScreen.html';
   getPlayer1Setup(data.speler1Json);
 });
 

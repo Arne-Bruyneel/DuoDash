@@ -91,16 +91,6 @@ def initial_connection():
     print("A new client connected")
 
 
-##test
-@socketio.on("test_getresults")
-def get_results(json=None):
-    print("socket_showresults")
-    emit("B2FS_show_result", {"data": combined_data}, broadcast=True)
-
-
-# test
-
-
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
     print("start countdown")
