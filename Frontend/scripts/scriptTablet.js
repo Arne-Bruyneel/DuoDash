@@ -113,26 +113,25 @@ const getMap = function () {
   let htmlVolgende = document.querySelector('.js-volgende');
   chosenMap = 'Palmbomen';
   localStorage.setItem('chosenMap', chosenMap);
+
   maps.forEach((map) => {
     map.addEventListener('click', function () {
       if (map.id == 'radio-eilanden') {
         chosenMap = 'Palmbomen';
-        localStorage.setItem('chosenMap', chosenMap);
       } else if (map.id == 'radio-jungle') {
         chosenMap = 'Jungle';
-        localStorage.setItem('chosenMap', chosenMap);
       } else if (map.id == 'radio-water') {
         chosenMap = 'Water';
-        localStorage.setItem('chosenMap', chosenMap);
       }
+      localStorage.setItem('chosenMap', chosenMap);
+      socketio.emit('FT2B_show_map', { chosenMap });
+      console.log("emitted for map: " + chosenMap);
     });
   });
-  // socketio.emit('FT2B_show_map', { 
-  // chosenMap 
-  // });}});
+
   htmlVolgende.addEventListener('click', function () {
     console.log(chosenMap);
-    window.location.href = 'speluitlegTablet.html'
+    window.location.href = 'speluitlegTablet.html';
   });
 };
 // #endregion
