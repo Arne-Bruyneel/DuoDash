@@ -555,7 +555,7 @@ input:-webkit-autofill:active{
 
 /*---------------------SPELUITLEG-----------------------*/
 
-.c-maintablet--uitleg{
+/* .c-maintablet--uitleg{
     height: max-content;
     gap: 4rem;
     position: relative;
@@ -564,26 +564,35 @@ input:-webkit-autofill:active{
     height: calc(100% - 10rem);
     justify-content: flex-start;
     max-width: 70rem;
-}
-
-.c-speluitlegIcon{
-    position: absolute;
-    top: 0;
-    right: 6rem;
-}
+} */
 
 .c-speluitleg{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
     width: 100%;
+    height: 100%;
+    padding: 0 2rem;
 }
 
-.c-speluitlegOnderTitel{
-    text-decoration: underline;
-    margin-bottom: .5rem;
+.c-uitleg__Kader{
+    width: 16.25rem;
+    height: 15rem;
+    background-color: #00000000;
+    border-radius: 1rem 1rem 1rem 1rem; 
+    border: 2px solid var(--color-font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
-.c-knoptablet--start{
+.c-uitleg__Tekst{
     position: absolute;
-    bottom: 11.5rem;
+    top: -4rem;
+    font-size: var(--font-size-bigtext);
+    font-weight: var(--font-weight-subtitel);
 }
 
 
