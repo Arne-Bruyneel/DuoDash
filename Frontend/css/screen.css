@@ -9,6 +9,7 @@
     --backgroundcolor-tablet: #052732;
     --backgroundgradient-tablet: linear-gradient(190deg, rgba(10,63,81,1) 0%, rgba(6,39,50,1) 100%);
     --color-font: #fff;
+    --color-primary: #98D473;
 
     --color-rood: #C93827;
     --color-blauw: #27499a;
@@ -160,6 +161,16 @@ h1{
     bottom: calc(100vh/2 - 17rem);
 }
 
+.c-maintablet__speler{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 12rem);
+    gap: 4rem;
+}
+
+
 .c-titelspeler{
     font-size: var(--font-size-subtitel);
     font-weight: var(--font-weight-titel);
@@ -171,6 +182,10 @@ h1{
 
 .c-formTablet{
     width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
 }
 
 .c-label{
@@ -186,7 +201,7 @@ h1{
 .c-inputfietser{
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 2rem;
 }
@@ -195,7 +210,7 @@ h1{
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    width: calc(50% - 2rem);
+    /* width: calc(50% - 2rem); */
     margin: 0;
 
     @media (max-width: 1200px) {
@@ -204,9 +219,9 @@ h1{
     
 }
 
-.c-form-field--achter{
+/* .c-form-field--achter{
     margin-left: 2rem;
-}
+} */
 
 .c-input{
     border: none;
@@ -248,11 +263,10 @@ input:-webkit-autofill:active{
 }
 
 .c-fietserkleur{
-    width: 5rem;
-    height: 8rem;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
 }
 
 .c-keuzeRood{
@@ -306,7 +320,7 @@ input:-webkit-autofill:active{
 
 .c-kleurkiezen{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 4rem;
 }
@@ -411,15 +425,19 @@ input:-webkit-autofill:active{
     display: none;
 }
 
-
 .c-knoptablet{
-    background-color: var(--color-font);
-    color: var(--backgroundcolor-tablet);
+    /* background-color: var(--color-font);
+    color: var(--backgroundcolor-tablet); */
+    background-color: #00000000;
+    color: var(--color-primary);
     padding: .5rem 2rem;
     border-radius: 1rem;
     font-size: var(--font-size-bigtext);
-    font-weight: var(--font-weight-subtitel);
-    border: none;
+    font-weight: var(--font-weight-text);
+    /* font-weight: var(--font-weight-subtitel); */
+    /* border: none; */
+    border: 2px solid var(--color-primary);
+
     width: 11.25rem;
     height: 4rem;
     z-index: 10;
@@ -432,27 +450,25 @@ input:-webkit-autofill:active{
 .c-knoptablet:focus{
     outline: 3px solid var(--focus-color);
     z-index: 1;
-    border: none;
+    /* border: none; */
 }
 
 .c-knoptablet:hover{
     outline: none;
-    border: none;
+    /* border: none; */
 }
 
 .c-knoptablet:active{
     outline: 3px solid var(--focus-color);
-    border: none;
+    /* border: none; */
 }
 
 .c-onderstetabletspeler{
     width: 100%;
     display: flex;
-    flex-direction: row;
     align-items: end;
     justify-content: space-between;
-    margin: 0 2rem;
-    margin-top: 6rem;
+
 }
 
 
