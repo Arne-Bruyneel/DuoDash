@@ -72,7 +72,7 @@ const showPlayer2Setup = function () {};
 
 const showMap = function (map) {
   let htmlBackground = document.querySelector('.js-background');
-  htmlBackground.style.backgroundImage = `url(..img/Achtergronden/${map}.svg)`;
+  htmlBackground.style.backgroundImage = `url(..img/Achtergronden/${map}Twee.svg)`;
 };
 
 const showCountdown = function () {
