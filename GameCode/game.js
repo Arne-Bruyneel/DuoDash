@@ -4,6 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
+    // Cycling animation properties
+    var spriteFrameWidth = 8316 / 30;
+    var spriteFrameHeight = 260; // Adjusted for size
+    var currentFrame1 = 0; // Current frame for the first bike
+    var currentFrame2 = 0; // Current frame for the second bike
+
+    var frameAccumulator1 = 0; // Accumulator for the first bike's animation
+    var frameAccumulator2 = 0; // Accumulator for the second bike's animation
+
+
+    var animationSpeed1 = 0.1; // Speed of animation for the first bike
+    var animationSpeed2 = 0.1; // Speed of animation for the second bike
+
+
     const lanIP = `${window.location.hostname}:5000`;
     const socketio = io(`http://${lanIP}`);
 
@@ -12,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = window.innerHeight;
 
      // Image properties
-     const imgWidth = 8316 / 1.5// Adjust as needed
-     const imgHeight = 261 / 1.5; // Adjust as needed
-     const yPos = canvas.height - imgHeight; // Bottom of the screen
+     const imgWidth = 8316 / 30 / 1.6; // Width of one frame of the sprite
+     const imgHeight = 261 / 1.6; // Height of the sprite
+     const yPos = canvas.height - imgHeight; // Position at the bottom with some margin
      let currentX1 = 0; // Current X position of the first image
      let targetX1 = 0; // Target X position for the first image
      let currentX2 = 0; // Current X position of the second image
@@ -38,17 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if images are overlapping
         const overlapping = isOverlapping(currentX1, currentX2, imgWidth);
     
-        // Draw first image
-        ctx.globalAlpha = overlapping && currentX1 > currentX2 ? 0.5 : 1; // Reduce opacity if overlapped and in front
-        ctx.drawImage(bike1Image, currentX1, yPos, imgWidth, imgHeight);
+        // Draw first bike animation frame
+        ctx.globalAlpha = overlapping && currentX1 > currentX2 ? 0.5 : 1;
+        ctx.drawImage(bike1Image, spriteFrameWidth * currentFrame1, 0, spriteFrameWidth, spriteFrameHeight, currentX1, yPos, imgWidth, imgHeight);
     
-        // Draw second image
-        ctx.globalAlpha = overlapping && currentX2 > currentX1 ? 0.5 : 1; // Reduce opacity if overlapped and in front
-        ctx.drawImage(bike2Image, currentX2, yPos, imgWidth, imgHeight);
+        // Draw second bike animation frame
+        ctx.globalAlpha = overlapping && currentX2 > currentX1 ? 0.5 : 1;
+        ctx.drawImage(bike2Image, spriteFrameWidth * currentFrame2, 0, spriteFrameWidth, spriteFrameHeight, currentX2, yPos, imgWidth, imgHeight);
     
         // Reset globalAlpha to default
         ctx.globalAlpha = 1;
     }
+    
 
     // Animation function
     function animate() {
@@ -59,6 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const speed2 = distance2 / 20;
 
         let animationNeeded = false;
+
+        frameAccumulator1 += animationSpeed1;
+        if (frameAccumulator1 >= 1) {
+            currentFrame1 = (currentFrame1 + 1) % 30;
+            frameAccumulator1 -= 1; // Reset the accumulator
+        }
+    
+        frameAccumulator2 += animationSpeed2;
+        if (frameAccumulator2 >= 1) {
+            currentFrame2 = (currentFrame2 + 1) % 30;
+            frameAccumulator2 -= 1; // Reset the accumulator
+        }
 
         if (Math.abs(distance1) > 0.5) {
             currentX1 += speed1;
@@ -76,9 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         drawRectangles();
 
-        if (animationNeeded) {
-            requestAnimationFrame(animate);
-        }
+        // if (animationNeeded) {
+        //     requestAnimationFrame(animate);
+        // }
+        requestAnimationFrame(animate);
     }
 
     // Function to move the rectangles
@@ -90,35 +118,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(animate);
     }
+
+    function setAnimationSpeed(bike, speed) {
+        // Adjust the speed factor as needed for more control
+        var adjustedSpeed = speed * 0.1; // Example adjustment
+        if (bike === 1) {
+            animationSpeed1 = adjustedSpeed;
+        } else if (bike === 2) {
+            animationSpeed2 = adjustedSpeed;
+        }
+    }
     
 
     // Initially draw the rectangles
     drawRectangles();
 
-    // var spriteFrameWidth = 8316 / 30;
-    // var spriteFrameHeight = 260; // Assuming 260px is the height of each frame
-    // var currentFrame = 0;
-
-    // var xPosition = canvas.width / 2 - spriteFrameWidth / 2; // Center the sprite horizontally
-    // var yPosition = canvas.height / 2 - spriteFrameHeight / 2; // Center the sprite vertically
-
-    // img.onload = function() {
-    //     animate();
-    // };
-
-    // function animate() {
-    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-    //     // Draw a frame of the sprite
-    //     ctx.drawImage(img, spriteFrameWidth * currentFrame, 0, spriteFrameWidth, spriteFrameHeight, xPosition, yPosition, spriteFrameWidth, spriteFrameHeight);
-
-    //     // Update to the next frame
-    //     currentFrame = (currentFrame + 1) % 30;
-
-    //     requestAnimationFrame(animate);
-    // }
-
     moveRectangle(2, 2);
+    // setAnimationSpeed(2, 1)
+    animate();
 
     socketio.on('connect', function (jsonObject) {
         console.info('verbonden met de server');
@@ -131,9 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (device["side"] == 'left') {
                 left.innerHTML = device["data"]["speed"] + " km/u";
                 moveRectangle(1, device["data"]["speed"]);
+                setAnimationSpeed(2, device["data"]["speed"] / 100); 
             } else {
                 right.innerHTML = device["data"]["speed"] + " km/u";
                 moveRectangle(2, device["data"]["speed"]);
+                setAnimationSpeed(2, device["data"]["speed"] / 100); 
 
             }   
         }
