@@ -67,16 +67,22 @@ const showPlayerSetup = function () {
 };
 
 const showPlayer1Setup = function (player1) {
-  
+  document.querySelector('.js-speler1nk').style.display = 'none';
+  document.querySelector('.js-speler1k').style.display = 'block';
+  document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
+  document.querySelector('.js-avatar1').src = `../../img/fietser1_${player1.kleur}.png`;
 };
 
 const showPlayer2Setup = function (player2) {
-
+  document.querySelector('.js-speler2nk').style.display = 'none';
+  document.querySelector('.js-speler2k').style.display = 'block';
+  document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
+  document.querySelector('.js-avatar2').src = `../../img/fietser2_${player2.kleur}.png`;
 };
 
 const showMap = function (map) {
   let htmlBackground = document.querySelector('.js-background');
-  htmlBackground.style.backgroundImage = `url(..img/Achtergronden/${map}.svg)`;
+  htmlBackground.style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
 };
 
 const showCountdown = function () {
@@ -233,12 +239,13 @@ const getResult = function (data) {
 //   getPlayer2Setup(player2);
 // });
 
-socketio.on('B2FS_show_map', function (map) {
+socketio.on('B2FS_show_map', function (JsonObject) {
   console.log('show map');
   // window.location.href = 'countdownScreen.html';
   console.log("emit received map");
-  console.log(map);
-  showMap(map);
+  map =  JsonObject.data;
+  console.log(map.chosenMap);
+  showMap(map.chosenMap);
 });
 
 socketio.on('B2FS_start_countdown', function () {
