@@ -108,7 +108,12 @@ def handle_connect(jsonObject):
     thread1 = start_bleak_thread(device_address1[1:])
     thread2 = start_bleak_thread(device_address2[1:])
 
-    print("print after threading")
+    connection_count = len(device_data)
+    while connection_count < 2:
+        connection_count = len(device_data)
+        socketio.sleep(1.0)
+
+    emit("B2F_connected", broadcast=True)
 
 
 @socketio.on("F2B_startgame")
@@ -229,6 +234,8 @@ def create_notification_handler(device_identifier):
             device_data[device_identifier] = device_data.get(device_identifier, {})
             device_data[device_identifier]["speed"] = speed
 
+        device_data[device_identifier]["time"] = time.time()
+
     return notification_handler
 
 
@@ -245,7 +252,7 @@ async def connect_and_run(address):
                     await client.start_notify(characteristic_power, device_handler)
 
                     while True:
-                        await asyncio.sleep(0.5)
+                        await asyncio.sleep(1)
 
         except:
             pass
@@ -267,6 +274,25 @@ def start_bleak_thread(address):
 def get_average(list_of_values):
     return sum(list_of_values) / len(list_of_values)
 
+
+def check_heartbeat():
+    while True:
+        print("checking heartbeat")
+
+        if len(device_data) > 0:
+            for device_identifier, data in device_data.items():
+                timestamp = data["time"]
+                current_time = time.time()
+                seconds_ago = current_time - timestamp
+
+                if int(seconds_ago) < 5:
+                    print("emit")
+                    socketio.emit("B2F_heartbeat", broadcast=True)
+
+        time.sleep(5)
+
+
+threading.Timer(5, check_heartbeat).start()
 
 if __name__ == "__main__":
     try:

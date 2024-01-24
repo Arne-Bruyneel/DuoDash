@@ -139,8 +139,13 @@ const listenToSocket = function () {
   });
 
   socketio.on('B2F_connected', function () {
-    console.log('fiets connected');
+    console.log('fietsen connected');
   });
+
+  socketio.on('B2F_heartbeat', function (jsonObject) {
+    console.log('heart beat bitches');
+  });
+
 
   socketio.on('B2F_data', function (jsonObject) {
     console.log('data ontvangen');
