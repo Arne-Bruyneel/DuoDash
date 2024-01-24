@@ -84,8 +84,13 @@ const showCountdown = function () {
 };
 
 const showResult = function (result, winnaar) {
-  let winnaarLinks = document.querySelector('.js-winnaarlinks');
-  let winnaarRechts = document.querySelector('.js-winnaarrechts');
+  let winnaarLinks = document.querySelector('.js-winnaarLinks');
+  let winnaarRechts = document.querySelector('.js-winnaarRechts');
+
+  if (!winnaarLinks || !winnaarRechts) {
+    console.error('One or both of the winner elements do not exist in the DOM');
+    return;
+  }
   let htmlString1 = `
   <div class="c-rondje">
   <img class="c-avatar" src="../../img/fietser1_rood.png" alt="Rood">
@@ -198,19 +203,16 @@ const getCountdown = function () {
 };
 
 const getResult = function (data) {
-  if (!data || !data.metings) {
+  if (!data || !data.metingen) {
     console.error("Data is not defined or malformed", data);
-    return; // Exit the function if data is not correct
+    return;
   }
 
-  let result = []; // This will hold the processed results
-
-  // Process each 'meting' to combine it with 'speler' data
-  data.metings.forEach((meting) => {
-    // Find the corresponding player ('speler') for this 'meting'
+  let result = []; 
+  data.metingen.forEach((meting) => {
+    //speler voor meting zoeken
     let speler = data.spelers.find((speler) => speler.id === meting.speler_id);
     
-    // If a player was found, create a result object
     if (speler) {
       result.push({
         id: speler.id,
@@ -224,13 +226,10 @@ const getResult = function (data) {
     }
   });
 
-  // Find the winner(s) based on 'winnaar' property
   let winners = data.spelers.filter((speler) => speler.winnaar);
 
-  // Call a function to display the result - assuming you have this function defined
   showResult(result, winners);
 };
-
 // #endregion
 
 // #region ***  Event Listeners - listenTo___            ***********

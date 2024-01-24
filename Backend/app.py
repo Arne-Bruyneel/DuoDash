@@ -75,25 +75,8 @@ def leaderboard():
 def results():
     if request.method == "GET":
         try:
-            # Print out to check if this part of the code is reached
-            print("GET request received for /api/v1/results")
-            
-            # Retrieve the results from the database
-            data = dr.get_results(cursor, paswoord)
-            
-            # Debug print to check what data is returned from the database
-            print(f"Data retrieved from get_results: {data}")
-            
-            # Convert the data to a JSON response
-            result = jsonify(data)
-            
-            # Print the result before sending it to check its size and content
-            print(f"JSON results: {result}")
-            
-            # Return the JSON response
-            return result
+            return combined_data
         except Exception as e:
-            # Print any exception that occurs and return an error response
             print(f"An error occurred: {e}")
             return jsonify({"error": str(e)}), 500
     else:
