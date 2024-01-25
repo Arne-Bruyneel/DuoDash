@@ -1278,6 +1278,7 @@ svg {
     display: none;
     /* animation: beweegLinks 2s linear;  */
 }
+
 @keyframes beweegLinks{
     from {transform: translateX(  0%);}
     to {top: 2rem; left: 2rem; z-index: -1;}
@@ -1288,6 +1289,7 @@ svg {
     display: none;
     /* animation: beweegRechts 2s  linear;  */
 }
+
 @keyframes beweegRechts{
     from {transform: translateX(  0%);}
     to {top: 2rem; left: calc(100vw - 10.75rem); z-index: -1;}
