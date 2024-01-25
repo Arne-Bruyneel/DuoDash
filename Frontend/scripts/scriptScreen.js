@@ -66,8 +66,8 @@ const showPlayer1Setup = function (player1) {
   document.querySelector('.js-speler1nk').style.display = 'none';
   document.querySelector('.js-speler1k').style.display = 'block';
   document.querySelector('.js-kader1').style.display = 'flex';
-  localStorage.setItem('voornaam1', player1.kleur);
-  localStorage.setItem('kleur1', player1.voornaam);
+  localStorage.setItem('voornaam1', player1.voornaam);
+  localStorage.setItem('kleur1', player1.kleur);
   document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
   document.querySelector(
     '.js-avatar1'
@@ -78,8 +78,8 @@ const showPlayer2Setup = function (player2) {
   document.querySelector('.js-speler2nk').style.display = 'none';
   document.querySelector('.js-speler2k').style.display = 'block';
   document.querySelector('.js-kader2').style.display = 'flex';
-  localStorage.setItem('voornaam2', player2.kleur);
-  localStorage.setItem('kleur2', player2.voornaam);
+  localStorage.setItem('voornaam2', player2.voornaam);
+  localStorage.setItem('kleur2', player2.kleur);
   document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
   document.querySelector(
     '.js-avatar2'
@@ -330,8 +330,14 @@ const raceInit = function () {
   htmlImg.src = `../../img/Achtergronden/Moving/${map}Twee.svg`;
   let htmlNaam1 = document.querySelector('.js-naam1');
   let htmlNaam2 = document.querySelector('.js-naam2');
+  let avatar1 = document.querySelector('.js-avatar1');
+  let avatar2 = document.querySelector('.js-avatar2');
+  let kleur1 = localStorage.getItem('kleur1');
+  let kleur2 = localStorage.getItem('kleur2');
   htmlNaam1.innerHTML = localStorage.getItem('voornaam1');
   htmlNaam2.innerHTML = localStorage.getItem('voornaam2');
+  avatar1.src = `../../img/fietser1_${kleur1}.png`
+  avatar2.src = `../../img/fietser1_${kleur2}.png`
 };
 
 const resultInit = function () {
