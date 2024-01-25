@@ -96,6 +96,12 @@ const showCountdown = function () {
   document.querySelector('.js-speler2k').style.display = 'none';
   document.querySelector('.js-countdown').style.display = 'grid';
   // Usage
+  const animationL = document.querySelector('.js-animationL');
+  animationL.classList.add('c-beweegKader__links');
+
+  const animationR = document.querySelector('.js-animationR');
+  animationR.classList.add('c-beweegKader__rechts');
+
   startCountdown(19, () => {
     console.log('Countdown finished!');
     window.location.href = 'raceScreen.html';
@@ -211,6 +217,7 @@ const showWinnaar = function (result, winnaar) {
 // #region ***  Callback-No Visualisation - callback___  ***********
 
 function startCountdown(duration, callback) {
+  htmlAnimation = document.querySelector('.js-animation');
   let timeLeft = duration;
   let timerId = setInterval(() => {
     if (timeLeft > 0) {
