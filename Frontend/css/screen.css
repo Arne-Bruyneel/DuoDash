@@ -37,7 +37,7 @@
     --font-weight-subtitel: 500;
     --font-weight-text: 400;
 
-    --text-shadow: #000000 0px 0px 20px;
+    --text-shadow: rgba(0, 0, 0, 0.7) 0px 0px 20px;
 }
 /*---------------------------------------/*
  # GENERIC
