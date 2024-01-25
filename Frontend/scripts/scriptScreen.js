@@ -113,7 +113,7 @@ const showResult = function (result, winnaar) {
   let htmlString1 = `
   <div class="c-boog">
                     <div class="c-rondje">
-                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(kleur1)}.png" alt="Rood">
+                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem('kleur1')}.png" alt="Rood">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -151,7 +151,7 @@ const showResult = function (result, winnaar) {
   let htmlString2 = `
   <div class="c-boog">
                     <div class="c-rondje">
-                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(kleur2)}.png" alt="Blauw">
+                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem('kleur2')}.png" alt="Blauw">
                     </div>
                 </div>
                 <div class="c-kader">
