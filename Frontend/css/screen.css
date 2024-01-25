@@ -1443,21 +1443,29 @@ svg {
     justify-content: center;
 }
 
-.c-connectie__fiets{
+.c-bluetooth{
     position: absolute;
-    top: 16rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    animation: draaifiets 2s ease-out infinite;
+    top: calc(100vh/2 - 6rem);
+    left: calc(100vw/2 - 8rem);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
 }
 
-@keyframes draaifiets{
-    0% {transform: rotate(  0deg);}
-    80% {transform: rotate(  360deg);}
-    100% {transform: rotate(  360deg);}
+.c-bluetooth__icon{
+    position: relative;
 }
 
+.c-bluetooth__kruisje{
+    position: absolute;
+    top: -1rem;
+    right: -3rem;
+    animation: kruis 3s ease-in-out infinite;
+}
+
+@keyframes kruis{
+    0% {opacity: 1;}
+    80% {opacity: 0;}
+    100% {opacity: 1;}
+}
 
 /*---------------------------------------/*
  # UTILITIES
