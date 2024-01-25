@@ -87,6 +87,11 @@ const showCountdown = function () {
   document.querySelector('.js-kader1').style.animation = 'beweegLinks 2s  linear'
   document.querySelector('.js-kader2').style.animation = 'beweegRechts 2s  linear'
   document.querySelector('.js-countdown').style.display = 'grid';
+  // Usage
+  startCountdown(19, () => {
+    console.log('Countdown finished!');
+    window.location.href = 'raceScreen.html';
+  });
 };
 
 const showResult = function (result, winnaar) {
@@ -161,6 +166,21 @@ const showWinnaar = function (result, winnaar) {
 // #endregion
 
 // #region ***  Callback-No Visualisation - callback___  ***********
+
+function startCountdown(duration, callback) {
+  let timeLeft = duration;
+  let timerId = setInterval(() => {
+      if (timeLeft > 0) {
+          console.log(timeLeft + ' seconds remaining');
+          timeLeft--;
+      } else {
+          clearInterval(timerId);
+          callback();
+      }
+  }, 1000); // countdown interval is 1 second
+}
+
+
 // #endregion
 
 // #region ***  Data Access - get___                     ***********
@@ -229,6 +249,12 @@ socketio.on("B2FS_go_to_countdown", function () {
   window.location.href = "countdownScreen.html";
 });
 
+socketio.on("B2FS_leaderboard", function () {
+  console.log("leaderboard");
+  window.location.href = "leaderboard.html";
+});
+
+
 socketio.on('B2FS_show_player1_setup', function (JsonObject) {
   console.log('show player 1 setup');
   data = JsonObject.data;
@@ -295,6 +321,10 @@ const countdownInit = function () {
 
 const raceInit = function () {
   console.info('race init')
+  startCountdown(14, () => {
+    console.log('Countdown finished!');
+    window.location.href = 'resultScreen.html';
+  });
   let map = localStorage.getItem('chosenMap');
   console.info(map);
   let htmlImg = document.querySelector('.js-move');

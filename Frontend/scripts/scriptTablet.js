@@ -223,7 +223,7 @@ const startInit = function () {
   let htmlTrophy = document.querySelector('.js-trophy');
   htmlTrophy.addEventListener('click', function () {
     console.log('trophy');
-    socketio.emit('FT2B_show_leaderboard');
+    socketio.emit('FT2B_leaderboard');
   });
   htmlStart.addEventListener('click', function () {
     console.log('start');

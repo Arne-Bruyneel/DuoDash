@@ -85,10 +85,19 @@ def results():
         return jsonify({"error": "Method not allowed"}), 405
 
 
+
+
 # Socket IO Events
 @socketio.on("connect")
 def initial_connection():
     print("A new client connected")
+
+
+
+@socketio.on("FT2B_leaderboard")
+def leaderboard(json=None):
+    print("leaderboard pressed")
+    emit("B2FS_leaderboard", broadcast=True)
 
 
 @socketio.on("FT2B_start_countdown")
