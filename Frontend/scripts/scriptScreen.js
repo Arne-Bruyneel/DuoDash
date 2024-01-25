@@ -95,6 +95,7 @@ const showCountdown = function () {
   document.querySelector('.js-speler1k').style.display = 'none';
   document.querySelector('.js-speler2k').style.display = 'none';
   document.querySelector('.js-countdown').style.display = 'grid';
+  document.querySelector('.js-spring').style.display = 'block';
   // Usage
   const animationL = document.querySelector('.js-animationL');
   animationL.classList.add('c-beweegKader__links');

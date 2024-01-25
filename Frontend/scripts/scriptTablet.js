@@ -98,14 +98,17 @@ const getRegistratie = function () {
     window.location.href = 'startTablet.html';
   });
   };
+  fietserKleur = 'rood';
 
   if(htmlBody.classList.contains('speler2')){
+    if (localStorage.getItem('kleurSpeler1') == 'rood') {
+      fietserKleur = 'blauw';
+    }
     showDisabledColor();
     voornaam.value = localStorage.getItem('voornaamSpeler2');
     achternaam.value = localStorage.getItem('achternaamSpeler2');
     email.value = localStorage.getItem('emailSpeler2');
   };
-  fietserKleur = 'rood';
   htmlKleur.forEach((kleur) => {
     kleur.addEventListener('click', function () {
       fietserBlauw.style.display = 'none';
