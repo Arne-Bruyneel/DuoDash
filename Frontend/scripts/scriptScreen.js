@@ -67,7 +67,9 @@ const showPlayer1Setup = function (player1) {
   document.querySelector('.js-speler1k').style.display = 'block';
   document.querySelector('.js-kader1').style.display = 'flex';
   document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
-  document.querySelector('.js-avatar1').src = `../../img/fietser1_${player1.kleur}.png`;
+  document.querySelector(
+    '.js-avatar1'
+  ).src = `../../img/fietser1_${player1.kleur}.png`;
 };
 
 const showPlayer2Setup = function (player2) {
@@ -75,7 +77,9 @@ const showPlayer2Setup = function (player2) {
   document.querySelector('.js-speler2k').style.display = 'block';
   document.querySelector('.js-kader2').style.display = 'flex';
   document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
-  document.querySelector('.js-avatar2').src = `../../img/fietser1_${player2.kleur}.png`;
+  document.querySelector(
+    '.js-avatar2'
+  ).src = `../../img/fietser1_${player2.kleur}.png`;
 };
 
 const showMap = function (map) {
@@ -84,8 +88,8 @@ const showMap = function (map) {
 };
 
 const showCountdown = function () {
-  document.querySelector('.js-kader1').style.animation = 'beweegLinks 2s  linear'
-  document.querySelector('.js-kader2').style.animation = 'beweegRechts 2s  linear'
+  document.querySelector('.js-speler1k').style.display = 'none';
+  document.querySelector('.js-speler2k').style.display = 'none';
   document.querySelector('.js-countdown').style.display = 'grid';
   // Usage
   startCountdown(19, () => {
@@ -185,24 +189,22 @@ function startCountdown(duration, callback) {
 
 // #region ***  Data Access - get___                     ***********
 
-
 const getLeaderboard = function (leaderboardData) {
   //sort data
   leaderboardData.sort(function (a, b) {
     return b[3] - a[3];
   });
-  const formattedLeaderboard = leaderboardData.map(player => {
+  const formattedLeaderboard = leaderboardData.map((player) => {
     return {
       naam: player[1] + ' ' + player[2].charAt(0) + '.',
       afstand: player[3] + ' m',
-      snelheid: parseFloat(player[4]).toFixed(1)
+      snelheid: parseFloat(player[4]).toFixed(1),
     };
   });
 
   // displayen van de data
   showLeaderboard(formattedLeaderboard);
 };
-
 
 const getPlayer1Setup = function (player1) {
   showPlayer1Setup(player1);
@@ -214,15 +216,15 @@ const getPlayer2Setup = function (player2) {
 
 const getResult = function (data) {
   if (!data || !data.metingen) {
-    console.error("Data is not defined or malformed", data);
+    console.error('Data is not defined or malformed', data);
     return;
   }
 
-  let result = []; 
+  let result = [];
   data.metingen.forEach((meting) => {
     //speler voor meting zoeken
     let speler = data.spelers.find((speler) => speler.id === meting.speler_id);
-    
+
     if (speler) {
       result.push({
         id: speler.id,
@@ -259,13 +261,13 @@ socketio.on('B2FS_show_player1_setup', function (JsonObject) {
   console.log('show player 1 setup');
   data = JsonObject.data;
   console.log(data);
-  // window.location.href = 'countdownScreen.html'; 
+  // window.location.href = 'countdownScreen.html';
   getPlayer1Setup(data.speler1Json);
 });
 
 socketio.on('B2FS_show_player2_setup', function (JsonObject) {
   console.log('show player 2 setup');
-  data = JsonObject.data
+  data = JsonObject.data;
   console.log(data.speler2Json);
   getPlayer2Setup(data.speler2Json);
 });
@@ -273,8 +275,8 @@ socketio.on('B2FS_show_player2_setup', function (JsonObject) {
 socketio.on('B2FS_show_map', function (JsonObject) {
   console.log('show map');
   // window.location.href = 'countdownScreen.html';
-  console.log("emit received map");
-  map =  JsonObject.data;
+  console.log('emit received map');
+  map = JsonObject.data;
   console.log(map.chosenMap);
   showMap(map.chosenMap);
 });
@@ -296,7 +298,6 @@ socketio.on('B2FS_show_result', function () {
   window.location.href = 'resultScreen.html';
 });
 
-
 // #endregion
 
 function fetchLeaderboardData() {
@@ -305,19 +306,13 @@ function fetchLeaderboardData() {
 
 function fetchResultData() {
   handleData(`http://${lanIP}/api/v1/results`, getResult);
-  
 }
-
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
+const laadInit = function () {};
 
-const laadInit = function () {
-
-};
-
-const countdownInit = function () {
-};
+const countdownInit = function () {};
 
 const raceInit = function () {
   console.info('race init')
@@ -348,16 +343,16 @@ const leaderboardInit = function () {
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
-  if(htmlBody.classList.contains('js-laadInit')){
+  if (htmlBody.classList.contains('js-laadInit')) {
     laadInit();
-  } else if(htmlBody.classList.contains('js-countdownInit')){
+  } else if (htmlBody.classList.contains('js-countdownInit')) {
     countdownInit();
-  } else if(htmlBody.classList.contains('js-raceInit')){
+  } else if (htmlBody.classList.contains('js-raceInit')) {
     raceInit();
-  } else if(htmlBody.classList.contains('js-resultInit')){
-    console.log("result init");
+  } else if (htmlBody.classList.contains('js-resultInit')) {
+    console.log('result init');
     resultInit();
-  } else if(htmlBody.classList.contains('js-leaderboardInit')){
+  } else if (htmlBody.classList.contains('js-leaderboardInit')) {
     console.log('leaderboard init');
     fetchLeaderboardData();
   }
