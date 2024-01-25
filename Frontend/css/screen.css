@@ -1264,8 +1264,8 @@ svg {
     top: 8rem;
     left: 6rem;
     gap: 2rem;
-    height: fit-content;
-    width: fit-content;
+    height: max-content;
+    width: 25rem;
 }
 
 .c-spelerTonen--een{
@@ -1275,6 +1275,23 @@ svg {
     position: absolute;
     left: calc(100vw - 32rem);
 }
+
+
+.c-beweegKader__links{
+    animation: beweegLinks 2s ease-in-out;
+}
+@keyframes beweegLinks{
+    from {transform: translateX(  0%);}
+    to {top: 2rem; left: -6.5rem; z-index: -1;}
+}
+.c-beweegKader__rechts{
+    animation: beweegRechts 2s ease-in-out;
+}
+@keyframes beweegRechts{
+    from {transform: translateX(  0%);}
+    to {top: 2rem; left: calc(100vw - 18.5rem); z-index: -1;}
+}
+
 
 .c-spelerAangemaakt{
     z-index: 1;
@@ -1311,13 +1328,13 @@ svg {
 }
 
 .c-spelerMaken--een{
-    /* display: none; */
+    display: none;
 }
 
 .c-spelerMaken--twee{
     top: 8rem;
     left: calc(100vw - 33rem);
-    /* display: none; */
+    display: none;
 }
 
 .c-kaderSpeler{
@@ -1331,29 +1348,17 @@ svg {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: .5rem;
 }
 
 .c-kaderSpeler--een{
     left: 15rem;
-    display: none;
-    /* animation: beweegLinks 2s linear;  */
-}
-
-@keyframes beweegLinks{
-    from {transform: translateX(  0%);}
-    to {top: 2rem; left: 2rem; z-index: -1;}
+    /* display: none; */
 }
 
 .c-kaderSpeler--twee{
     left: calc(100vw - 24.75rem);
-    display: none;
-    /* animation: beweegRechts 2s  linear;  */
-}
-
-@keyframes beweegRechts{
-    from {transform: translateX(  0%);}
-    to {top: 2rem; left: calc(100vw - 10.75rem); z-index: -1;}
-    
+    /* display: none; */
 }
 
 .c-rondje--klein{
@@ -1443,21 +1448,29 @@ svg {
     justify-content: center;
 }
 
-.c-connectie__fiets{
+.c-bluetooth{
     position: absolute;
-    top: 16rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    animation: draaifiets 2s ease-out infinite;
+    top: calc(100vh/2 - 6rem);
+    left: calc(100vw/2 - 8rem);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
 }
 
-@keyframes draaifiets{
-    0% {transform: rotate(  0deg);}
-    80% {transform: rotate(  360deg);}
-    100% {transform: rotate(  360deg);}
+.c-bluetooth__icon{
+    position: relative;
 }
 
+.c-bluetooth__kruisje{
+    position: absolute;
+    top: -1rem;
+    right: -3rem;
+    animation: kruis 3s ease-in-out infinite;
+}
+
+@keyframes kruis{
+    0% {opacity: 1;}
+    80% {opacity: 0;}
+    100% {opacity: 1;}
+}
 
 /*---------------------------------------/*
  # UTILITIES
