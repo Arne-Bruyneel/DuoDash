@@ -992,21 +992,35 @@ input:-webkit-autofill:active{
 }
 
 .c-winnaarLinks{
-    width: 20rem;
-    height: 28rem;
-    background-color: var(--color-font);
+    width: 26rem;
+    height: 26rem;
     position: relative;
     z-index: 1;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .c-winnaarRechts{
-    width: 20rem;
-    height: 28rem;
-    background-color: var(--color-font);
+    width: 26rem;
+    height: 26rem;
     position: relative;
     z-index: 1;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.c-boog{
+    width: 11rem;
+    height: 11rem;  
+    background-color: var(--color-font);
+    border-radius: 10rem 10rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .c-rondje{
@@ -1014,28 +1028,73 @@ input:-webkit-autofill:active{
     height: 10rem;
     width: 10rem;
     position: relative;
-    border: 2px solid var(--backgroundcolor-tablet);
-    top: 2rem;
-    left: 5rem;
+    border: 2px solid var(--color-wit);
     overflow: hidden;
+    z-index: 2;
 }
 
 .c-avatar{
     position: absolute;
     top: 1.5rem;
     left: -5rem;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+.c-kader{
+    background-color: var(--color-font);
+    height: 20rem;
+    width: 26rem;
+    position: absolute;
+    top: 5.5rem;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
 }
 
 .c-winnaarStats{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    position: absolute;
     justify-content: flex-end;
-    bottom: 2rem;
-    gap: 1rem;
+    gap: 3rem;
     width: 100%;
+    padding-top: 3rem;
+}
+
+.c-getalletjes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.c-streepje{
+    width: 2px;
+    height: 2rem;
+    background-color: var(--color-wit);
+
+}
+
+.c-getal{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.c-getal--winnaar{
+    /* padding: 0  1rem;
+    border-left: 2px solid var(--color-wit);
+    border-right: 2px solid var(--color-wit); */
+    /* height: 2rem; */
+}
+
+.c-klasseAfstand--winnaar{
+    line-height: 2rem;
 }
 
 .c-klasseWatt{
@@ -1046,7 +1105,7 @@ input:-webkit-autofill:active{
 
 .c-medaille{
     position: absolute;
-    top: -1rem;
+    top: 3rem;
     left: -2rem;
 }
 
