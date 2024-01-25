@@ -265,6 +265,11 @@ socketio.on('B2FS_show_player1_setup', function (JsonObject) {
   getPlayer1Setup(data.speler1Json);
 });
 
+socketio.on("B2FS_new_game", function () {
+  window.location.href = "startScreen.html"; 
+});
+
+
 socketio.on('B2FS_show_player2_setup', function (JsonObject) {
   console.log('show player 2 setup');
   data = JsonObject.data;
@@ -334,6 +339,7 @@ const raceInit = function () {
 
 const resultInit = function () {
   fetchResultData();
+  socketio.emit("FS2B_go_to_choice");
 };
 
 const leaderboardInit = function () {
