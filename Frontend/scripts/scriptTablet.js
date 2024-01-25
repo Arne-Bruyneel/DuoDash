@@ -89,6 +89,16 @@ const getRegistratie = function () {
   voornaam.value = localStorage.getItem('voornaamSpeler1');
   achternaam.value = localStorage.getItem('achternaamSpeler1');
   email.value = localStorage.getItem('emailSpeler1');
+
+  if (htmlBody.classList.contains('speler1')) {
+  let htmlReturn = document.querySelector('.js-return');
+  htmlReturn.addEventListener('click', function () {
+    console.log('return');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
+  };
+
   if(htmlBody.classList.contains('speler2')){
     showDisabledColor();
     voornaam.value = localStorage.getItem('voornaamSpeler2');
@@ -215,10 +225,22 @@ const spelerInit = function () {
   fietserWit.style.display = 'none';
 
   getRegistratie();
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
 };
 
 const mapInit = function () {
   console.log('map');
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
   getMap();
 };
 
@@ -244,6 +266,12 @@ const uitlegInit = function () {
     console.log('start');
     socketio.emit('FT2B_start_countdown');
     window.location.href = 'instructionTablet.html';
+  });
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    // console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
   });
 };
 

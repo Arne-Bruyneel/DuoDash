@@ -13,9 +13,9 @@
 
 <body class="c-bodytablet c-bodytablet--speler speler1 js-spelerInit">
     <header class="c-headertablet">
-        <a href="startTablet.html"><img src="../../img/Icons/pijltje.svg" alt="pijltje" height="32px"></a>
+        <a class="js-return"><img src="../../img/Icons/pijltje.svg" alt="pijltje" height="32px"></a>
         <img src="../../img/Icons/bolletjesEen.svg" alt="Pagina 1">
-        <a href="startTablet.html"><img src="../../img/Icons/home.svg" alt="homescreen" height="36px"></a>
+        <a class='js-home'><img src="../../img/Icons/home.svg" alt="homescreen" height="36px"></a>
     </header>
     <h1 class="c-titelspeler">Speler 1</h1>
     <main class="c-maintablet__speler">
@@ -41,7 +41,7 @@
                         <input class="c-input js-email" type="email" name="email" id="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,}|[0-9]{1,3})(\]?)$" required>
                     </p>
                 </div>
-                <button class="c-knoptablet js-volgende" type="submit" onclick="listenToVolgendeSpeler()">Volgende</button>
+                <button class="c-knoptablet js-volgende js-submit" type="submit" onclick="listenToVolgendeSpeler()">Volgende</button>
             </div>
             <div class="c-onderstetabletspeler">
                 <div class="c-kleurkiezen">
