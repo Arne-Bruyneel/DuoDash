@@ -298,7 +298,7 @@ const countdownInit = function () {
 
 const raceInit = function () {
   console.info('race init')
-  let map = localStorage.getItem('chosenMap');
+  let map = 'Palmbomen'
   console.info(map);
   let htmlImg = document.querySelector('.js-move');
   htmlImg.src = `../../img/Achtergronden/Moving/${map}Twee.svg`;

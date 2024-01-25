@@ -755,6 +755,41 @@ input:-webkit-autofill:active{
     gap: 2rem;
 }
 
+#gameCanvas {
+    background: transparent;
+    position: absolute;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#animatedBackground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("./../img/Achtergronden/Moving/PalmbomenTwee.svg");
+    background-repeat: repeat;
+    background-position: 0 0;
+    background-size: auto 100%;
+  /*adjust s value for speed*/
+    animation: animatedBackground 500s linear infinite;
+  }
+  
+  @keyframes animatedBackground {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -2500rem 0;
+    }
+}
+
 .c-moving{
     display: block;
     animation: move 15s infinite linear;

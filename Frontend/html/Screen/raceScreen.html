@@ -7,18 +7,16 @@
     <title>RaceScreen</title>
     <link rel="stylesheet" href="../../css/screen.css">
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
-    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>    
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <script src="../../scripts/scriptScreen.js"></script>
-
+    <script src="../../scripts/scriptGame.js"></script>
 </head>
 
 <body class="c-containerScherm js-raceInit">
+    <div id="animatedBackground">
+    </div>
 
-    <!-- <img class="c-moving c-moving-race js-move" src="../../img/Achtergronden/Moving/WaterTwee.svg" alt="Vissen Achtergrond"> -->
-
-    <!-- <img class="c-moving c-moving--race js-move" src="../../img/Achtergronden/Moving/JungleTwee.svg" alt="Jungle Achtergrond"> -->
-
-    <img class="c-moving c-moving--race js-move" src="../../img/Achtergronden/Moving/PalmbomenTwee.svg" alt="Palmbomen Achtergrond">
+    <canvas id="gameCanvas"></canvas>
 
     <div class="c-kadersRace">
         <div class="c-kaderSpeler c-kaderSpeler--een c-kaderSpeler--race">
@@ -26,7 +24,7 @@
                 <img class="c-avatar c-avatar--klein" src="../../img/fietser1_rood.png" alt="Rood">
             </div>
             <div class="c-klasseNaam c-klasseNaam--kader js-naam1">Naam</div>
-            <div class="c-klasseSnelheid">35 km/u</div>
+            <div class="c-klasseSnelheid js-speed-left">35 km/u</div>
         </div>
 
         <div class="c-kaderSpeler c-kaderSpeler--twee c-kaderSpeler--race c-kaderSpeler--raceTwee">
@@ -34,17 +32,16 @@
                 <img class="c-avatar c-avatar--klein" src="../../img/fietser1_blauw.png" alt="Blauw">
             </div>
             <div class="c-klasseNaam c-klasseNaam--kader js-naam2">Naam</div>
-            <div class="c-klasseSnelheid">35 km/u</div>
+            <div class="c-klasseSnelheid js-speed-right">35 km/u</div>
         </div>
     </div>
 
     <div class="c-countdownTwee js-countdown">
         <svg viewBox="-50 -50 100 100" stroke-width="6">
-          <circle r="47"></circle>
-          <circle r="47" pathLength="1"></circle>
+            <circle r="47"></circle>
+            <circle r="47" pathLength="1"></circle>
         </svg>
     </div>
-
 </body>
 
 </html>
