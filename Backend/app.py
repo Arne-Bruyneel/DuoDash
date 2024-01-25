@@ -92,13 +92,20 @@ def results():
 def initial_connection():
     print("A new client connected")
 
-
+@socketio.on("FT2B_new_game")
+def new_game(json=None):
+    print("new game")
+    emit("B2FS_new_game", broadcast=True)
 
 @socketio.on("FT2B_leaderboard")
 def leaderboard(json=None):
     print("leaderboard pressed")
     emit("B2FS_leaderboard", broadcast=True)
 
+@socketio.on("FS2B_go_to_choice")
+def go_to_choice(json=None):
+    print("go to choice")
+    emit("B2FT_go_to_choice", broadcast=True)
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):

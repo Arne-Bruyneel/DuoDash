@@ -144,6 +144,11 @@ const ListenToStart = function () {
     socketio.emit('FT2B_go_to_countdown');
 }};
 
+socketio.on('B2FT_go_to_choice', function () {
+  console.log('go to choice');
+  window.location.href = 'choiceTablet.html';
+});
+
 
 
 const listenToVolgendeSpeler = function () {
@@ -248,16 +253,19 @@ const keuzeInit = function () {
   let htmlOpnieuw = document.querySelector('.js-opnieuw');
   let htmlNieuwspel = document.querySelector('.js-nieuwspel');
   htmlScorebord.addEventListener('click', function () {
+    //html aanppassen
+    document.querySelector('.c-keuzetekst').style.display = 'grid';
     console.log('scorebord');
-    socketio.emit('FT2B_show_leaderboard');
+    socketio.emit('FT2B_leaderboard');
   });
   htmlOpnieuw.addEventListener('click', function () {
     console.log('opnieuw');
-    socketio.emit('FT2B_restartGame');
+    socketio.emit('FT2B_go_to_countdown');
+    window.location.href = 'instructionTablet.html';
   });
   htmlNieuwspel.addEventListener('click', function () {
     console.log('nieuwspel');
-    socketio.emit('FT2B_newGame');
+    socketio.emit('FT2B_new_game');
     window.location.href = 'startTablet.html';
   });
 };
