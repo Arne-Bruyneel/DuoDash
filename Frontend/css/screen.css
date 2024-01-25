@@ -1149,7 +1149,7 @@ body {
 
 .c-spring{
     position: absolute;
-    top: 4rem;
+    top: 16rem;
     color: var(--color-font);
     font-size: var(--font-size-subtitelScherm);
     font-weight: var(--font-weight-subtitel);
