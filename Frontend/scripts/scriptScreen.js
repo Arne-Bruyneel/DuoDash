@@ -278,7 +278,7 @@ socketio.on('B2FS_show_map', function (JsonObject) {
   console.log('emit received map');
   map = JsonObject.data;
   console.log(map.chosenMap);
-  theMap = map.chosenMap;
+  localStorage.setItem('theMap', map.chosenMap);
   showMap(map.chosenMap);
 });
 
@@ -334,10 +334,12 @@ const raceInit = function () {
 };
 
 const resultInit = function () {
+  showMap(localStorage.getItem('theMap'));
   fetchResultData();
 };
 
 const leaderboardInit = function () {
+  showMap(localStorage.getItem('theMap'));
   fetchLeaderboardData();
 };
 
