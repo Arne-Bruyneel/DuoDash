@@ -89,6 +89,16 @@ const getRegistratie = function () {
   voornaam.value = localStorage.getItem('voornaamSpeler1');
   achternaam.value = localStorage.getItem('achternaamSpeler1');
   email.value = localStorage.getItem('emailSpeler1');
+
+  if (htmlBody.classList.contains('speler1')) {
+  let htmlReturn = document.querySelector('.js-return');
+  htmlReturn.addEventListener('click', function () {
+    console.log('return');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
+  };
+
   if(htmlBody.classList.contains('speler2')){
     showDisabledColor();
     voornaam.value = localStorage.getItem('voornaamSpeler2');
@@ -137,6 +147,19 @@ const getMap = function () {
 // #endregion
 
 // #region ***  Event Listeners - listenTo___            ***********
+
+const ListenToStart = function () {
+  if (htmlBody.classList.contains('js-startInit')) {
+    console.log('laad');
+    socketio.emit('FT2B_go_to_countdown');
+}};
+
+socketio.on('B2FT_go_to_choice', function () {
+  console.log('go to choice');
+  window.location.href = 'choiceTablet.html';
+});
+
+
 
 const listenToVolgendeSpeler = function () {
   if (htmlBody.classList.contains('speler1')) {
@@ -202,10 +225,22 @@ const spelerInit = function () {
   fietserWit.style.display = 'none';
 
   getRegistratie();
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
 };
 
 const mapInit = function () {
   console.log('map');
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
   getMap();
 };
 
@@ -215,11 +250,11 @@ const startInit = function () {
   let htmlTrophy = document.querySelector('.js-trophy');
   htmlTrophy.addEventListener('click', function () {
     console.log('trophy');
-    socketio.emit('FT2B_show_leaderboard');
+    socketio.emit('FT2B_leaderboard');
   });
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    // socketio.emit('FT2B_show_player_setup');
+    socketio.emit('FT2B_go_to_countdown');
     window.location.href = 'playerOneTablet.html';
   });
 };
@@ -232,6 +267,12 @@ const uitlegInit = function () {
     socketio.emit('FT2B_start_countdown');
     window.location.href = 'instructionTablet.html';
   });
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    // console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
 };
 
 const keuzeInit = function () {
@@ -240,16 +281,19 @@ const keuzeInit = function () {
   let htmlOpnieuw = document.querySelector('.js-opnieuw');
   let htmlNieuwspel = document.querySelector('.js-nieuwspel');
   htmlScorebord.addEventListener('click', function () {
+    //html aanppassen
+    document.querySelector('.c-keuzetekst').style.display = 'grid';
     console.log('scorebord');
-    socketio.emit('FT2B_show_leaderboard');
+    socketio.emit('FT2B_leaderboard');
   });
   htmlOpnieuw.addEventListener('click', function () {
     console.log('opnieuw');
-    socketio.emit('FT2B_restartGame');
+    socketio.emit('FT2B_go_to_countdown');
+    window.location.href = 'instructionTablet.html';
   });
   htmlNieuwspel.addEventListener('click', function () {
     console.log('nieuwspel');
-    socketio.emit('FT2B_newGame');
+    socketio.emit('FT2B_new_game');
     window.location.href = 'startTablet.html';
   });
 };

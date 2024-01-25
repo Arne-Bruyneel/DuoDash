@@ -85,21 +85,27 @@ def results():
         return jsonify({"error": "Method not allowed"}), 405
 
 
+
+
 # Socket IO Events
 @socketio.on("connect")
 def initial_connection():
     print("A new client connected")
 
+@socketio.on("FT2B_new_game")
+def new_game(json=None):
+    print("new game")
+    emit("B2FS_new_game", broadcast=True)
 
-##test
-@socketio.on("test_getresults")
-def get_results(json=None):
-    print("socket_showresults")
-    emit("B2FS_show_result", {"data": combined_data}, broadcast=True)
+@socketio.on("FT2B_leaderboard")
+def leaderboard(json=None):
+    print("leaderboard pressed")
+    emit("B2FS_leaderboard", broadcast=True)
 
-
-# test
-
+@socketio.on("FS2B_go_to_choice")
+def go_to_choice(json=None):
+    print("go to choice")
+    emit("B2FT_go_to_choice", broadcast=True)
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
@@ -110,6 +116,10 @@ def start_countdown(json=None):
 @socketio.on("FT2B_show_map")
 def show_map(jsonObject):
     emit("B2FS_show_map", {"data": jsonObject}, broadcast=True)
+
+@socketio.on("FT2B_go_to_countdown")
+def go_to_countdown(json=None):
+    emit("B2FS_go_to_countdown", broadcast=True)
 
 
 @socketio.on("FT2B_show_player1_setup")
