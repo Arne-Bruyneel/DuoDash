@@ -1313,14 +1313,14 @@ svg {
 
 
 .c-beweegKader__links{
-    animation: beweegLinks 2s ease-in-out;
+    animation: beweegLinks 2s ease-in-out forwards;
 }
 @keyframes beweegLinks{
     from {transform: translateX(  0%);}
     to {top: 2rem; left: -6.5rem; z-index: -1;}
 }
 .c-beweegKader__rechts{
-    animation: beweegRechts 2s ease-in-out;
+    animation: beweegRechts 2s ease-in-out forwards;
 }
 @keyframes beweegRechts{
     from {transform: translateX(  0%);}
@@ -1388,12 +1388,12 @@ svg {
 
 .c-kaderSpeler--een{
     left: 15rem;
-    /* display: none; */
+    display: none;
 }
 
 .c-kaderSpeler--twee{
     left: calc(100vw - 24.75rem);
-    /* display: none; */
+    display: none;
 }
 
 .c-rondje--klein{
