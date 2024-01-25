@@ -278,6 +278,7 @@ socketio.on('B2FS_show_map', function (JsonObject) {
   console.log('emit received map');
   map = JsonObject.data;
   console.log(map.chosenMap);
+  theMap = map.chosenMap;
   showMap(map.chosenMap);
 });
 
