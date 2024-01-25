@@ -101,6 +101,10 @@ def start_countdown(json=None):
 def show_map(jsonObject):
     emit("B2FS_show_map", {"data": jsonObject}, broadcast=True)
 
+@socketio.on("FT2B_go_to_countdown")
+def go_to_countdown(json=None):
+    emit("B2FS_go_to_countdown", broadcast=True)
+
 
 @socketio.on("FT2B_show_player1_setup")
 def show_player1(jsonObject):

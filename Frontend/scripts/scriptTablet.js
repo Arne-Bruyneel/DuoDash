@@ -138,6 +138,14 @@ const getMap = function () {
 
 // #region ***  Event Listeners - listenTo___            ***********
 
+const ListenToStart = function () {
+  if (htmlBody.classList.contains('js-startInit')) {
+    console.log('laad');
+    socketio.emit('FT2B_go_to_countdown');
+}};
+
+
+
 const listenToVolgendeSpeler = function () {
   if (htmlBody.classList.contains('speler1')) {
     console.log('speler1');
@@ -219,7 +227,7 @@ const startInit = function () {
   });
   htmlStart.addEventListener('click', function () {
     console.log('start');
-    // socketio.emit('FT2B_show_player_setup');
+    socketio.emit('FT2B_go_to_countdown');
     window.location.href = 'playerOneTablet.html';
   });
 };

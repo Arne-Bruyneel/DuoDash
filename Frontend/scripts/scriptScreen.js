@@ -84,7 +84,7 @@ const showMap = function (map) {
 };
 
 const showCountdown = function () {
-  document.querySelector('.js-countdown').style.display = 'block';
+  document.querySelector('.js-countdown').style.display = 'grid';
 };
 
 const showResult = function (result, winnaar) {
@@ -222,13 +222,16 @@ const getResult = function (data) {
 
 // #region ***  Event Listeners - listenTo___            ***********
 
-
+socketio.on("B2FS_go_to_countdown", function () {
+  console.log("go to countdown");
+  window.location.href = "countdownScreen.html";
+});
 
 socketio.on('B2FS_show_player1_setup', function (JsonObject) {
   console.log('show player 1 setup');
   data = JsonObject.data;
   console.log(data);
-  window.location.href = 'countdownScreen.html';
+  // window.location.href = 'countdownScreen.html'; 
   getPlayer1Setup(data.speler1Json);
 });
 
@@ -250,7 +253,8 @@ socketio.on('B2FS_show_map', function (JsonObject) {
 
 socketio.on('B2FS_start_countdown', function () {
   console.log('start game');
-  window.location.href = 'raceScreen.html';
+  // window.location.href = 'raceScreen.html';
+  //deze moet linken naar pagina die countdown laat zien
   showCountdown();
 });
 
