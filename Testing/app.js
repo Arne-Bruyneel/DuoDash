@@ -99,7 +99,7 @@ const listenSubmitPress = function () {
 const listenStartPress = function () {
   console.log('start press')
 
-  socketio.emit("F2B_start_game");
+  socketio.emit("FS2B_start_game");
 };
 
 const listenInstantConnectPress = function () {
@@ -147,15 +147,15 @@ const listenToSocket = function () {
   });
 
 
-  socketio.on('B2F_data', function (jsonObject) {
-    console.log('data ontvangen');
+  // socketio.on('B2F_data', function (jsonObject) {
+  //   console.log('data ontvangen');
 
-    for (const device of jsonObject) {
+  //   for (const device of jsonObject) {
 
-      console.log(device["side"] + ' s:' + device["data"]["speed"] + ' p:' + device["data"]["power"])
-    }
+  //     console.log(device["side"] + ' s:' + device["data"]["speed"] + ' p:' + device["data"]["power"])
+  //   }
 
-  });
+  // });
 };
 //#endregion
 

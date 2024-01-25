@@ -56,25 +56,25 @@ const showDisabledColor = function () {
   let selectedColor = localStorage.getItem('kleurSpeler1');
   if (selectedColor == 'rood') {
     document.querySelector('#radio-rood').disabled = true;
-    document.querySelector('.c-kruisje--rood').style.display = 'block';
+    document.querySelector('.c-keuzeRood').style.display = 'none';
     fietserRood.style.display = 'none';
     fietserBlauw.style.display = 'block';
     document.querySelector('#radio-blauw').checked = true;
   } else if (selectedColor == 'blauw') {
     document.querySelector('#radio-blauw').disabled = true;
-    document.querySelector('.c-kruisje--blauw').style.display = 'block';
+    document.querySelector('.c-keuzeBlauw').style.display = 'none';
   } else if (selectedColor == 'geel') {
     document.querySelector('#radio-geel').disabled = true;
-    document.querySelector('.c-kruisje--geel').style.display = 'block';
+    document.querySelector('.c-keuzeGeel').style.display = 'none';
   } else if (selectedColor == 'groen') {
     document.querySelector('#radio-groen').disabled = true;
-    document.querySelector('.c-kruisje--groen').style.display = 'block';
+    document.querySelector('.c-keuzeGroen').style.display = 'none';
   } else if (selectedColor == 'paars') {
     document.querySelector('#radio-paars').disabled = true;
-    document.querySelector('.c-kruisje--paars').style.display = 'block';
+    document.querySelector('.c-keuzePaars').style.display = 'none';
   } else if (selectedColor == 'wit') {
     document.querySelector('#radio-wit').disabled = true;
-    document.querySelector('.c-kruisje--wit').style.display = 'block';
+    document.querySelector('.c-keuzeWit').style.display = 'none';
   }
 };
 
