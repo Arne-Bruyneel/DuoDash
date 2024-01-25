@@ -86,7 +86,7 @@ const showMap = function (map) {
 const showCountdown = function () {
   document.querySelector('.js-kader1').style.animation = 'beweegLinks 2s  linear'
   document.querySelector('.js-kader2').style.animation = 'beweegRechts 2s  linear'
-  document.querySelector('.js-countdown').style.display = 'block';
+  document.querySelector('.js-countdown').style.display = 'grid';
 };
 
 const showResult = function (result, winnaar) {
