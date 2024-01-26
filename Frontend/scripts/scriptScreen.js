@@ -446,7 +446,12 @@ const laadInit = function () {};
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
-  document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
+  if (map !== ''){
+    console.log('map is empty');
+    document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/Palmbomen.svg)`;
+  }else{
+    document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
+  }
 };
 
 const raceInit = function () {
@@ -460,8 +465,9 @@ const raceInit = function () {
     false
   );
   let map = localStorage.getItem('theMap');
-  let htmlImg = document.querySelector('.js-move');
-  htmlImg.src = `../../img/Achtergronden/Moving/${map}Twee.svg`;
+  let htmlImg = document.querySelector('.c-background__url');
+  htmlImg.style.background = `url(../../img/Achtergronden/Moving/${map}Twee.svg)`;
+  htmlImg.style.backgroundSize = 'auto 100%';
   let htmlNaam1 = document.querySelector('.js-naam1');
   let htmlNaam2 = document.querySelector('.js-naam2');
   let avatar1 = document.querySelector('.js-avatar1');
