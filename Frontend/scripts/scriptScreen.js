@@ -108,6 +108,7 @@ const showCountdown = function () {
     19,
     () => {
       console.log('Countdown finished!');
+      socketio.emit('FS2B_start_game');
       window.location.href = 'raceScreen.html';
     },
     true
@@ -156,8 +157,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-                          'kleur1'
-                        )}.png" alt="Rood">
+    'kleur1'
+  )}.png" alt="Rood">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -165,23 +166,20 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[0].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${
-                                  result[0].snelheid
-                                } km/u</div>
+                                <div class="c-klasseSnelheid">${result[0].snelheid
+    } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
-                                  result[0].afstand
-                                } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[0].afstand
+    } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${
-                                  result[0].wattage
-                                } W</div>
+                                <div class="c-klasseWatt">${result[0].wattage
+    } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -202,8 +200,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-                          'kleur2'
-                        )}.png" alt="Blauw">
+    'kleur2'
+  )}.png" alt="Blauw">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -211,23 +209,20 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[1].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${
-                                  result[1].snelheid
-                                } km/u</div>
+                                <div class="c-klasseSnelheid">${result[1].snelheid
+    } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
-                                  result[1].afstand
-                                } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[1].afstand
+    } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${
-                                  result[1].wattage
-                                } W</div>
+                                <div class="c-klasseWatt">${result[1].wattage
+    } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -441,7 +436,7 @@ function fetchResultData() {
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
-const laadInit = function () {};
+const laadInit = function () { };
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');

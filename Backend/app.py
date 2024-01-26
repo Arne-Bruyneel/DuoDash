@@ -206,6 +206,17 @@ def startgame(json=None):
 
         emit("B2F_data", data_list, broadcast=True)
 
+        if data_list[0]["side"] == "left":
+            player1_speeds.append(data_list[0]["data"]["speed"])
+            player1_power.append(data_list[0]["data"]["power"])
+            player2_speeds.append(data_list[1]["data"]["speed"])
+            player2_power.append(data_list[1]["data"]["power"])
+        else:
+            player1_speeds.append(data_list[1]["data"]["speed"])
+            player1_power.append(data_list[1]["data"]["power"])
+            player2_speeds.append(data_list[0]["data"]["speed"])
+            player2_power.append(data_list[0]["data"]["power"])
+
         socketio.sleep(0.1)
         countdown -= 1
 
@@ -213,25 +224,33 @@ def startgame(json=None):
     device_data.clear()
     print("cleared")
 
-    # p1_top_speed = max(player1_speeds)
-    # p1_dist = get_average(player1_speeds) * 15
-    # p1_avg_power = get_average(player1_power)
+    p1_top_speed = max(player1_speeds)
+    p1_dist = (get_average(player1_speeds) * (1000/3600)) * 15
+    p1_avg_power = get_average(player1_power)
 
-    # p2_top_speed = max(player2_speeds)
-    # p2_dist = get_average(player2_speeds) * 15
-    # p2_avg_power = get_average(player2_power)
+    print(p1_top_speed)
+    print(p1_dist)
+    print(p1_avg_power)
 
-    # combined_data["metingen"][0]["maxSnelheid"] = p1_top_speed
-    # combined_data["metingen"][0]["afstand"] = p1_dist
-    # combined_data["metingen"][0]["gemVermogen"] = p1_avg_power
+    p2_top_speed = max(player2_speeds)
+    p2_dist =  (get_average(player2_speeds) * (1000/3600)) * 15
+    p2_avg_power = get_average(player2_power)
 
-    # combined_data["metingen"][1]["maxSnelheid"] = p2_top_speed
-    # combined_data["metingen"][1]["afstand"] = p2_dist
-    # combined_data["metingen"][1]["gemVermogen"] = p2_avg_power
+    print(p2_top_speed)
+    print(p2_dist)
+    print(p2_avg_power)
 
-    # db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor)
+    combined_data["metingen"][0]["maxSnelheid"] = round(p1_top_speed, 2)
+    combined_data["metingen"][0]["afstand"] = round(p1_dist, 2)
+    combined_data["metingen"][0]["gemVermogen"] = round(p1_avg_power, 2)
 
-    # print("saved db")
+    combined_data["metingen"][1]["maxSnelheid"] = round(p2_top_speed, 2)
+    combined_data["metingen"][1]["afstand"] = round(p2_dist, 2)
+    combined_data["metingen"][1]["gemVermogen"] = round(p2_avg_power, 2)
+
+    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
+
+    print("saved db")
 
 
 async def scan_for_ble_devices():
