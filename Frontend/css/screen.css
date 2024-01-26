@@ -1412,13 +1412,13 @@ svg {
 }
 
 .c-spelerMaken--een{
-    display: none;
+    /* display: none; */
 }
 
 .c-spelerMaken--twee{
     top: 8rem;
     left: calc(100vw - 33rem);
-    display: none;
+    /* display: none; */
 }
 
 .c-kaderSpeler{
