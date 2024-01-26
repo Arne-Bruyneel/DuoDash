@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var frameAccumulator2 = 0; // Accumulator for the second bike's animation
 
 
-    var animationSpeed1 = 0.1; // Speed of animation for the first bike
-    var animationSpeed2 = 0.1; // Speed of animation for the second bike
+    var animationSpeed1 = 0.0; // Speed of animation for the first bike
+    var animationSpeed2 = 0.0; // Speed of animation for the second bike
 
 
     const lanIP = `${window.location.hostname}:5000`;
@@ -25,21 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-     // Image properties
-     const imgWidth = 8316 / 30 / 1.6; // Width of one frame of the sprite
-     const imgHeight = 261 / 1.6; // Height of the sprite
-     const yPos = canvas.height - imgHeight; // Position at the bottom with some margin
-     let currentX1 = 0; // Current X position of the first image
-     let targetX1 = 0; // Target X position for the first image
-     let currentX2 = 0; // Current X position of the second image
-     let targetX2 = 0; // Target X position for the second image
- 
-     // Load images
-     const bike1Image = new Image();
-     bike1Image.src = 'images/blauw.png'; // Replace with your image path
-     const bike2Image = new Image();
-     bike2Image.src = 'images/groen.png'; // Replace with your image path
- 
+    // Image properties
+    const imgWidth = 8316 / 30 / 1.6; // Width of one frame of the sprite
+    const imgHeight = 261 / 1.6; // Height of the sprite
+    const yPos = canvas.height - imgHeight; // Position at the bottom with some margin
+    let currentX1 = 0; // Current X position of the first image
+    let targetX1 = 0; // Target X position for the first image
+    let currentX2 = 0; // Current X position of the second image
+    let targetX2 = 0; // Target X position for the second image
+
+    // Load images
+    const bike1Image = new Image();
+    bike1Image.src = 'images/blauw.png'; // Replace with your image path
+    const bike2Image = new Image();
+    bike2Image.src = 'images/groen.png'; // Replace with your image path
+
     // Function to check overlap
     function isOverlapping(x1, x2, width) {
         return Math.abs(x1 - x2) < width;
@@ -48,22 +48,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to draw the rectangles
     function drawRectangles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    
+
         // Check if images are overlapping
         const overlapping = isOverlapping(currentX1, currentX2, imgWidth);
-    
+
         // Draw first bike animation frame
         ctx.globalAlpha = overlapping && currentX1 > currentX2 ? 0.5 : 1;
         ctx.drawImage(bike1Image, spriteFrameWidth * currentFrame1, 0, spriteFrameWidth, spriteFrameHeight, currentX1, yPos, imgWidth, imgHeight);
-    
+
         // Draw second bike animation frame
         ctx.globalAlpha = overlapping && currentX2 > currentX1 ? 0.5 : 1;
         ctx.drawImage(bike2Image, spriteFrameWidth * currentFrame2, 0, spriteFrameWidth, spriteFrameHeight, currentX2, yPos, imgWidth, imgHeight);
-    
+
         // Reset globalAlpha to default
         ctx.globalAlpha = 1;
     }
-    
+
 
     // Animation function
     function animate() {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentFrame1 = (currentFrame1 + 1) % 30;
             frameAccumulator1 -= 1; // Reset the accumulator
         }
-    
+
         frameAccumulator2 += animationSpeed2;
         if (frameAccumulator2 >= 1) {
             currentFrame2 = (currentFrame2 + 1) % 30;
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animationSpeed2 = adjustedSpeed;
         }
     }
-    
+
 
     // Initially draw the rectangles
     drawRectangles();
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socketio.on('connect', function (jsonObject) {
         console.info('verbonden met de server');
     });
-   
+
 
     socketio.on('B2F_data', function (jsonObject) {
 
@@ -148,13 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (device["side"] == 'left') {
                 left.innerHTML = device["data"]["speed"] + " km/u";
                 moveRectangle(1, device["data"]["speed"]);
-                setAnimationSpeed(2, device["data"]["speed"] / 100); 
+                setAnimationSpeed(1, device["data"]["speed"] / 120);
             } else {
                 right.innerHTML = device["data"]["speed"] + " km/u";
                 moveRectangle(2, device["data"]["speed"]);
-                setAnimationSpeed(2, device["data"]["speed"] / 100); 
+                setAnimationSpeed(2, device["data"]["speed"] / 120);
 
-            }   
+            }
         }
     });
 
