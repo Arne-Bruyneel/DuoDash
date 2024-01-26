@@ -110,6 +110,7 @@ const showCountdown = function () {
       console.log('Countdown finished!');
       socketio.emit('FS2B_start_game');
       window.location.href = 'raceScreen.html';
+      conso
     },
     true
   );
@@ -440,7 +441,12 @@ const laadInit = function () { };
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
-  document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
+  if (map !== ''){
+    console.log('map is empty');
+    document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/Palmbomen.svg)`;
+  }else{
+    document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
+  }
 };
 
 const raceInit = function () {
