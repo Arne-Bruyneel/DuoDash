@@ -394,6 +394,7 @@ socketio.on('B2FS_show_player1_setup', function (JsonObject) {
 });
 
 socketio.on('B2FS_new_game', function () {
+  localStorage.clear();
   window.location.href = 'startScreen.html';
 });
 
