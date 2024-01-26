@@ -85,8 +85,6 @@ def results():
         return jsonify({"error": "Method not allowed"}), 405
 
 
-
-
 # Socket IO Events
 @socketio.on("connect")
 def initial_connection():
