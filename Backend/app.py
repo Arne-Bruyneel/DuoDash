@@ -220,8 +220,8 @@ def startgame(jsonObject):
         },
         {
             "id": 2,
-            "achternaam": jsonObject["spelers"][1]["email"],
-            "voornaam": jsonObject["spelers"][1]["email"],
+            "achternaam": jsonObject["spelers"][1]["achternaam"],
+            "voornaam": jsonObject["spelers"][1]["voornaam"],
             "email": jsonObject["spelers"][1]["email"],
             "winnaar": False,
         },
