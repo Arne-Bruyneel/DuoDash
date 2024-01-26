@@ -68,6 +68,8 @@ const showPlayer1Setup = function (player1) {
   document.querySelector('.js-kader1').style.display = 'flex';
   localStorage.setItem('voornaam1', player1.voornaam);
   localStorage.setItem('kleur1', player1.kleur);
+  localStorage.setItem('emailSpeler1', player1.email)
+  localStorage.setItem('achternaamSpeler1', player1.achternaam)
   document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
   document.querySelector(
     '.js-avatar1'
@@ -80,6 +82,8 @@ const showPlayer2Setup = function (player2) {
   document.querySelector('.js-kader2').style.display = 'flex';
   localStorage.setItem('voornaam2', player2.voornaam);
   localStorage.setItem('kleur2', player2.kleur);
+  localStorage.setItem('emailSpeler2', player2.email)
+  localStorage.setItem('achternaamSpeler2', player2.achternaam)
   document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
   document.querySelector(
     '.js-avatar2'
