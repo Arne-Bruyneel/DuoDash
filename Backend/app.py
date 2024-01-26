@@ -56,6 +56,7 @@ def leaderboard():
 def results():
     if request.method == "GET":
         try:
+            print("API")
             return combined_data
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -138,7 +139,7 @@ def start_bluetooth_scan():
 
 @socketio.on("F2B_connect")
 def handle_connect(jsonObject):
-    global device_left
+    global device_left 
     print("F2B_connect")
     device_address1 = jsonObject["devices"][0]
     device_address2 = jsonObject["devices"][1]
@@ -165,6 +166,7 @@ def startgame(jsonObject):
     print("game started")
 
     global device_left
+    global combined_data
 
     player1_speeds = []
     player2_speeds = []
@@ -197,25 +199,15 @@ def startgame(jsonObject):
         socketio.sleep(0.1)
         countdown -= 1
 
-    print("done")
     device_data.clear()
-    print("cleared")
 
     p1_top_speed = max(player1_speeds)
     p1_dist = (get_average(player1_speeds) * (1000/3600)) * 15
     p1_avg_power = get_average(player1_power)
 
-    print(p1_top_speed)
-    print(p1_dist)
-    print(p1_avg_power)
-
     p2_top_speed = max(player2_speeds)
     p2_dist =  (get_average(player2_speeds) * (1000/3600)) * 15
     p2_avg_power = get_average(player2_power)
-
-    print(p2_top_speed)
-    print(p2_dist)
-    print(p2_avg_power)
 
     combined_data = {
     "spelers": [
@@ -244,12 +236,6 @@ def startgame(jsonObject):
         combined_data["spelers"][0]["winnaar"] = True
     else:
         combined_data["spelers"][1]["winnaar"] = True
-
-    print(jsonObject)
-
-    print('FUCKING HOER')
-
-    print(combined_data)
 
     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
 
