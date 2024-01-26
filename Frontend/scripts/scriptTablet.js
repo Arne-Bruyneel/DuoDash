@@ -90,6 +90,14 @@ const getRegistratie = function () {
   achternaam.value = localStorage.getItem('achternaamSpeler1');
   email.value = localStorage.getItem('emailSpeler1');
 
+  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+    console.log('solo');
+    let titel = document.querySelector('.js-titel');
+    titel.innerHTML = 'Speler';
+    let form = document.querySelector('.js-form');
+    form.action = 'mapTablet.html'
+  }
+
   if (htmlBody.classList.contains('speler1')) {
   let htmlReturn = document.querySelector('.js-return');
   htmlReturn.addEventListener('click', function () {
@@ -145,6 +153,29 @@ const getMap = function () {
   htmlVolgende.addEventListener('click', function () {
     console.log(chosenMap);
     window.location.href = 'speluitlegTablet.html';
+  });
+};
+
+const getSpelvorm = function () {
+  const spelvormen = document.querySelectorAll('.js-vorm');
+  let htmlVolgende = document.querySelector('.js-volgende');
+  let chosenSpelvorm = 'solo';
+  localStorage.setItem('chosenSpelvorm', chosenSpelvorm);
+  spelvormen.forEach((spelvorm) => {
+    spelvorm.addEventListener('click', function () {
+      if (spelvorm.id == 'radio-solo') {
+        chosenSpelvorm = 'solo';
+      } else if (spelvorm.id == 'radio-duo') {
+        chosenSpelvorm = 'duo';
+      }
+      localStorage.setItem('chosenSpelvorm', chosenSpelvorm);
+      console.log("emitted for spelvorm: " + chosenSpelvorm);
+    });
+  });
+
+  htmlVolgende.addEventListener('click', function () {
+    console.log(chosenSpelvorm);
+    window.location.href = 'playerOneTablet.html';
   });
 };
 // #endregion
@@ -258,8 +289,19 @@ const startInit = function () {
   htmlStart.addEventListener('click', function () {
     console.log('start');
     socketio.emit('FT2B_go_to_countdown');
-    window.location.href = 'playerOneTablet.html';
+    window.location.href = 'spelvormTablet.html';
   });
+};
+
+const spelvormInit = function () {
+  console.log('spelvorm');
+  let htmlHome = document.querySelector('.js-home');
+  htmlHome.addEventListener('click', function () {
+    console.log('home');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
+  });
+  getSpelvorm();
 };
 
 const uitlegInit = function () {
@@ -315,6 +357,8 @@ document.addEventListener('DOMContentLoaded', function () {
     uitlegInit();
   } else if (htmlBody.classList.contains('js-keuzeInit')){
     keuzeInit();
+  } else if(htmlBody.classList.contains('js-spelvormInit')){
+    spelvormInit();
   }
 });
 

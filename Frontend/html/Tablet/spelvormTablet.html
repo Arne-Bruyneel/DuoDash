@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spelvorm</title>
     <link rel="stylesheet" href="../../css/screen.css">
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
+    <script src="../../scripts/scriptTablet.js" defer></script>
 </head>
 
-<body class="c-bodytablet c-bodytablet--map">
+<body class="c-bodytablet c-bodytablet--map js-spelvormInit">
     <header class="c-headertablet">
         <a href="startTablet.html"><img src="../../img/Icons/pijltje.svg" alt="pijltje" height="32px"></a>
         <img src="../../img/Icons/bolletjesEen.svg" alt="Pagina 1">
@@ -25,7 +27,7 @@
                     <img class="c-vorm__fiets" src="../../img/Icons/warm.svg" alt="Fiets">
                 </div>
 
-                <input class="c-mapradio" type="radio" id="radio-solo" name="radio" checked="checked">
+                <input class="c-mapradio js-vorm" type="radio" id="radio-solo" name="radio" checked="checked">
                 <span class="c-mapspan">Solo</span>
             </label>
 
@@ -35,7 +37,7 @@
                     <img class="c-vorm__fiets" src="../../img/Icons/warm.svg" alt="Fiets">
                 </div>
 
-                <input class="c-mapradio" type="radio" id="radio-duo" name="radio">
+                <input class="c-mapradio js-vorm" type="radio" id="radio-duo" name="radio">
                 <span class="c-mapspan">Duo</span>
             </label>
 
