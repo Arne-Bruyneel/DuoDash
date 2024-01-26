@@ -109,6 +109,33 @@ const showCountdown = function () {
   });
 };
 
+const showCountdownPlayagain = function () {
+  voornaamSpeler1 = localStorage.getItem('voornaam1');
+  kleurSpeler1 = localStorage.getItem('kleur1');
+  voornaamSpeler2 = localStorage.getItem('voornaam2');
+  kleurSpeler2 = localStorage.getItem('kleur2');
+
+  document.querySelector('.js-speler1nk').style.display = 'none';
+  document.querySelector('.js-speler1k').style.display = 'block';
+  document.querySelector('.js-kader1').style.display = 'flex';
+
+  document.querySelector('.js-speler2nk').style.display = 'none';
+  document.querySelector('.js-speler2k').style.display = 'block';
+  document.querySelector('.js-kader2').style.display = 'flex';
+
+
+  document.querySelector('.js-speler1naam').innerHTML = voornaamSpeler1;
+  document.querySelector(
+    '.js-avatar1'
+  ).src = `../../img/fietser1_${kleurSpeler1}.png`;
+  document.querySelector('.js-speler2naam').innerHTML = voornaamSpeler2;
+  document.querySelector(
+    '.js-avatar2'
+  ).src = `../../img/fietser1_${kleurSpeler2}.png`;
+  
+  showCountdown();
+};
+
 const showResult = function (result, winnaar) {
   let winnaarLinks = document.querySelector('.js-winnaarLinks');
   let winnaarRechts = document.querySelector('.js-winnaarRechts');
@@ -218,7 +245,6 @@ const showWinnaar = function (result, winnaar) {
 // #region ***  Callback-No Visualisation - callback___  ***********
 
 function startCountdown(duration, callback) {
-  htmlAnimation = document.querySelector('.js-animation');
   let timeLeft = duration;
   let timerId = setInterval(() => {
     if (timeLeft > 0) {
@@ -362,7 +388,22 @@ function fetchResultData() {
 
 const laadInit = function () {};
 
-const countdownInit = function () {};
+const countdownInit = function () {
+  // // Check if player data is available in localStorage
+  // const player1Name = localStorage.getItem('voornaamSpeler1');
+  // const player2Name = localStorage.getItem('voornaamSpeler2');
+
+  // if (player1Name != null && player2Name != null) {
+  //   // If player data is available, start the countdown
+  //   showCountdownPlayagain();
+  // } else {
+  //   // Redirect to start screen or handle the case where player data is not available
+  //   // For example, redirect to the start screen:
+  //   showCountdown();
+  // }
+  
+  // showCountdown();
+};
 
 const raceInit = function () {
   console.info('race init');
