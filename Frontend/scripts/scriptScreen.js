@@ -116,32 +116,6 @@ const showCountdown = function () {
 };
 
 const showCountdownPlayagain = function () {
-  voornaamSpeler1 = localStorage.getItem('voornaam1');
-  kleurSpeler1 = localStorage.getItem('kleur1');
-  voornaamSpeler2 = localStorage.getItem('voornaam2');
-  kleurSpeler2 = localStorage.getItem('kleur2');
-  let map = localStorage.getItem('theMap');
-  document.querySelector(
-    '.js-background'
-  ).style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
-
-  document.querySelector('.js-speler1nk').style.display = 'none';
-  document.querySelector('.js-speler1k').style.display = 'block';
-  document.querySelector('.js-kader1').style.display = 'flex';
-
-  document.querySelector('.js-speler2nk').style.display = 'none';
-  document.querySelector('.js-speler2k').style.display = 'block';
-  document.querySelector('.js-kader2').style.display = 'flex';
-
-  document.querySelector('.js-speler1naam').innerHTML = voornaamSpeler1;
-  document.querySelector(
-    '.js-avatar1'
-  ).src = `../../img/fietser1_${kleurSpeler1}.png`;
-  document.querySelector('.js-speler2naam').innerHTML = voornaamSpeler2;
-  document.querySelector(
-    '.js-avatar2'
-  ).src = `../../img/fietser1_${kleurSpeler2}.png`;
-
   showCountdown();
 };
 
