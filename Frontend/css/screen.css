@@ -138,6 +138,42 @@ h1{
 }
 
 
+/*-------------------SPELVORM--------------------*/
+
+.c-kiesvorm{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 8rem;
+    padding-bottom: 4rem;
+}
+
+.c-vorm{
+    border-radius: 1rem;
+    height: 15rem;
+}
+
+.c-vorm__achtergrond{
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 16.25rem;
+    height: 12.5rem;
+    border-radius: 1rem 1rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.c-vorm__fiets{
+    height: 6rem;
+}
+
+.c-vorm:has(> .c-mapradio:checked){
+    outline: 4px solid var(--color-font);
+}
+
+
 /*-------------------SPELER-INPUT-----------------------*/
 
 .c-headertablet{
