@@ -203,14 +203,14 @@ const showWinnaar = function (result, winnaar) {
   } else if (result[1].id === winnaar[0].id) {
     medailleLinks.style.display = 'none';
   }
-  // let canvas = document.getElementById('#custom_canvas');
-  // const jsConfetti = new JSConfetti({ canvas });
-  // setTimeout(() => {
-  //   jsConfetti.addConfetti({
-  //     confettiRadius: 8,
-  //     confettiNumber: 500,
-  //   });
-  // }, 500);
+  let canvas = document.getElementById('#custom_canvas');
+  const jsConfetti = new JSConfetti({ canvas });
+  setTimeout(() => {
+    jsConfetti.addConfetti({
+      confettiRadius: 8,
+      confettiNumber: 500,
+    });
+  }, 500);
 };
 
 // #endregion

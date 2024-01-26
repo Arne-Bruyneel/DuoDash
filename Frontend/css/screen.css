@@ -1017,6 +1017,10 @@ body {
 
 /*--------------------WINNAAR---------------------*/
 
+#custom_canvas{
+    width: 100%;
+}
+
 .c-winnaar{
     display: flex;
     flex-direction: row;
