@@ -46,7 +46,7 @@ const showLeaderboard = function (leads) {
     return rank === 10 ? 'c-klasseBegin c-klasseBegin--tien' : 'c-klasseBegin';
   };
   let htmlStringRechts = '';
-  leads.slice(7, 11).forEach((lead, index) => {
+  leads.slice(7, 10).forEach((lead, index) => {
     const rankClass = getRankClass(index + 8);
     htmlStringRechts += `<div class="c-klasse">
       <div class="${rankClass}">
