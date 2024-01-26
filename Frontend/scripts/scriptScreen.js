@@ -357,11 +357,23 @@ socketio.on('B2FS_show_map', function (JsonObject) {
   showMap(map.chosenMap);
 });
 
+
 socketio.on('B2FS_start_countdown', function () {
   console.log('start game');
   // window.location.href = 'raceScreen.html';
   //deze moet linken naar pagina die countdown laat zien
-  showCountdown();
+
+  const player1Name = localStorage.getItem('voornaamSpeler1');
+  const player2Name = localStorage.getItem('voornaamSpeler2');
+  console.log('player1: ',player1Name);
+  console.log('Player2: ',player2Name);
+
+  if (player1Name && player2Name) {
+    // window.location.href = 'countdownScreen.html';
+    showCountdownPlayagain();
+  } else {
+    showCountdown();
+  };
 });
 
 socketio.on('connect', function () {
@@ -389,20 +401,6 @@ function fetchResultData() {
 const laadInit = function () {};
 
 const countdownInit = function () {
-  // // Check if player data is available in localStorage
-  // const player1Name = localStorage.getItem('voornaamSpeler1');
-  // const player2Name = localStorage.getItem('voornaamSpeler2');
-
-  // if (player1Name != null && player2Name != null) {
-  //   // If player data is available, start the countdown
-  //   showCountdownPlayagain();
-  // } else {
-  //   // Redirect to start screen or handle the case where player data is not available
-  //   // For example, redirect to the start screen:
-  //   showCountdown();
-  // }
-  
-  // showCountdown();
 };
 
 const raceInit = function () {

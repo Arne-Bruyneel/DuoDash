@@ -97,6 +97,11 @@ def new_game(json=None):
     print("new game")
     emit("B2FS_new_game", broadcast=True)
 
+@socketio.on("FT2B_go_to_instructions")
+def go_to_instructions(json=None):
+    print("go to instructions")
+    emit("B2FS_go_to_instructions", broadcast=True)
+
 @socketio.on("FT2B_leaderboard")
 def leaderboard(json=None):
     print("leaderboard pressed")

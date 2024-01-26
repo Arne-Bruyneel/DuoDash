@@ -292,7 +292,7 @@ const keuzeInit = function () {
   htmlOpnieuw.addEventListener('click', function () {
     console.log('opnieuw');
     socketio.emit('FT2B_go_to_countdown');
-    window.location.href = 'instructionTablet.html';
+    window.location.href = 'speluitlegTablet.html';
   });
   htmlNieuwspel.addEventListener('click', function () {
     console.log('nieuwspel');
