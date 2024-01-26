@@ -1430,7 +1430,7 @@ svg {
     top: calc(100vh/2 - 6rem);
     color: var(--color-font);
 
-    display: none;
+    /* display: none; */
 }
 
 

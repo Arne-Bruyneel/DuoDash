@@ -96,6 +96,7 @@ const showCountdown = function () {
   document.querySelector('.js-speler2k').style.display = 'none';
   document.querySelector('.js-countdown').style.display = 'grid';
   document.querySelector('.js-spring').style.display = 'block';
+  document.querySelector('.js-spring').style.display = 'block';
   // Usage
   const animationL = document.querySelector('.js-animationL');
   animationL.classList.add('c-beweegKader__links');
@@ -106,7 +107,7 @@ const showCountdown = function () {
   startCountdown(19, () => {
     console.log('Countdown finished!');
     window.location.href = 'raceScreen.html';
-  });
+  }, true);
 };
 
 const showCountdownPlayagain = function () {
@@ -244,14 +245,32 @@ const showWinnaar = function (result, winnaar) {
 
 // #region ***  Callback-No Visualisation - callback___  ***********
 
-function startCountdown(duration, callback) {
+function startCountdown(duration, callback, showFinalCountdown = false) {
   let timeLeft = duration;
+  let countdownElement = document.querySelector('.js-countdown');
+  let aftelElement = showFinalCountdown ? document.querySelector('.js-aftel') : null;
+
   let timerId = setInterval(() => {
     if (timeLeft > 0) {
       console.log(timeLeft + ' seconds remaining');
+      
+      // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
+      if (showFinalCountdown && timeLeft <= 3.5) {
+        document.querySelector('.js-spring').style.display = 'none';
+        countdownElement.style.display = 'none'; // Hide the countdown
+        aftelElement.style.display = 'flex'; // Show the countdown
+        aftelElement.textContent = timeLeft; // Update the text content with the current timeLeft
+      }
+      
       timeLeft--;
     } else {
       clearInterval(timerId);
+      
+      if (showFinalCountdown) {
+        countdownElement.style.display = 'none'; // Hide the countdown
+        aftelElement.textContent = ''; // Clear the countdown text
+      }
+      
       callback();
     }
   }, 1000); // countdown interval is 1 second
@@ -408,7 +427,7 @@ const raceInit = function () {
   startCountdown(14, () => {
     console.log('Countdown finished!');
     window.location.href = 'resultScreen.html';
-  });
+  }, false);
   let map = localStorage.getItem('theMap');
   let htmlImg = document.querySelector('.js-move');
   htmlImg.src = `../../img/Achtergronden/Moving/${map}Twee.svg`;
