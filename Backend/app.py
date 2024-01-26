@@ -22,28 +22,7 @@ characteristic_speed = "00002ad2-0000-1000-8000-00805f9b34fb"
 characteristic_power = "00002a63-0000-1000-8000-00805f9b34fb"
 device_data = {}
 
-combined_data = {
-    "spelers": [
-        {
-            "id": 1,
-            "achternaam": "Jansen",
-            "voornaam": "Jan",
-            "email": "jan.jansen@example.com",
-            "winnaar": False,
-        },
-        {
-            "id": 2,
-            "achternaam": "De Vries",
-            "voornaam": "Anna",
-            "email": "anna.devries@example.com",
-            "winnaar": True,
-        },
-    ],
-    "metingen": [
-        {"speler_id": 1, "maxSnelheid": 25.5, "afstand": 700, "gemVermogen": 200},
-        {"speler_id": 2, "maxSnelheid": 22.0, "afstand": 850, "gemVermogen": 220},
-    ],
-}
+combined_data = {}
 
 conn = get_db_connection()
 cursor = conn.cursor()
@@ -182,7 +161,7 @@ def handle_connect(jsonObject):
 
 
 @socketio.on("FS2B_start_game")
-def startgame(json=None):
+def startgame(jsonObject):
     print("game started")
 
     global device_left
@@ -238,13 +217,33 @@ def startgame(json=None):
     print(p2_dist)
     print(p2_avg_power)
 
-    combined_data["metingen"][0]["maxSnelheid"] = round(p1_top_speed, 2)
-    combined_data["metingen"][0]["afstand"] = round(p1_dist, 2)
-    combined_data["metingen"][0]["gemVermogen"] = round(p1_avg_power, 2)
+    combined_data = {
+    "spelers": [
+        {
+            "id": 1,
+            "achternaam": jsonObject["spelers"][0]["achternaam"],
+            "voornaam": jsonObject["spelers"][0]["voornaam"],
+            "email": jsonObject["spelers"][0]["email"],
+            "winnaar": False,
+        },
+        {
+            "id": 2,
+            "achternaam": jsonObject["spelers"][1]["email"],
+            "voornaam": jsonObject["spelers"][1]["email"],
+            "email": jsonObject["spelers"][1]["email"],
+            "winnaar": False,
+        },
+    ],
+    "metingen": [
+        {"speler_id": 1, "maxSnelheid": round(p1_top_speed, 2), "afstand": round(p1_dist, 2), "gemVermogen": round(p1_avg_power, 2)},
+        {"speler_id": 2, "maxSnelheid": round(p2_top_speed, 2), "afstand": round(p2_dist, 2), "gemVermogen": round(p2_avg_power, 2)},
+    ],
+    }
 
-    combined_data["metingen"][1]["maxSnelheid"] = round(p2_top_speed, 2)
-    combined_data["metingen"][1]["afstand"] = round(p2_dist, 2)
-    combined_data["metingen"][1]["gemVermogen"] = round(p2_avg_power, 2)
+    if p1_dist > p2_dist:
+        combined_data["spelers"][0]["winnaar"] = True
+    else:
+        combined_data["spelers"][1]["winnaar"] = True
 
     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
 
