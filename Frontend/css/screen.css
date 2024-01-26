@@ -789,7 +789,7 @@ input:-webkit-autofill:active{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 #gameCanvas {
@@ -970,7 +970,7 @@ body {
     height: 20rem;
     width: 100%;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     padding: 1rem 2rem;
 }
 
@@ -986,7 +986,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: 20rem;
+    height: 25rem;
     width: 100%;
 }
 
@@ -1004,6 +1004,12 @@ body {
     justify-content: space-between;
     padding: 0 2rem;
 }
+
+.c-klasse--speler{
+    background-color: rgba(255, 255, 255, 0.7);
+    /* display: none; */
+}
+
 
 .c-klasseBegin{
     display: flex;
