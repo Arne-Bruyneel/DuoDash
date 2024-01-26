@@ -104,10 +104,14 @@ const showCountdown = function () {
   const animationR = document.querySelector('.js-animationR');
   animationR.classList.add('c-beweegKader__rechts');
 
-  startCountdown(19, () => {
-    console.log('Countdown finished!');
-    window.location.href = 'raceScreen.html';
-  }, true);
+  startCountdown(
+    19,
+    () => {
+      console.log('Countdown finished!');
+      window.location.href = 'raceScreen.html';
+    },
+    true
+  );
 };
 
 const showCountdownPlayagain = function () {
@@ -115,6 +119,10 @@ const showCountdownPlayagain = function () {
   kleurSpeler1 = localStorage.getItem('kleur1');
   voornaamSpeler2 = localStorage.getItem('voornaam2');
   kleurSpeler2 = localStorage.getItem('kleur2');
+  let map = localStorage.getItem('theMap');
+  document.querySelector(
+    '.js-background'
+  ).style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
 
   document.querySelector('.js-speler1nk').style.display = 'none';
   document.querySelector('.js-speler1k').style.display = 'block';
@@ -124,7 +132,6 @@ const showCountdownPlayagain = function () {
   document.querySelector('.js-speler2k').style.display = 'block';
   document.querySelector('.js-kader2').style.display = 'flex';
 
-
   document.querySelector('.js-speler1naam').innerHTML = voornaamSpeler1;
   document.querySelector(
     '.js-avatar1'
@@ -133,7 +140,7 @@ const showCountdownPlayagain = function () {
   document.querySelector(
     '.js-avatar2'
   ).src = `../../img/fietser1_${kleurSpeler2}.png`;
-  
+
   showCountdown();
 };
 
@@ -148,7 +155,9 @@ const showResult = function (result, winnaar) {
   let htmlString1 = `
   <div class="c-boog">
                     <div class="c-rondje">
-                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem('kleur1')}.png" alt="Rood">
+                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
+                          'kleur1'
+                        )}.png" alt="Rood">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -156,17 +165,23 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[0].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${result[0].snelheid} km/u</div>
+                                <div class="c-klasseSnelheid">${
+                                  result[0].snelheid
+                                } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[0].afstand} m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
+                                  result[0].afstand
+                                } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${result[0].wattage} W</div>
+                                <div class="c-klasseWatt">${
+                                  result[0].wattage
+                                } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -186,7 +201,9 @@ const showResult = function (result, winnaar) {
   let htmlString2 = `
   <div class="c-boog">
                     <div class="c-rondje">
-                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem('kleur2')}.png" alt="Blauw">
+                        <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
+                          'kleur2'
+                        )}.png" alt="Blauw">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -194,17 +211,23 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[1].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${result[1].snelheid} km/u</div>
+                                <div class="c-klasseSnelheid">${
+                                  result[1].snelheid
+                                } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[1].afstand} m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
+                                  result[1].afstand
+                                } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${result[1].wattage} W</div>
+                                <div class="c-klasseWatt">${
+                                  result[1].wattage
+                                } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -248,12 +271,14 @@ const showWinnaar = function (result, winnaar) {
 function startCountdown(duration, callback, showFinalCountdown = false) {
   let timeLeft = duration;
   let countdownElement = document.querySelector('.js-countdown');
-  let aftelElement = showFinalCountdown ? document.querySelector('.js-aftel') : null;
+  let aftelElement = showFinalCountdown
+    ? document.querySelector('.js-aftel')
+    : null;
 
   let timerId = setInterval(() => {
     if (timeLeft > 0) {
       console.log(timeLeft + ' seconds remaining');
-      
+
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
       if (showFinalCountdown && timeLeft <= 3.5) {
         document.querySelector('.js-spring').style.display = 'none';
@@ -261,16 +286,16 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
         aftelElement.style.display = 'flex'; // Show the countdown
         aftelElement.textContent = timeLeft; // Update the text content with the current timeLeft
       }
-      
+
       timeLeft--;
     } else {
       clearInterval(timerId);
-      
+
       if (showFinalCountdown) {
         countdownElement.style.display = 'none'; // Hide the countdown
         aftelElement.textContent = ''; // Clear the countdown text
       }
-      
+
       callback();
     }
   }, 1000); // countdown interval is 1 second
@@ -376,7 +401,6 @@ socketio.on('B2FS_show_map', function (JsonObject) {
   showMap(map.chosenMap);
 });
 
-
 socketio.on('B2FS_start_countdown', function () {
   console.log('start game');
   // window.location.href = 'raceScreen.html';
@@ -384,15 +408,15 @@ socketio.on('B2FS_start_countdown', function () {
 
   const player1Name = localStorage.getItem('voornaamSpeler1');
   const player2Name = localStorage.getItem('voornaamSpeler2');
-  console.log('player1: ',player1Name);
-  console.log('Player2: ',player2Name);
+  console.log('player1: ', player1Name);
+  console.log('Player2: ', player2Name);
 
   if (player1Name && player2Name) {
     // window.location.href = 'countdownScreen.html';
     showCountdownPlayagain();
   } else {
     showCountdown();
-  };
+  }
 });
 
 socketio.on('connect', function () {
@@ -420,14 +444,20 @@ function fetchResultData() {
 const laadInit = function () {};
 
 const countdownInit = function () {
+  let map = localStorage.getItem('theMap');
+  document.querySelector('.js-background').style.backgroundImage = `url(../../img/Achtergronden/${map}.svg)`;
 };
 
 const raceInit = function () {
   console.info('race init');
-  startCountdown(14, () => {
-    console.log('Countdown finished!');
-    window.location.href = 'resultScreen.html';
-  }, false);
+  startCountdown(
+    14,
+    () => {
+      console.log('Countdown finished!');
+      window.location.href = 'resultScreen.html';
+    },
+    false
+  );
   let map = localStorage.getItem('theMap');
   let htmlImg = document.querySelector('.js-move');
   htmlImg.src = `../../img/Achtergronden/Moving/${map}Twee.svg`;
