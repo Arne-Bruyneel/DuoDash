@@ -112,6 +112,23 @@ const showCountdown = function () {
     19,
     () => {
       console.log('Countdown finished!');
+
+      const data = {
+        "spelers": [
+          {
+            "achternaam": localStorage.getItem('achternaamSpeler1'),
+            "voornaam": localStorage.getItem('voornaam1'),
+            "email": localStorage.getItem('emailSpeler1'),
+          },
+          {
+            "achternaam": localStorage.getItem('achternaamSpeler2'),
+            "voornaam": localStorage.getItem('voornaam2'),
+            "email": localStorage.getItem('emailSpeler2'),
+          },
+        ]
+      };
+
+      socketio.emit('FS2B_start_game', data);
       window.location.href = 'raceScreen.html';
       conso
     },
@@ -161,8 +178,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-                          'kleur1'
-                        )}.png" alt="Rood">
+    'kleur1'
+  )}.png" alt="Rood">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -170,23 +187,20 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[0].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${
-                                  result[0].snelheid
-                                } km/u</div>
+                                <div class="c-klasseSnelheid">${result[0].snelheid
+    } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
-                                  result[0].afstand
-                                } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[0].afstand
+    } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${
-                                  result[0].wattage
-                                } W</div>
+                                <div class="c-klasseWatt">${result[0].wattage
+    } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -207,8 +221,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-                          'kleur2'
-                        )}.png" alt="Blauw">
+    'kleur2'
+  )}.png" alt="Blauw">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -216,23 +230,20 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[1].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${
-                                  result[1].snelheid
-                                } km/u</div>
+                                <div class="c-klasseSnelheid">${result[1].snelheid
+    } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
-                                  result[1].afstand
-                                } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[1].afstand
+    } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${
-                                  result[1].wattage
-                                } W</div>
+                                <div class="c-klasseWatt">${result[1].wattage
+    } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -387,6 +398,7 @@ socketio.on('B2FS_show_player1_setup', function (JsonObject) {
 });
 
 socketio.on('B2FS_new_game', function () {
+  localStorage.clear();
   window.location.href = 'startScreen.html';
 });
 
@@ -447,7 +459,7 @@ function fetchResultData() {
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
-const laadInit = function () {};
+const laadInit = function () { };
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
