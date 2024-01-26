@@ -16,14 +16,14 @@ def opslaan_db(spelers_data, metingen_data, conn, cursor, paswoord):
                 wedstrijd_id = cursor.lastrowid
 
                 for speler in spelers_data:
-                    speler_id = dr.get_speler_id(cursor, speler)
+                    speler_id = dr.get_speler_id(cursor, speler, paswoord)
                     if speler_id is None:
-                        speler_id = dr.insert_speler(cursor, speler)
+                        speler_id = dr.insert_speler(cursor, speler, paswoord)
 
-                    dr.insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data)
+                    dr.insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord)
 
                     if speler["winnaar"]:
-                        dr.update_winnaar(cursor, speler_id, wedstrijd_id)
+                        dr.update_winnaar(cursor, speler_id, wedstrijd_id, paswoord)
 
             except sqlite.Error as e:
                 print(f"An error occurred while executing SQL: {e}")

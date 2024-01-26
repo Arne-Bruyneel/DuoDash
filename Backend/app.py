@@ -245,6 +245,12 @@ def startgame(jsonObject):
     else:
         combined_data["spelers"][1]["winnaar"] = True
 
+    print(jsonObject)
+
+    print('FUCKING HOER')
+
+    print(combined_data)
+
     db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
 
     print("saved db")
