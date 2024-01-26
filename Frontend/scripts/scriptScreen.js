@@ -109,6 +109,7 @@ const showCountdown = function () {
     () => {
       console.log('Countdown finished!');
       window.location.href = 'raceScreen.html';
+      conso
     },
     true
   );
