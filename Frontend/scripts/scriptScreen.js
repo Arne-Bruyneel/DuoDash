@@ -332,6 +332,7 @@ const getPlayer2Setup = function (player2) {
 };
 
 const getResult = function (data) {
+  console.log(data)
   if (!data || !data.metingen) {
     console.error('Data is not defined or malformed', data);
     return;
