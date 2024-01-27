@@ -19,31 +19,30 @@
     </header>
     <h1 class="c-titelspeler">Speler 2</h1>
     <main class="c-maintablet__speler">
-        <form class="c-formTablet" action="mapTablet.html" autocomplete="off">
+        <form class="c-formTablet js-form" action="mapTablet.html" autocomplete="off">
             <div class="c-inputfietser">
                 <div class="c-inputfietser__boven">
-                <p class="c-form-field">
-                    <label class="c-label" for="voornaam">
-                        Voornaam
-                    </label>
-                    <input class="c-input js-voornaam" type="text" name="voornaam" id="voornaam" required>
-                </p>
-                <p class="c-form-field c-form-field--achter">
-                    <label class="c-label" for="achternaam">
-                        Naam
-                    </label>
-                    <input class="c-input js-achternaam" type="text" name="achternaam" id="achternaam" required>
-                </p>
-                <p class="c-form-field">
-                    <label class="c-label" for="email">
-                        Email
-                    </label>
-                    <input class="c-input js-email" type="email" name="email" id="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,}|[0-9]{1,3})(\]?)$" required>
-                </p>
-            </div>
-            <button class="c-knoptablet js-volgende" type="submit"
-                    onclick="listenToVolgendeSpeler()">Volgende</button>
+                    <p class="c-form-field">
+                        <label class="c-label" for="voornaam">
+                            Voornaam
+                        </label>
+                        <input class="c-input js-voornaam" type="text" name="voornaam" id="voornaam" required>
+                    </p>
+                    <p class="c-form-field c-form-field--achter">
+                        <label class="c-label" for="achternaam">
+                            Naam
+                        </label>
+                        <input class="c-input js-achternaam" type="text" name="achternaam" id="achternaam" required>
+                    </p>
+                    <p class="c-form-field">
+                        <label class="c-label" for="email">
+                            Email
+                        </label>
+                        <input class="c-input js-email" required>
+                    </p>
                 </div>
+                <button class="c-knoptablet js-volgende" type="submit" onclick="listenToVolgendeSpeler()">Volgende</button>
+            </div>
             <div class="c-onderstetabletspeler">
                 <div class="c-kleurkiezen">
                     <div class="c-fietserbox">
@@ -56,45 +55,39 @@
                     </div>
                     <div class="c-fietserkleur">
                         <label class="c-kleur c-keuzeRood">
-                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-rood"
-                                name="radio" checked="checked">
+                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-rood" name="radio" checked="checked">
                             <span class="c-custom-option__fake-input ">
                             </span>
                             <div class="c-kruisje--rood"></div>
                         </label>
                         <label class="c-kleur c-keuzeBlauw">
-                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-blauw"
-                                name="radio">
+                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-blauw" name="radio">
                             <span class="c-custom-option__fake-input "></span>
                             <div class="c-kruisje--blauw"></div>
                         </label>
                         <label class="c-kleur c-keuzeGeel">
-                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-geel"
-                                name="radio">
+                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-geel" name="radio">
                             <span class="c-custom-option__fake-input "></span>
                             <div class="c-kruisje--geel"></div>
                         </label>
                         <label class="c-kleur c-keuzeGroen">
-                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-groen"
-                                name="radio">
+                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-groen" name="radio">
                             <span class="c-custom-option__fake-input "></span>
                             <div class="c-kruisje--groen"></div>
                         </label>
                         <label class="c-kleur c-keuzePaars">
-                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-paars"
-                                name="radio">
+                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-paars" name="radio">
                             <span class="c-custom-option__fake-input "></span>
                             <div class="c-kruisje--paars"></div>
                         </label>
                         <label class="c-kleur c-keuzeWit">
-                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-wit"
-                                name="radio">
+                            <input class="c-kleurradio o-hide-accessible js-kleur" type="radio" id="radio-wit" name="radio">
                             <span class="c-custom-option__fake-input"></span>
                             <div class="c-kruisje--wit"></div>
                         </label>
                     </div>
                 </div>
-                
+
             </div>
         </form>
     </main>

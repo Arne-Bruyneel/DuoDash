@@ -258,6 +258,31 @@ const spelerInit = function () {
   fietserPaars.style.display = 'none';
   fietserWit.style.display = 'none';
 
+  const formulier =  document.querySelector('.js-form');
+
+  formulier.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const emailInput = document.querySelector('.js-email')
+    const email = emailInput.value;
+    const positieat = email.indexOf('@');
+    const deelnacomma = email.substring(positieat);
+    const iserpunt = deelnacomma.includes(".");
+    
+    if (positieat >= 0 && iserpunt) {
+      emailInput.setCustomValidity('');
+      formulier.submit();
+    } else {
+      emailInput.setCustomValidity('Please enter a valid email address.');
+      emailInput.addEventListener('input', function() {
+        emailInput.setCustomValidity('');
+      });  
+    }
+
+    emailInput.reportValidity()
+
+  });
+
   getRegistratie();
   let htmlHome = document.querySelector('.js-home');
   htmlHome.addEventListener('click', function () {
