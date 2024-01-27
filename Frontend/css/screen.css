@@ -173,6 +173,14 @@ h1{
     outline: 4px solid var(--color-font);
 }
 
+.c-solo{
+    /* display: none; */
+}
+
+.c-duo{
+    /* display: none; */
+}
+
 
 /*-------------------SPELER-INPUT-----------------------*/
 
@@ -267,6 +275,7 @@ h1{
     padding: .5rem;
     padding-left: 0.5rem;
     color: var(--color-font);
+    font-size: var(--font-size-smalltext);
 }
 
 .c-input:focus{
