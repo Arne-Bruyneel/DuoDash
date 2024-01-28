@@ -16,17 +16,30 @@ const showLeaderboard = function (leads) {
   let htmlPodium3 = document.querySelector('.js-podium3');
   let htmlKlasseLinks = document.querySelector('.js-klasselinks');
   let htmlKlasseRechts = document.querySelector('.js-klasserechts');
-  let htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
-    <div class="c-klasseAfstand">${leads[0].afstand}</div>
-    <div class="c-klasseSnelheid">${leads[0].snelheid} km/u</div>`;
+  let htmlString1 = ""
+  let htmlString2 = ""
+  let htmlString3 = ""
+  
+  if (leads.length > 0) {
+    htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
+      <div class="c-klasseAfstand">${leads[0].afstand}</div>
+      <div class="c-klasseSnelheid">${leads[0].snelheid} km/u</div>`;
+  }
+
+  if (leads.length > 1) {
+    htmlString2 = `<div class="c-klasseNaam">${leads[1].naam}</div>
+      <div class="c-klasseAfstand">${leads[1].afstand}</div>
+      <div class="c-klasseSnelheid">${leads[1].snelheid} km/u</div>`;
+  }
+
+  if (leads.length > 2) {
+    htmlString3 = `<div class="c-klasseNaam">${leads[2].naam}</div>
+      <div class="c-klasseAfstand">${leads[2].afstand}</div>
+      <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
+  }
+
   htmlPodium1.innerHTML = htmlString1;
-  let htmlString2 = `<div class="c-klasseNaam">${leads[1].naam}</div>
-    <div class="c-klasseAfstand">${leads[1].afstand}</div>
-    <div class="c-klasseSnelheid">${leads[1].snelheid} km/u</div>`;
   htmlPodium2.innerHTML = htmlString2;
-  let htmlString3 = `<div class="c-klasseNaam">${leads[2].naam}</div>
-    <div class="c-klasseAfstand">${leads[2].afstand}</div>
-    <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
   htmlPodium3.innerHTML = htmlString3;
   let htmlStringLinks = '';
   leads.slice(3, 7).forEach((lead, index) => {
