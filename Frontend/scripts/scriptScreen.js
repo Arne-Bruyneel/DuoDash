@@ -447,7 +447,7 @@ socketio.on('B2FS_show_result', function () {
   window.location.href = 'resultScreen.html';
 });
 
-socketio.on(B2FS_bl_disconnect, function () {
+socketio.on('B2FS_bl_disconnect', function () {
   console.log('verbinding verbroken met fietsen via bluetooth');
 });
 
@@ -517,6 +517,7 @@ const raceInit = function () {
   let map = localStorage.getItem('theMap');
   let htmlImg = document.querySelector('.c-background__url');
   htmlImg.style.background = `url(../../img/Achtergronden/Moving/${map}Twee.svg)`;
+  console.log(map)
   htmlImg.style.backgroundSize = 'auto 100%';
   let htmlNaam1 = document.querySelector('.js-naam1');
   let htmlNaam2 = document.querySelector('.js-naam2');
@@ -526,6 +527,8 @@ const raceInit = function () {
   let kleur2 = localStorage.getItem('kleur2');
   htmlNaam1.innerHTML = localStorage.getItem('voornaam1');
   htmlNaam2.innerHTML = localStorage.getItem('voornaam2');
+  console.log(localStorage.getItem('voornaam1'))
+  console.log(localStorage.getItem('voornaam2'))
   avatar1.src = `../../img/fietser1_${kleur1}.png`;
   avatar2.src = `../../img/fietser1_${kleur2}.png`;
 };

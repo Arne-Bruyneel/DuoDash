@@ -90,7 +90,7 @@ const getRegistratie = function () {
   achternaam.value = localStorage.getItem('achternaamSpeler1');
   email.value = localStorage.getItem('emailSpeler1');
 
-  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
     console.log('solo');
     let titel = document.querySelector('.js-titel');
     titel.innerHTML = 'Speler';
@@ -99,16 +99,16 @@ const getRegistratie = function () {
   }
 
   if (htmlBody.classList.contains('speler1')) {
-  let htmlReturn = document.querySelector('.js-return');
-  htmlReturn.addEventListener('click', function () {
-    console.log('return');
-    socketio.emit('FT2B_new_game');
-    window.location.href = 'startTablet.html';
-  });
+    let htmlReturn = document.querySelector('.js-return');
+    htmlReturn.addEventListener('click', function () {
+      console.log('return');
+      socketio.emit('FT2B_new_game');
+      window.location.href = 'startTablet.html';
+    });
   };
   fietserKleur = 'rood';
 
-  if(htmlBody.classList.contains('speler2')){
+  if (htmlBody.classList.contains('speler2')) {
     if (localStorage.getItem('kleurSpeler1') == 'rood') {
       fietserKleur = 'blauw';
     }
@@ -186,7 +186,8 @@ const ListenToStart = function () {
   if (htmlBody.classList.contains('js-startInit')) {
     console.log('laad');
     socketio.emit('FT2B_go_to_countdown');
-}};
+  }
+};
 
 socketio.on('B2FT_go_to_choice', function () {
   console.log('go to choice');
@@ -258,25 +259,26 @@ const spelerInit = function () {
   fietserPaars.style.display = 'none';
   fietserWit.style.display = 'none';
 
-  const formulier =  document.querySelector('.js-form');
+  const formulier = document.querySelector('.js-form');
 
-  formulier.addEventListener('submit', function(event) {
+  formulier.addEventListener('submit', function (event) {
     event.preventDefault();
-    
+
     const emailInput = document.querySelector('.js-email')
     const email = emailInput.value;
     const positieat = email.indexOf('@');
     const deelnacomma = email.substring(positieat);
     const iserpunt = deelnacomma.includes(".");
-    
+
     if (positieat >= 0 && iserpunt) {
       emailInput.setCustomValidity('');
+      listenToVolgendeSpeler();
       formulier.submit();
     } else {
       emailInput.setCustomValidity('Please enter a valid email address.');
-      emailInput.addEventListener('input', function() {
+      emailInput.addEventListener('input', function () {
         emailInput.setCustomValidity('');
-      });  
+      });
     }
 
     emailInput.reportValidity()
@@ -378,11 +380,11 @@ document.addEventListener('DOMContentLoaded', function () {
   } else if (htmlBody.classList.contains('js-startInit')) {
     localStorage.clear();
     startInit();
-  } else if (htmlBody.classList.contains('js-uitlegInit')){
+  } else if (htmlBody.classList.contains('js-uitlegInit')) {
     uitlegInit();
-  } else if (htmlBody.classList.contains('js-keuzeInit')){
+  } else if (htmlBody.classList.contains('js-keuzeInit')) {
     keuzeInit();
-  } else if(htmlBody.classList.contains('js-spelvormInit')){
+  } else if (htmlBody.classList.contains('js-spelvormInit')) {
     spelvormInit();
   }
 });
