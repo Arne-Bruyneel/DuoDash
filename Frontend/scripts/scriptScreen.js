@@ -114,10 +114,11 @@ const showCountdown = function () {
   document.querySelector('.js-countdown').style.display = 'grid';
   document.querySelector('.js-spring').style.display = 'block';
   document.querySelector('.js-spring').style.display = 'block';
+
   // Usage
   const animationL = document.querySelector('.js-animationL');
   animationL.classList.add('c-beweegKader__links');
-
+  
   const animationR = document.querySelector('.js-animationR');
   animationR.classList.add('c-beweegKader__rechts');
 
@@ -481,6 +482,10 @@ const laadInit = function () { };
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
+  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+    console.log('solo');
+    document.querySelector('.js-speler2nk').style.display = 'none';
+  }
   if (map != null) {
     voornaamSpeler1 = localStorage.getItem('voornaam1');
     kleurSpeler1 = localStorage.getItem('kleur1');
@@ -494,6 +499,8 @@ const countdownInit = function () {
     document.querySelector('.js-speler1nk').style.display = 'none';
     document.querySelector('.js-speler1k').style.display = 'block';
     document.querySelector('.js-kader1').style.display = 'flex';
+    let spelvorm = localStorage.getItem('chosenSpelvorm');
+    console.log(spelvorm);
 
     document.querySelector('.js-speler2nk').style.display = 'none';
     document.querySelector('.js-speler2k').style.display = 'block';
@@ -545,6 +552,10 @@ const raceInit = function () {
   console.log(localStorage.getItem('voornaam2'))
   avatar1.src = `../../img/fietser1_${kleur1}.png`;
   avatar2.src = `../../img/fietser1_${kleur2}.png`;
+  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+    console.log('solo');
+    document.querySelector('.js-speler2').style.display = 'none';
+  }
 };
 
 const resultInit = function () {
