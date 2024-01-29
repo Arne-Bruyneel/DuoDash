@@ -160,7 +160,7 @@ const getMap = function () {
 const getSpelvorm = function () {
   const spelvormen = document.querySelectorAll('.js-vorm');
   let htmlVolgende = document.querySelector('.js-volgende');
-  let chosenSpelvorm = 'solo';
+  let chosenSpelvorm = 'duo';
   localStorage.setItem('chosenSpelvorm', chosenSpelvorm);
   spelvormen.forEach((spelvorm) => {
     spelvorm.addEventListener('click', function () {
