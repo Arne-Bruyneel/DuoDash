@@ -14,33 +14,32 @@
 <body class="c-bodytablet c-bodytablet--map js-spelvormInit">
     <header class="c-headertablet">
         <a href="startTablet.html"><img src="../../img/Icons/pijltje.svg" alt="pijltje" height="32px"></a>
-        <img src="../../img/Icons/bolletjesEen.svg" alt="Pagina 1">
+        <img class="c-solo js-solo" src="../../img/Icons/PaginaNummer/eenVvier.svg" alt="Pagina 1">
+        <img class="c-duo js-duo" src="../../img/Icons/PaginaNummer/eenVvijf.svg" alt="Pagina 1">
         <a class='js-home'><img src="../../img/Icons/home.svg" alt="homescreen" height="36px"></a>
     </header>
     <h1 class="c-titelspeler">Spelvorm</h1>
 
     <main class="c-maintablet">
         <div class="c-kiesvorm">
-
-            <label class="c-vorm">
-                <div class="c-vorm__achtergrond">
-                    <img class="c-vorm__fiets" src="../../img/Icons/warm.svg" alt="Fiets">
-                </div>
-
-                <input class="c-mapradio js-vorm" type="radio" id="radio-solo" name="radio" checked="checked">
-                <span class="c-mapspan">Solo</span>
-            </label>
-
             <label class="c-vorm">
                 <div class="c-vorm__achtergrond">
                     <img class="c-vorm__fiets" src="../../img/Icons/warm.svg" alt="Fiets">
                     <img class="c-vorm__fiets" src="../../img/Icons/warm.svg" alt="Fiets">
                 </div>
-
-                <input class="c-mapradio js-vorm" type="radio" id="radio-duo" name="radio">
+                
+                <input class="c-mapradio js-vorm js-vorm__duo" type="radio" id="radio-duo" name="radio" checked="checked">
                 <span class="c-mapspan">Duo</span>
             </label>
+            
+            <label class="c-vorm">
+                <div class="c-vorm__achtergrond">
+                    <img class="c-vorm__fiets" src="../../img/Icons/warm.svg" alt="Fiets">
+                </div>
 
+                <input class="c-mapradio js-vorm js-vorm__solo" type="radio" id="radio-solo" name="radio">
+                <span class="c-mapspan">Solo</span>
+            </label>
         </div>
         <button class="c-knoptablet js-volgende">Volgende</button>
     </main>

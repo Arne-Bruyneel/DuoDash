@@ -3,7 +3,6 @@
 const lanIP = `${window.location.hostname}:5000`;
 const socketio = io(`http://${lanIP}`);
 
-
 let fietserRood;
 let fietserBlauw;
 let fietserGeel;
@@ -21,6 +20,8 @@ let emailSpeler2;
 let kleurSpeler2;
 let chosenMap;
 let htmlBody;
+let htmlSolo;
+let htmlDuo;
 
 // #endregion
 
@@ -90,25 +91,25 @@ const getRegistratie = function () {
   achternaam.value = localStorage.getItem('achternaamSpeler1');
   email.value = localStorage.getItem('emailSpeler1');
 
-  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
     console.log('solo');
     let titel = document.querySelector('.js-titel');
     titel.innerHTML = 'Speler';
     let form = document.querySelector('.js-form');
-    form.action = 'mapTablet.html'
+    form.action = 'mapTablet.html';
   }
 
   if (htmlBody.classList.contains('speler1')) {
-  let htmlReturn = document.querySelector('.js-return');
-  htmlReturn.addEventListener('click', function () {
-    console.log('return');
-    socketio.emit('FT2B_new_game');
-    window.location.href = 'startTablet.html';
-  });
-  };
+    let htmlReturn = document.querySelector('.js-return');
+    htmlReturn.addEventListener('click', function () {
+      console.log('return');
+      socketio.emit('FT2B_new_game');
+      window.location.href = 'startTablet.html';
+    });
+  }
   fietserKleur = 'rood';
 
-  if(htmlBody.classList.contains('speler2')){
+  if (htmlBody.classList.contains('speler2')) {
     if (localStorage.getItem('kleurSpeler1') == 'rood') {
       fietserKleur = 'blauw';
     }
@@ -116,7 +117,7 @@ const getRegistratie = function () {
     voornaam.value = localStorage.getItem('voornaamSpeler2');
     achternaam.value = localStorage.getItem('achternaamSpeler2');
     email.value = localStorage.getItem('emailSpeler2');
-  };
+  }
   htmlKleur.forEach((kleur) => {
     kleur.addEventListener('click', function () {
       fietserBlauw.style.display = 'none';
@@ -146,7 +147,7 @@ const getMap = function () {
       }
       localStorage.setItem('chosenMap', chosenMap);
       socketio.emit('FT2B_show_map', { chosenMap });
-      console.log("emitted for map: " + chosenMap);
+      console.log('emitted for map: ' + chosenMap);
     });
   });
 
@@ -159,7 +160,7 @@ const getMap = function () {
 const getSpelvorm = function () {
   const spelvormen = document.querySelectorAll('.js-vorm');
   let htmlVolgende = document.querySelector('.js-volgende');
-  let chosenSpelvorm = 'solo';
+  let chosenSpelvorm = 'duo';
   localStorage.setItem('chosenSpelvorm', chosenSpelvorm);
   spelvormen.forEach((spelvorm) => {
     spelvorm.addEventListener('click', function () {
@@ -169,7 +170,7 @@ const getSpelvorm = function () {
         chosenSpelvorm = 'duo';
       }
       localStorage.setItem('chosenSpelvorm', chosenSpelvorm);
-      console.log("emitted for spelvorm: " + chosenSpelvorm);
+      console.log('emitted for spelvorm: ' + chosenSpelvorm);
     });
   });
 
@@ -186,14 +187,13 @@ const ListenToStart = function () {
   if (htmlBody.classList.contains('js-startInit')) {
     console.log('laad');
     socketio.emit('FT2B_go_to_countdown');
-}};
+  }
+};
 
 socketio.on('B2FT_go_to_choice', function () {
   console.log('go to choice');
   window.location.href = 'choiceTablet.html';
 });
-
-
 
 const listenToVolgendeSpeler = function () {
   if (htmlBody.classList.contains('speler1')) {
@@ -202,19 +202,24 @@ const listenToVolgendeSpeler = function () {
     achternaamSpeler1 = achternaam.value;
     emailSpeler1 = email.value;
     kleurSpeler1 = fietserKleur;
-    console.info(voornaamSpeler1, achternaamSpeler1, emailSpeler1, kleurSpeler1)
+    console.info(
+      voornaamSpeler1,
+      achternaamSpeler1,
+      emailSpeler1,
+      kleurSpeler1
+    );
     localStorage.setItem('voornaamSpeler1', voornaamSpeler1);
     localStorage.setItem('achternaamSpeler1', achternaamSpeler1);
     localStorage.setItem('emailSpeler1', emailSpeler1);
     localStorage.setItem('kleurSpeler1', kleurSpeler1);
     let speler1Json = {
-      "voornaam": voornaamSpeler1,
-      "achternaam": achternaamSpeler1,
-      "email": emailSpeler1,
-      "kleur": kleurSpeler1
-    }
+      voornaam: voornaamSpeler1,
+      achternaam: achternaamSpeler1,
+      email: emailSpeler1,
+      kleur: kleurSpeler1,
+    };
     socketio.emit('FT2B_show_player1_setup', {
-      speler1Json
+      speler1Json,
     });
   } else if (htmlBody.classList.contains('speler2')) {
     console.log('speler2');
@@ -222,19 +227,24 @@ const listenToVolgendeSpeler = function () {
     achternaamSpeler2 = achternaam.value;
     emailSpeler2 = email.value;
     kleurSpeler2 = fietserKleur;
-    console.info(voornaamSpeler2, achternaamSpeler2, emailSpeler2, kleurSpeler2)
+    console.info(
+      voornaamSpeler2,
+      achternaamSpeler2,
+      emailSpeler2,
+      kleurSpeler2
+    );
     localStorage.setItem('voornaamSpeler2', voornaamSpeler2);
     localStorage.setItem('achternaamSpeler2', achternaamSpeler2);
     localStorage.setItem('emailSpeler2', emailSpeler2);
     localStorage.setItem('kleurSpeler2', kleurSpeler2);
     let speler2Json = {
-      "voornaam": voornaamSpeler2,
-      "achternaam": achternaamSpeler2,
-      "email": emailSpeler2,
-      "kleur": kleurSpeler2
-    }
+      voornaam: voornaamSpeler2,
+      achternaam: achternaamSpeler2,
+      email: emailSpeler2,
+      kleur: kleurSpeler2,
+    };
     socketio.emit('FT2B_show_player2_setup', {
-      speler2Json
+      speler2Json,
     });
   }
 };
@@ -258,6 +268,39 @@ const spelerInit = function () {
   fietserPaars.style.display = 'none';
   fietserWit.style.display = 'none';
 
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+  } else if (localStorage.getItem('chosenSpelvorm') === 'duo') {
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'none';
+  }
+
+  const formulier = document.querySelector('.js-form');
+
+  formulier.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const emailInput = document.querySelector('.js-email');
+    const email = emailInput.value;
+    const positieat = email.indexOf('@');
+    const deelnacomma = email.substring(positieat);
+    const iserpunt = deelnacomma.includes('.');
+
+    if (positieat >= 0 && iserpunt) {
+      emailInput.setCustomValidity('');
+      listenToVolgendeSpeler();
+      formulier.submit();
+    } else {
+      emailInput.setCustomValidity('Please enter a valid email address.');
+      emailInput.addEventListener('input', function () {
+        emailInput.setCustomValidity('');
+      });
+    }
+
+    emailInput.reportValidity();
+  });
+
   getRegistratie();
   let htmlHome = document.querySelector('.js-home');
   htmlHome.addEventListener('click', function () {
@@ -269,6 +312,13 @@ const spelerInit = function () {
 
 const mapInit = function () {
   console.log('map');
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+  } else if (localStorage.getItem('chosenSpelvorm') === 'duo') {
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'none';
+  }
   let htmlHome = document.querySelector('.js-home');
   htmlHome.addEventListener('click', function () {
     console.log('home');
@@ -296,6 +346,20 @@ const startInit = function () {
 const spelvormInit = function () {
   console.log('spelvorm');
   let htmlHome = document.querySelector('.js-home');
+  htmlSolo = document.querySelector('.js-solo');
+  htmlSolo.style.display = 'none';
+  document.querySelector('.js-vorm__solo').addEventListener('click', function () {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'block';
+  });
+  document.querySelector('.js-vorm__duo').addEventListener('click', function () {
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'none';
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'block';
+  });
   htmlHome.addEventListener('click', function () {
     console.log('home');
     socketio.emit('FT2B_new_game');
@@ -307,6 +371,13 @@ const spelvormInit = function () {
 const uitlegInit = function () {
   console.log('uitleg');
   let htmlStart = document.querySelector('.js-start');
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+  } else if (localStorage.getItem('chosenSpelvorm') === 'duo') {
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'none';
+  }
   htmlStart.addEventListener('click', function () {
     console.log('start');
     socketio.emit('FT2B_start_countdown');
@@ -353,11 +424,11 @@ document.addEventListener('DOMContentLoaded', function () {
   } else if (htmlBody.classList.contains('js-startInit')) {
     localStorage.clear();
     startInit();
-  } else if (htmlBody.classList.contains('js-uitlegInit')){
+  } else if (htmlBody.classList.contains('js-uitlegInit')) {
     uitlegInit();
-  } else if (htmlBody.classList.contains('js-keuzeInit')){
+  } else if (htmlBody.classList.contains('js-keuzeInit')) {
     keuzeInit();
-  } else if(htmlBody.classList.contains('js-spelvormInit')){
+  } else if (htmlBody.classList.contains('js-spelvormInit')) {
     spelvormInit();
   }
 });

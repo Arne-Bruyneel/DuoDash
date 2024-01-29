@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="10" viewBox="0 0 200 10">
+  <g id="Group_120" data-name="Group 120" transform="translate(0.066)">
+    <path id="Path_402" data-name="Path 402" d="M0,0H38.4" transform="translate(8.979 5)" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <g id="Ellipse_16" data-name="Ellipse 16" transform="translate(95.076)" fill="none" stroke="#fff" stroke-width="1.5">
+      <circle cx="5" cy="5" r="5" stroke="none"/>
+      <circle cx="5" cy="5" r="4.25" fill="none"/>
+    </g>
+    <g id="Ellipse_17" data-name="Ellipse 17" transform="translate(141.914)" fill="none" stroke="#fff" stroke-width="1.5">
+      <circle cx="5" cy="5" r="5" stroke="none"/>
+      <circle cx="5" cy="5" r="4.25" fill="none"/>
+    </g>
+    <g id="Ellipse_18" data-name="Ellipse 18" transform="translate(-0.066)" fill="none" stroke="#fff" stroke-width="1.5">
+      <circle cx="5" cy="5" r="5" stroke="none"/>
+      <circle cx="5" cy="5" r="4.25" fill="none"/>
+    </g>
+    <circle id="Ellipse_19" data-name="Ellipse 19" cx="5" cy="5" r="5" transform="translate(45.281)" fill="#98d473"/>
+    <path id="Path_403" data-name="Path 403" d="M0,0H38.5" transform="translate(104.002 5)" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <path id="Path_416" data-name="Path 416" d="M0,0H41.07" transform="translate(55.274 5)" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <g id="Ellipse_24" data-name="Ellipse 24" transform="translate(189.934)" fill="none" stroke="#fff" stroke-width="1.5">
+      <circle cx="5" cy="5" r="5" stroke="none"/>
+      <circle cx="5" cy="5" r="4.25" fill="none"/>
+    </g>
+    <path id="Path_432" data-name="Path 432" d="M0,0H39.591" transform="translate(150.96 5)" fill="none" stroke="#fff" stroke-width="1.5"/>
+  </g>
+</svg>
