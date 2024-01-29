@@ -97,7 +97,7 @@ const getRegistratie = function () {
     titel.innerHTML = 'Speler';
     let form = document.querySelector('.js-form');
     form.action = 'mapTablet.html';
-  }
+  } 
 
   if (htmlBody.classList.contains('speler1')) {
     let htmlReturn = document.querySelector('.js-return');
@@ -267,6 +267,14 @@ const spelerInit = function () {
   fietserGroen.style.display = 'none';
   fietserPaars.style.display = 'none';
   fietserWit.style.display = 'none';
+
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+  } else if (localStorage.getItem('chosenSpelvorm') === 'duo') {
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'none';
+  }
 
   const formulier = document.querySelector('.js-form');
 
