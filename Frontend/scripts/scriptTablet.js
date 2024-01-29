@@ -413,6 +413,15 @@ const keuzeInit = function () {
   });
 };
 
+const connectieInit = function () {
+  console.log('connectie');
+  document.querySelector('.js-loader').style.display = 'none';
+  document.querySelector('.js-connect__list').style.display = 'none';
+  document.querySelector('.js-scan').addEventListener('click', function () {
+    document.querySelector('.js-loader').style.display = 'block';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
@@ -429,6 +438,8 @@ document.addEventListener('DOMContentLoaded', function () {
     keuzeInit();
   } else if (htmlBody.classList.contains('js-spelvormInit')) {
     spelvormInit();
+  } else if (htmlBody.classList.contains('js-connectieInit')) {
+    connectieInit();
   }
 });
 
