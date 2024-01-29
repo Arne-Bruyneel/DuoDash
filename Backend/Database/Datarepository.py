@@ -63,6 +63,27 @@ class Datarepository:
     def get_best_player(cursor, paswoord):
         pass
 
+    def get_all_players(cursor, paswoord):
+        cursor.execute(f"PRAGMA key = '{paswoord}';")
+        query = """
+        SELECT 
+            s.id, 
+            s.voornaam, 
+            s.achternaam, 
+            MAX(m.afstand) AS max_afstand,
+            MAX(m.maxSnelheid) AS max_snelheid
+        FROM 
+            spelers s
+        JOIN 
+            metingen m ON s.id = m.speler_id
+        GROUP BY 
+            s.id, s.voornaam, s.achternaam
+        ORDER BY 
+            max_afstand DESC
+        """
+        players = cursor.execute(query).fetchall()
+        return players
+
 
 
 

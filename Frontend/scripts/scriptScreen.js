@@ -14,11 +14,15 @@ const showLeaderboard = function (leads) {
   let htmlPodium1 = document.querySelector('.js-podium1');
   let htmlPodium2 = document.querySelector('.js-podium2');
   let htmlPodium3 = document.querySelector('.js-podium3');
+  // let htmlKlasse10 = document.querySelector('.js-klasse10');
+  // let htmlKlasse11 = document.querySelector('.js-klasse11');
   let htmlKlasseLinks = document.querySelector('.js-klasselinks');
   let htmlKlasseRechts = document.querySelector('.js-klasserechts');
   let htmlString1 = ""
   let htmlString2 = ""
   let htmlString3 = ""
+  // let htmlString11 = ""
+  // let htmlString12 = ""
 
   console.log(leads)
 
@@ -40,9 +44,21 @@ const showLeaderboard = function (leads) {
       <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
   }
 
+  // if (leads.length > 10) {
+  //   // spelers = leads[10].speler
+  //   // positie = leads[10].positie
+  //   // console.log(spelers)
+  //   console.log(leads[10].positie) 
+  //   htmlString11 =  `<div class="c-klasseNaam">${leads[10].naam}</div>
+  //   <div class="c-klasseAfstand">${leads[10].afstand}</div>
+  //   <div class="c-klasseSnelheid">${leads[10].snelheid} km/u</div>`;
+  // }
+
   htmlPodium1.innerHTML = htmlString1;
   htmlPodium2.innerHTML = htmlString2;
   htmlPodium3.innerHTML = htmlString3;
+  // htmlKlasse10.innerHTML = htmlString11;
+
   let htmlStringLinks = '';
   leads.slice(3, 7).forEach((lead, index) => {
     htmlStringLinks += `<div class="c-klasse">
@@ -61,7 +77,7 @@ const showLeaderboard = function (leads) {
     return rank === 10 ? 'c-klasseBegin c-klasseBegin--tien' : 'c-klasseBegin';
   };
   let htmlStringRechts = '';
-  leads.slice(7, 10).forEach((lead, index) => {
+  leads.slice(7, 9).forEach((lead, index) => {
     const rankClass = getRankClass(index + 8);
     htmlStringRechts += `<div class="c-klasse">
       <div class="${rankClass}">
@@ -337,25 +353,7 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
 
 // #region ***  Data Access - get___                     ***********
 
-const getLeaderboard = function (leaderboardData) {
-  console.log(leaderboardData)
-  //sort data
-  leaderboardData.sort(function (a, b) {
-    return b[3] - a[3];
-  });
-  const formattedLeaderboard = leaderboardData.map((player) => {
-    return {
-      naam: player[1] + ' ' + player[2].charAt(0) + '.',
-      afstand: player[3] + ' m',
-      snelheid: parseFloat(player[4]).toFixed(1),
-    };
-  });
 
-  console.log(formattedLeaderboard)
-
-  // displayen van de data
-  showLeaderboard(formattedLeaderboard);
-};
 
 const getPlayer1Setup = function (player1) {
   showPlayer1Setup(player1);
@@ -474,7 +472,11 @@ socketio.on('B2FS_bl_disconnect', function () {
 // #endregion
 
 function fetchLeaderboardData() {
-  handleData(`http://${lanIP}/api/v1/leaderboard`, getLeaderboard);
+  handleData(`http://${lanIP}/api/v1/leaderboard`,   showLeaderboard);
+}
+
+function fetchLeaderboardDataWithAllPlayers() {
+  handleData(`http://${lanIP}/api/v1/leaderboardAll`, showLeaderboard);
 }
 
 function fetchResultData() {
@@ -571,8 +573,17 @@ const resultInit = function () {
 
 const leaderboardInit = function () {
   showMap(localStorage.getItem('theMap'));
-  fetchLeaderboardData();
-};
+  const player1Name = localStorage.getItem('voornaamSpeler1');
+  const player2Name = localStorage.getItem('voornaamSpeler2');
+  console.log('player1: ', player1Name);
+  console.log('Player2: ', player2Name);
+
+  if (player1Name && player2Name) {
+    fetchLeaderboardDataWithAllPlayers();
+  } else {
+    fetchLeaderboardData();
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
@@ -588,7 +599,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resultInit();
   } else if (htmlBody.classList.contains('js-leaderboardInit')) {
     console.log('leaderboard init');
-    fetchLeaderboardData();
+    leaderboardInit();
   }
 });
 // #endregion
