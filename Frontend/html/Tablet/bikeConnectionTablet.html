@@ -6,37 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connectie fiets</title>
     <link rel="stylesheet" href="../../css/screen.css">
-    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script src="../../scripts/socket.io.min.js"></script>
     <script src="../../scripts/script.js"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
 </head>
 
-<body class="js-connection c-bodytablet">
+<body class="c-bodytablet js-connectieInit">
     <h1 class="c-connect__titel">Beschikbare fietsen</h1>
     <div class="c-connect__midden">
         <div class="c-connect__doe">Selecteer 2 fietsen</div>
-        <ul class="c-connect__list">
+        <ul class="c-connect__list js-connect__list">
             <li class="c-connect__fiets">Fiets 1 <select class="c-connect__select">
-                            <option></option>
-                            <option>Speler 1</option>
-                            <option>Speler 2</option>
-                            <option>Non actief</option>
-                        </select>
+                    <option></option>
+                    <option>Speler 1</option>
+                    <option>Speler 2</option>
+                    <option>Non actief</option>
+                </select>
             </li>
             <li class="c-connect__fiets">Fiets 2 <select class="c-connect__select">
-                            <option></option>
-                            <option>Speler 1</option>
-                            <option>Speler 2</option>
-                            <option>Non actief</option>
-                        </select>
+                    <option></option>
+                    <option>Speler 1</option>
+                    <option>Speler 2</option>
+                    <option>Non actief</option>
+                </select>
             </li>
         </ul>
 
-        <div class="loader"></div>
+        <div class="loader js-loader"></div>
 
     </div>
     <div class="c-connect__knoppen">
-        <button class="c-knoptablet">Scan</button>
+        <button class="c-knoptablet js-scan">Scan</button>
         <button class="c-knoptablet">Connect</button>
     </div>
     <button class="c-knoptablet c-connect__start">Start</button>
