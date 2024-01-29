@@ -260,6 +260,10 @@ h1{
     gap: 2rem;
     display: flex;
     flex-direction: column;
+
+    @media (max-height: 650px) {
+        gap: 1rem;
+    }
 }
 
 .c-form-field{
