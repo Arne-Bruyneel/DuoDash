@@ -346,6 +346,13 @@ const startInit = function () {
 const spelvormInit = function () {
   console.log('spelvorm');
   let htmlHome = document.querySelector('.js-home');
+  htmlSolo = document.querySelector('.js-solo');
+  htmlSolo.style.display = 'none';
+  document.querySelector('.js-solo').addEventListener('click', function () {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+    htmlSolo.style.display = 'block';
+  });
   htmlHome.addEventListener('click', function () {
     console.log('home');
     socketio.emit('FT2B_new_game');
