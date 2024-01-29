@@ -246,11 +246,11 @@ h1{
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: end;
+    padding-top: 2rem;
 
-    @media (max-height: 750px) {
+    @media (max-height: 650px) {
         height: max-content;
-        gap: 2rem;
-        padding-top: 2rem;
+        padding-top: 3rem;
     }
 }
 
@@ -268,7 +268,7 @@ h1{
     width: 100%;
     margin: 0;
 
-    @media (max-height: 750px) {
+    @media (max-height: 650px) {
         gap: 0;
     }
 }
@@ -282,13 +282,13 @@ h1{
     color: var(--color-font);
     font-size: var(--font-size-smalltext);
 
-    @media (max-height: 750px) {
+    @media (max-height: 650px) {
         padding: 0 0 .5rem .5rem;
     }
 }
 
 .c-knoptablet--weg{
-    @media (max-height: 750px) {
+    @media (max-height: 650px) {
         display: none;;
     }
 }
@@ -329,6 +329,10 @@ input:-webkit-autofill:active{
     gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
+
+    @media (max-height: 650px) {
+        display: none;
+    }
 }
 
 .c-keuzeRood{
@@ -388,6 +392,10 @@ input:-webkit-autofill:active{
     padding: 2rem;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 1rem;
+
+    @media (max-height: 650px) {
+        margin-top: 2rem;
+    }
 }
 
 .c-kleurradio{
@@ -534,7 +542,7 @@ input:-webkit-autofill:active{
     display: flex;
     align-items: end;
     justify-content: space-between;
-
+    padding-top: 2rem;
 }
 
 
