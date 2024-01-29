@@ -57,7 +57,6 @@ class Datarepository:
             max_afstand DESC
         LIMIT 11;
         """
-
         players = cursor.execute(query).fetchall()
         return players
 

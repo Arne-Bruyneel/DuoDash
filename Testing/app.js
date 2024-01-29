@@ -65,7 +65,7 @@ const addEventListenersDevices = function(){
 
 const listenButtonPress = function () {
   console.log('scan press')
-  socketio.emit("F2B_start_bluetooth_scan");
+  socketio.emit("F2BS_start_bluetooth_scan");
 };
 
 const listenSubmitPress = function () {
@@ -143,7 +143,7 @@ const listenToSocket = function () {
   });
 
   socketio.on('B2F_heartbeat', function (jsonObject) {
-    console.log('heart beat bitches');
+    console.log('heart beat');
   });
 
 
