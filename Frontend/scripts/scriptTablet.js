@@ -337,6 +337,7 @@ const mapInit = function () {
 
 const startInit = function () {
   console.log('start');
+  socketio.emit('FT2B_play_wachtmuziek')
   let htmlStart = document.querySelector('.js-start');
   let htmlTrophy = document.querySelector('.js-trophy');
   htmlTrophy.addEventListener('click', function () {
