@@ -747,6 +747,7 @@ input:-webkit-autofill:active{
     justify-content: center;
     align-items: center;
     height: calc(100vh - 4rem);
+    overflow: hidden;
 }
 
 .c-instructie{
