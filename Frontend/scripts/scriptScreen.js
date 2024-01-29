@@ -16,17 +16,30 @@ const showLeaderboard = function (leads) {
   let htmlPodium3 = document.querySelector('.js-podium3');
   let htmlKlasseLinks = document.querySelector('.js-klasselinks');
   let htmlKlasseRechts = document.querySelector('.js-klasserechts');
-  let htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
-    <div class="c-klasseAfstand">${leads[0].afstand}</div>
-    <div class="c-klasseSnelheid">${leads[0].snelheid} km/u</div>`;
+  let htmlString1 = ""
+  let htmlString2 = ""
+  let htmlString3 = ""
+  
+  if (leads.length > 0) {
+    htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
+      <div class="c-klasseAfstand">${leads[0].afstand}</div>
+      <div class="c-klasseSnelheid">${leads[0].snelheid} km/u</div>`;
+  }
+
+  if (leads.length > 1) {
+    htmlString2 = `<div class="c-klasseNaam">${leads[1].naam}</div>
+      <div class="c-klasseAfstand">${leads[1].afstand}</div>
+      <div class="c-klasseSnelheid">${leads[1].snelheid} km/u</div>`;
+  }
+
+  if (leads.length > 2) {
+    htmlString3 = `<div class="c-klasseNaam">${leads[2].naam}</div>
+      <div class="c-klasseAfstand">${leads[2].afstand}</div>
+      <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
+  }
+
   htmlPodium1.innerHTML = htmlString1;
-  let htmlString2 = `<div class="c-klasseNaam">${leads[1].naam}</div>
-    <div class="c-klasseAfstand">${leads[1].afstand}</div>
-    <div class="c-klasseSnelheid">${leads[1].snelheid} km/u</div>`;
   htmlPodium2.innerHTML = htmlString2;
-  let htmlString3 = `<div class="c-klasseNaam">${leads[2].naam}</div>
-    <div class="c-klasseAfstand">${leads[2].afstand}</div>
-    <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
   htmlPodium3.innerHTML = htmlString3;
   let htmlStringLinks = '';
   leads.slice(3, 7).forEach((lead, index) => {
@@ -447,7 +460,7 @@ socketio.on('B2FS_show_result', function () {
   window.location.href = 'resultScreen.html';
 });
 
-socketio.on(B2FS_bl_disconnect, function () {
+socketio.on('B2FS_bl_disconnect', function () {
   console.log('verbinding verbroken met fietsen via bluetooth');
 });
 
@@ -517,6 +530,7 @@ const raceInit = function () {
   let map = localStorage.getItem('theMap');
   let htmlImg = document.querySelector('.c-background__url');
   htmlImg.style.background = `url(../../img/Achtergronden/Moving/${map}Twee.svg)`;
+  console.log(map)
   htmlImg.style.backgroundSize = 'auto 100%';
   let htmlNaam1 = document.querySelector('.js-naam1');
   let htmlNaam2 = document.querySelector('.js-naam2');
@@ -526,6 +540,8 @@ const raceInit = function () {
   let kleur2 = localStorage.getItem('kleur2');
   htmlNaam1.innerHTML = localStorage.getItem('voornaam1');
   htmlNaam2.innerHTML = localStorage.getItem('voornaam2');
+  console.log(localStorage.getItem('voornaam1'))
+  console.log(localStorage.getItem('voornaam2'))
   avatar1.src = `../../img/fietser1_${kleur1}.png`;
   avatar2.src = `../../img/fietser1_${kleur2}.png`;
 };

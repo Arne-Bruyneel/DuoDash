@@ -106,7 +106,7 @@ const getRegistratie = function () {
       socketio.emit('FT2B_new_game');
       window.location.href = 'startTablet.html';
     });
-  }
+  };
   fietserKleur = 'rood';
 
   if (htmlBody.classList.contains('speler2')) {
@@ -268,27 +268,20 @@ const spelerInit = function () {
   fietserPaars.style.display = 'none';
   fietserWit.style.display = 'none';
 
-  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
-    htmlDuo = document.querySelector('.js-duo');
-    htmlDuo.style.display = 'none';
-  } else if (localStorage.getItem('chosenSpelvorm') === 'duo') {
-    htmlSolo = document.querySelector('.js-solo');
-    htmlSolo.style.display = 'none';
-  }
-
   const formulier = document.querySelector('.js-form');
 
   formulier.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const emailInput = document.querySelector('.js-email');
+    const emailInput = document.querySelector('.js-email')
     const email = emailInput.value;
     const positieat = email.indexOf('@');
     const deelnacomma = email.substring(positieat);
-    const iserpunt = deelnacomma.includes('.');
+    const iserpunt = deelnacomma.includes(".");
 
     if (positieat >= 0 && iserpunt) {
       emailInput.setCustomValidity('');
+      listenToVolgendeSpeler();
       formulier.submit();
     } else {
       emailInput.setCustomValidity('Please enter a valid email address.');
