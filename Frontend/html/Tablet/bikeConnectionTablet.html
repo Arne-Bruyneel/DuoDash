@@ -7,11 +7,11 @@
     <title>Connectie fiets</title>
     <link rel="stylesheet" href="../../css/screen.css">
     <script src="../../scripts/socket.io.min.js"></script>
-    <script src="../../scripts/script.js"></script>
+    <script src="../../scripts/scriptTablet.js"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
 </head>
 
-<body class="c-bodytablet js-connectieInit">
+<body class="c-bodytablet c-bodytablet--connect js-connectieInit">
     <h1 class="c-connect__titel">Beschikbare fietsen</h1>
     <div class="c-connect__midden">
         <div class="c-connect__doe">Selecteer 2 fietsen</div>
@@ -37,9 +37,9 @@
     </div>
     <div class="c-connect__knoppen">
         <button class="c-knoptablet js-scan">Scan</button>
-        <button class="c-knoptablet">Connect</button>
+        <button class="c-knoptablet js-submit">Connect</button>
     </div>
-    <button class="c-knoptablet c-connect__start">Start</button>
+    <button class="c-knoptablet c-connect__start js-start">Start</button>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 // #region ***  DOM references                           ***********
 let countdownInterval;
 let countdownValue;
+let muziek;
 // let htmlBody;
 
 const lanIP = `${window.location.hostname}:5000`;
@@ -146,6 +147,7 @@ const showCountdown = function () {
       console.log('Countdown finished!');
 
       const data = {
+        "map": localStorage.getItem('theMap'),
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
@@ -324,7 +326,10 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
     : null;
 
   let timerId = setInterval(() => {
-    if (timeLeft > 0) {
+    if(timeLeft === 3){
+      socketio.emit('FS2B_play_countdownmuziek')
+    }
+    else if (timeLeft > 0) {
       console.log(timeLeft + ' seconds remaining');
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
@@ -572,7 +577,10 @@ const resultInit = function () {
 };
 
 const leaderboardInit = function () {
-  showMap(localStorage.getItem('theMap'));
+  if(localStorage.getItem('theMap') === null){
+    showMap('Palmbomen');
+  }else{
+    showMap(localStorage.getItem('theMap'));
   const player1Name = localStorage.getItem('voornaamSpeler1');
   const player2Name = localStorage.getItem('voornaamSpeler2');
   console.log('player1: ', player1Name);
@@ -581,7 +589,8 @@ const leaderboardInit = function () {
   if (player1Name && player2Name) {
     fetchLeaderboardDataWithAllPlayers();
   } else {
-    fetchLeaderboardData();
+    }
+  fetchLeaderboardData();
   }
 }
 
