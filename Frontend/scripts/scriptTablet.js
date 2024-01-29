@@ -129,6 +129,14 @@ const getMap = function () {
   localStorage.setItem('chosenMap', chosenMap);
   socketio.emit('FT2B_show_map', { chosenMap });
 
+  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+    let duoPijl = document.querySelector('.js-duopijl');
+    duoPijl.style.display = 'none';
+  } else if(localStorage.getItem('chosenSpelvorm') === 'duo'){
+    let soloPijl = document.querySelector('.js-solopijl');
+    soloPijl.style.display = 'none';
+  }
+
   maps.forEach((map) => {
     map.addEventListener('click', function () {
       if (map.id == 'radio-eilanden') {
