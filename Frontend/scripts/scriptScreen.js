@@ -1,6 +1,7 @@
 // #region ***  DOM references                           ***********
 let countdownInterval;
 let countdownValue;
+let muziek;
 // let htmlBody;
 
 const lanIP = `${window.location.hostname}:5000`;
@@ -130,6 +131,7 @@ const showCountdown = function () {
       console.log('Countdown finished!');
 
       const data = {
+        "map": localStorage.getItem('theMap'),
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
@@ -308,7 +310,10 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
     : null;
 
   let timerId = setInterval(() => {
-    if (timeLeft > 0) {
+    if(timeLeft === 3){
+      socketio.emit('FS2B_play_countdownmuziek')
+    }
+    else if (timeLeft > 0) {
       console.log(timeLeft + ' seconds remaining');
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
