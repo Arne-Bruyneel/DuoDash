@@ -19,7 +19,9 @@ const showLeaderboard = function (leads) {
   let htmlString1 = ""
   let htmlString2 = ""
   let htmlString3 = ""
-  
+
+  console.log(leads)
+
   if (leads.length > 0) {
     htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
       <div class="c-klasseAfstand">${leads[0].afstand}</div>
@@ -118,7 +120,7 @@ const showCountdown = function () {
   // Usage
   const animationL = document.querySelector('.js-animationL');
   animationL.classList.add('c-beweegKader__links');
-  
+
   const animationR = document.querySelector('.js-animationR');
   animationR.classList.add('c-beweegKader__rechts');
 
@@ -336,6 +338,7 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
 // #region ***  Data Access - get___                     ***********
 
 const getLeaderboard = function (leaderboardData) {
+  console.log(leaderboardData)
   //sort data
   leaderboardData.sort(function (a, b) {
     return b[3] - a[3];
@@ -347,6 +350,8 @@ const getLeaderboard = function (leaderboardData) {
       snelheid: parseFloat(player[4]).toFixed(1),
     };
   });
+
+  console.log(formattedLeaderboard)
 
   // displayen van de data
   showLeaderboard(formattedLeaderboard);
@@ -482,7 +487,7 @@ const laadInit = function () { };
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
-  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
     console.log('solo');
     document.querySelector('.js-speler2nk').style.display = 'none';
   }
@@ -552,7 +557,7 @@ const raceInit = function () {
   console.log(localStorage.getItem('voornaam2'))
   avatar1.src = `../../img/fietser1_${kleur1}.png`;
   avatar2.src = `../../img/fietser1_${kleur2}.png`;
-  if(localStorage.getItem('chosenSpelvorm') === 'solo'){
+  if (localStorage.getItem('chosenSpelvorm') === 'solo') {
     console.log('solo');
     document.querySelector('.js-speler2').style.display = 'none';
   }
