@@ -230,6 +230,7 @@ h1{
     flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 .c-label{
@@ -246,7 +247,7 @@ h1{
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: end;
-    padding-top: 2rem;
+    padding-top: 5rem;
 
     @media (max-height: 650px) {
         height: max-content;
@@ -288,8 +289,9 @@ h1{
 }
 
 .c-knoptablet--weg{
+    margin-bottom: 2rem;
     @media (max-height: 650px) {
-        display: none;;
+        display: none;
     }
 }
 
@@ -317,6 +319,11 @@ input:-webkit-autofill:active{
     position: relative;
     width: 17.5rem;
     height: 16.3125rem;
+
+    @media (max-height: 650px) {
+        width: 14.5rem;
+        height: 13.3125rem;
+    }
 }
 
 .c-fietserbox img{
@@ -334,6 +341,63 @@ input:-webkit-autofill:active{
         display: none;
     }
 }
+
+.c-fietserRood{
+    height: 16.3125rem;
+    width: 17.375rem;
+
+    @media (max-height: 650px) {
+        height: 13.3125rem;
+        width: 14.375rem;
+    }
+}
+.c-fietserBlauw{
+    height: 16.3125rem;
+    width: 17.375rem;
+
+    @media (max-height: 650px) {
+        height: 13.3125rem;
+        width: 14.375rem;
+    }
+}
+.c-fietserGeel{
+    height: 16.3125rem;
+    width: 17.375rem;
+
+    @media (max-height: 650px) {
+        height: 13.3125rem;
+        width: 14.375rem;
+    }
+}
+.c-fietserGroen{
+    height: 16.3125rem;
+    width: 17.375rem;
+
+    @media (max-height: 650px) {
+        height: 13.3125rem;
+        width: 14.375rem;
+    }
+}
+.c-fietserPaars{
+    height: 16.3125rem;
+    width: 17.375rem;
+
+    @media (max-height: 650px) {
+        height: 13.3125rem;
+        width: 14.375rem;
+    }
+}
+.c-fietserWit{
+    height: 16.3125rem;
+    width: 17.375rem;
+
+    @media (max-height: 650px) {
+        height: 13.3125rem;
+        width: 14.375rem;
+    }
+}
+
+
 
 .c-keuzeRood{
     background-color: var(--color-rood);
@@ -539,6 +603,7 @@ input:-webkit-autofill:active{
 
 .c-onderstetabletspeler{
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: end;
     justify-content: space-between;
