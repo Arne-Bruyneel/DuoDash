@@ -250,7 +250,7 @@ h1{
     @media (max-height: 750px) {
         height: max-content;
         gap: 2rem;
-        padding-top: 1rem;
+        padding-top: 2rem;
     }
 }
 
@@ -281,7 +281,18 @@ h1{
     padding-left: 0.5rem;
     color: var(--color-font);
     font-size: var(--font-size-smalltext);
+
+    @media (max-height: 750px) {
+        padding: 0 0 .5rem .5rem;
+    }
 }
+
+.c-knoptablet--weg{
+    @media (max-height: 750px) {
+        display: none;;
+    }
+}
+
 
 .c-input:focus{
     outline: none;
