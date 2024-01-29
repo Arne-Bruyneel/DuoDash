@@ -462,6 +462,7 @@ socketio.on('B2FS_show_result', function () {
 
 socketio.on('B2FS_bl_disconnect', function () {
   console.log('verbinding verbroken met fietsen via bluetooth');
+  window.location.href = 'ConnectionLostScreen.html';
 });
 
 // #endregion

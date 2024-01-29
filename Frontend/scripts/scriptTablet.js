@@ -99,14 +99,6 @@ const getRegistratie = function () {
     form.action = 'mapTablet.html';
   }
 
-  if (htmlBody.classList.contains('speler1')) {
-    let htmlReturn = document.querySelector('.js-return');
-    htmlReturn.addEventListener('click', function () {
-      console.log('return');
-      socketio.emit('FT2B_new_game');
-      window.location.href = 'startTablet.html';
-    });
-  }
   fietserKleur = 'rood';
 
   if (htmlBody.classList.contains('speler2')) {
@@ -177,6 +169,12 @@ const getSpelvorm = function () {
   htmlVolgende.addEventListener('click', function () {
     console.log(chosenSpelvorm);
     window.location.href = 'playerOneTablet.html';
+  });
+  let htmlReturn = document.querySelector('.js-return');
+  htmlReturn.addEventListener('click', function () {
+    console.log('return');
+    socketio.emit('FT2B_new_game');
+    window.location.href = 'startTablet.html';
   });
 };
 // #endregion
@@ -365,6 +363,7 @@ const spelvormInit = function () {
     socketio.emit('FT2B_new_game');
     window.location.href = 'startTablet.html';
   });
+
   getSpelvorm();
 };
 
