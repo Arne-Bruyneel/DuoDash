@@ -11,11 +11,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../img/bike.png">
 </head>
 
-<body class="c-bodytablet">
+<body class="c-bodytablet js-connectieInit">
     <h1 class="c-connect__titel">Beschikbare fietsen</h1>
     <div class="c-connect__midden">
         <div class="c-connect__doe">Selecteer 2 fietsen</div>
-        <ul class="c-connect__list">
+        <ul class="c-connect__list js-connect__list">
             <li class="c-connect__fiets">Fiets 1 <select class="c-connect__select">
                     <option></option>
                     <option>Speler 1</option>
@@ -32,11 +32,11 @@
             </li>
         </ul>
 
-        <div class="loader"></div>
+        <div class="loader js-loader"></div>
 
     </div>
     <div class="c-connect__knoppen">
-        <button class="c-knoptablet">Scan</button>
+        <button class="c-knoptablet js-scan">Scan</button>
         <button class="c-knoptablet">Connect</button>
     </div>
     <button class="c-knoptablet c-connect__start">Start</button>
