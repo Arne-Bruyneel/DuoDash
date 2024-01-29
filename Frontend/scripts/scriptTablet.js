@@ -127,6 +127,7 @@ const getMap = function () {
   let htmlVolgende = document.querySelector('.js-volgende');
   chosenMap = 'Palmbomen';
   localStorage.setItem('chosenMap', chosenMap);
+  socketio.emit('FT2B_show_map', { chosenMap });
 
   maps.forEach((map) => {
     map.addEventListener('click', function () {
