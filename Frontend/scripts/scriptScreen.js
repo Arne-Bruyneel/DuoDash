@@ -124,12 +124,15 @@ const showCountdown = function () {
   const animationR = document.querySelector('.js-animationR');
   animationR.classList.add('c-beweegKader__rechts');
 
+  const gameType = localStorage.getItem('chosenSpelvorm')
+
   startCountdown(
     19,
     () => {
       console.log('Countdown finished!');
 
       const data = {
+        "type": gameType,
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
