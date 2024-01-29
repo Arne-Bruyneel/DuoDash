@@ -864,8 +864,12 @@ input:-webkit-autofill:active{
 
 .c-connect__start{
     position: absolute;
-    bottom: 4rem;
-    right: 4rem;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.c-bodytablet--connect{
+    gap: 2rem;
 }
 
 

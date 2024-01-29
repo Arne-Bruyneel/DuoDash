@@ -573,7 +573,11 @@ const resultInit = function () {
 };
 
 const leaderboardInit = function () {
-  showMap(localStorage.getItem('theMap'));
+  if(localStorage.getItem('theMap') === null){
+    showMap('Palmbomen');
+  }else{
+    showMap(localStorage.getItem('theMap'));
+  }
   fetchLeaderboardData();
 };
 
