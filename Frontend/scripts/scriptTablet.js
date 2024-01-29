@@ -97,7 +97,7 @@ const getRegistratie = function () {
     titel.innerHTML = 'Speler';
     let form = document.querySelector('.js-form');
     form.action = 'mapTablet.html';
-  } 
+  }
 
   if (htmlBody.classList.contains('speler1')) {
     let htmlReturn = document.querySelector('.js-return');
@@ -106,7 +106,7 @@ const getRegistratie = function () {
       socketio.emit('FT2B_new_game');
       window.location.href = 'startTablet.html';
     });
-  };
+  }
   fietserKleur = 'rood';
 
   if (htmlBody.classList.contains('speler2')) {
@@ -160,7 +160,7 @@ const getMap = function () {
 const getSpelvorm = function () {
   const spelvormen = document.querySelectorAll('.js-vorm');
   let htmlVolgende = document.querySelector('.js-volgende');
-  let chosenSpelvorm = 'solo';
+  let chosenSpelvorm = 'duo';
   localStorage.setItem('chosenSpelvorm', chosenSpelvorm);
   spelvormen.forEach((spelvorm) => {
     spelvorm.addEventListener('click', function () {
@@ -281,11 +281,11 @@ const spelerInit = function () {
   formulier.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const emailInput = document.querySelector('.js-email')
+    const emailInput = document.querySelector('.js-email');
     const email = emailInput.value;
     const positieat = email.indexOf('@');
     const deelnacomma = email.substring(positieat);
-    const iserpunt = deelnacomma.includes(".");
+    const iserpunt = deelnacomma.includes('.');
 
     if (positieat >= 0 && iserpunt) {
       emailInput.setCustomValidity('');
@@ -346,6 +346,20 @@ const startInit = function () {
 const spelvormInit = function () {
   console.log('spelvorm');
   let htmlHome = document.querySelector('.js-home');
+  htmlSolo = document.querySelector('.js-solo');
+  htmlSolo.style.display = 'none';
+  document.querySelector('.js-vorm__solo').addEventListener('click', function () {
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'none';
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'block';
+  });
+  document.querySelector('.js-vorm__duo').addEventListener('click', function () {
+    htmlSolo = document.querySelector('.js-solo');
+    htmlSolo.style.display = 'none';
+    htmlDuo = document.querySelector('.js-duo');
+    htmlDuo.style.display = 'block';
+  });
   htmlHome.addEventListener('click', function () {
     console.log('home');
     socketio.emit('FT2B_new_game');
