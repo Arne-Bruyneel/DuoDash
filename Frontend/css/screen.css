@@ -1725,6 +1725,64 @@ svg {
     100% {opacity: 1;}
 }
 
+
+/*-------------------TOP-5------------------*/
+
+.c-bodytablet--top{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-mainTop{
+    width: calc(100% - 12rem);
+    height: 18.75rem;
+}
+
+.c-table{
+    height: 100%;
+    width: 100%;
+    font-size: var(--font-size-bigtext);
+    font-weight: var(--font-weight-text);
+
+    @media (max-width: 992px) {
+        font-size: var(--font-size-smailltext);
+    }
+}
+
+.c-table__naam{
+    text-align: start;
+    padding-left: 1rem;
+    width: 30rem;
+}
+
+.c-table__mail{
+    text-align: center;
+    width: 32rem;
+    padding: 0 .5rem;
+}
+
+.c-table__afstand{
+    text-align: end;
+    padding-right: 1rem;
+}
+
+.c-table__titel{
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.c-table__nummer{
+    border-right: 2px solid var(--color-primary);
+    width: 4rem;
+}
+
+.c-table__kleur{
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
 /*---------------------------------------/*
  # UTILITIES
 /*---------------------------------------*/
