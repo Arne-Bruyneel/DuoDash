@@ -432,6 +432,11 @@ const connectieInit = function () {
   });
 }
 
+socketio.on('B2F_bl_disconnect', function () {
+  console.log('verbinding verbroken met fietsen via bluetooth');
+  window.location.href = 'bikeConnectionTablet.html';
+});
+
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
   htmlBody = document.querySelector('body');
