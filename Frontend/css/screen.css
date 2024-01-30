@@ -1739,6 +1739,9 @@ svg {
 .c-mainTop{
     width: calc(100% - 12rem);
     height: 18.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .c-table{
@@ -1765,8 +1768,7 @@ svg {
 }
 
 .c-table__afstand{
-    text-align: end;
-    padding-right: 1rem;
+    text-align: center;
 }
 
 .c-table__titel{
