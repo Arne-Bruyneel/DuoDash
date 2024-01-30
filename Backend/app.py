@@ -94,6 +94,7 @@ def leaderboardAll():
     else:
         return jsonify({"error": "Method not allowed"}), 405
 
+
 @app.route("/api/v1/top5", methods=["GET"])
 def top5():
     if request.method == "GET":
@@ -230,50 +231,50 @@ def startgame(jsonObject):
     player2_speeds = []
     player1_power = []
     player2_power = []
-    print(jsonObject["type"])
 
-    if jsonObject["type"] == "duo":
-        countdown = 150
-        while countdown > 0:
-            data_list = [
-                {
-                    "side": "left" if identifier == device_left else "right",
-                    "data": data,
-                }
-                for identifier, data in device_data.items()
-            ]
+    # DUO AND SOLO WILL BE RESOLVED WITH HOTFIX FOR DEMO
+    # if jsonObject["type"] == "duo":
+    countdown = 150
+    while countdown > 0:
+        data_list = [
+            {
+                "side": "left" if identifier == device_left else "right",
+                "data": data,
+            }
+            for identifier, data in device_data.items()
+        ]
 
-            emit("B2F_data", data_list, broadcast=True)
+        emit("B2F_data", data_list, broadcast=True)
 
-            if data_list[0]["side"] == "left":
-                player1_speeds.append(data_list[0]["data"]["speed"])
-                player1_power.append(data_list[0]["data"]["power"])
-                player2_speeds.append(data_list[1]["data"]["speed"])
-                player2_power.append(data_list[1]["data"]["power"])
-            else:
-                player1_speeds.append(data_list[1]["data"]["speed"])
-                player1_power.append(data_list[1]["data"]["power"])
-                player2_speeds.append(data_list[0]["data"]["speed"])
-                player2_power.append(data_list[0]["data"]["power"])
-
-            socketio.sleep(0.1)
-            countdown -= 1
-    else:
-        top_player = dr.get_best_player(cursor, paswoord)
-
-        countdown = 150
-        while countdown > 0:
-            data_list = [{"data": data} for data in device_data.items()]
-
-            # (p1_dist / 15) * (3600 / 1000)
-
-            emit("B2F_data", data_list, broadcast=True)
-
+        if data_list[0]["side"] == "left":
             player1_speeds.append(data_list[0]["data"]["speed"])
             player1_power.append(data_list[0]["data"]["power"])
+            player2_speeds.append(data_list[1]["data"]["speed"])
+            player2_power.append(data_list[1]["data"]["power"])
+        else:
+            player1_speeds.append(data_list[1]["data"]["speed"])
+            player1_power.append(data_list[1]["data"]["power"])
+            player2_speeds.append(data_list[0]["data"]["speed"])
+            player2_power.append(data_list[0]["data"]["power"])
 
-            socketio.sleep(0.1)
-            countdown -= 1
+        socketio.sleep(0.1)
+        countdown -= 1
+    # else:
+    #     top_player = dr.get_best_player(cursor, paswoord)
+
+    #     countdown = 150
+    #     while countdown > 0:
+    #         data_list = [{"data": data} for data in device_data.items()]
+
+    #         # (p1_dist / 15) * (3600 / 1000)
+
+    #         emit("B2F_data", data_list, broadcast=True)
+
+    #         player1_speeds.append(data_list[0]["data"]["speed"])
+    #         player1_power.append(data_list[0]["data"]["power"])
+
+    #         socketio.sleep(0.1)
+    #         countdown -= 1
 
     device_data.clear()
 
@@ -422,9 +423,10 @@ def get_average(list_of_values):
     return sum(list_of_values) / len(list_of_values)
 
 
-def check_heartbeat():
-    while True:
-        print("checking heartbeat")
+# NOT USED ANYMORE
+# def check_heartbeat():
+#     while True:
+#         print("checking heartbeat")
 
 
 #         if len(device_data) > 0:
