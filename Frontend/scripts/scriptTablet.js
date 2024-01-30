@@ -430,7 +430,7 @@ const connectieInit = function () {
   document.querySelector('.js-connect').style.display = 'none';
   // document.querySelector('.js-start').style.display = 'none';
   document.querySelector('.js-scan').addEventListener('click', function () {
-    socketio.emit("F2BS_start_bluetooth_scan");
+    socketio.emit("F2B_start_bluetooth_scan");
     document.querySelector('.js-loader').style.display = 'block';
   });
 }
