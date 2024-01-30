@@ -58,31 +58,19 @@ def leaderboardAll():
         all_players = dr.get_all_players(cursor, paswoord)
         # print(f'all_players: {all_players}')
         metingen = combined_data["metingen"]
-        print(f"metingen: {metingen}")
-        print('all')
-        print(all_players)
 
         result = []
         i = 0
         for player in all_players:
-            print("--------------------------------------")
-            print(player)
-            player_id = player[0]
+            player_name = player[1]
 
-            if i < 10:
+            if i < 9:
                 result.append(player)
             else:
-                for meting in combined_data["metingen"]:
-                    print(
-                        "data",
-                        meting["speler_id"],
-                        player_id,
-                        meting["afstand"],
-                        player[3],
-                    )
+                for x in range(0, len(combined_data["metingen"])):
                     if (
-                        meting["speler_id"] == player_id
-                        and meting["afstand"] == player[3]
+                        combined_data["spelers"][x]["voornaam"] == player_name
+                        and combined_data["metingen"][x]["afstand"] == player[3]
                     ):
                         # player.append(i + 1)
                         # result2 = player + (i+1,)
@@ -132,60 +120,51 @@ def new_game(json=None):
 
 @socketio.on("FT2B_go_to_instructions")
 def go_to_instructions(json=None):
-    device_data.clear()
     print("go to instructions")
     emit("B2FS_go_to_instructions", broadcast=True)
 
 
 @socketio.on("FT2B_leaderboard")
 def leaderboard(json=None):
-    device_data.clear()
     print("leaderboard pressed")
     emit("B2FS_leaderboard", broadcast=True)
 
 
 @socketio.on("FS2B_go_to_choice")
 def go_to_choice(json=None):
-    device_data.clear()
     print("go to choice")
     emit("B2FT_go_to_choice", broadcast=True)
 
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
-    device_data.clear()
     print("start countdown")
     emit("B2FS_start_countdown", broadcast=True)
 
 
 @socketio.on("FT2B_show_map")
 def show_map(jsonObject):
-    device_data.clear()
     emit("B2FS_show_map", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_go_to_countdown")
 def go_to_countdown(json=None):
-    device_data.clear()
     emit("B2FS_go_to_countdown", broadcast=True)
 
 
 @socketio.on("FT2B_show_player1_setup")
 def show_player1(jsonObject):
-    device_data.clear()
     print("show player 1")
     emit("B2FS_show_player1_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player2_setup")
 def show_player2(jsonObject):
-    device_data.clear()
     emit("B2FS_show_player2_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player_setup")
 def show_player(jsonObject):
-    device_data.clear()
     emit("B2FS_show_player_setup", {"data": jsonObject}, broadcast=True)
 
 
@@ -232,9 +211,6 @@ def handle_connect(jsonObject):
 @socketio.on("FS2B_start_game")
 def startgame(jsonObject):
     print("game started")
-
-    device_data.clear()
-    
     global device_left
     global combined_data
 
@@ -244,98 +220,102 @@ def startgame(jsonObject):
     player2_power = []
 
     # DUO AND SOLO WILL BE RESOLVED WITH HOTFIX FOR DEMO
-    # if jsonObject["type"] == "duo":
-    countdown = 150
-    while countdown > 0:
-        data_list = [
-            {
-                "side": "left" if identifier == device_left else "right",
-                "data": data,
-            }
-            for identifier, data in device_data.items()
-        ]
+    if jsonObject["type"] == "duo":
+        countdown = 150
+        while countdown > 0:
+            data_list = [
+                {
+                    "side": "left" if identifier == device_left else "right",
+                    "data": data,
+                }
+                for identifier, data in device_data.items()
+            ]
 
-        emit("B2F_data", data_list, broadcast=True)
+            emit("B2F_data", data_list, broadcast=True)
 
-        if data_list[0]["side"] == "left":
-            player1_speeds.append(data_list[0]["data"]["speed"])
-            player1_power.append(data_list[0]["data"]["power"])
-            player2_speeds.append(data_list[1]["data"]["speed"])
-            player2_power.append(data_list[1]["data"]["power"])
-        else:
-            player1_speeds.append(data_list[1]["data"]["speed"])
-            player1_power.append(data_list[1]["data"]["power"])
-            player2_speeds.append(data_list[0]["data"]["speed"])
-            player2_power.append(data_list[0]["data"]["power"])
+            if data_list[0]["side"] == "left":
+                player1_speeds.append(data_list[0]["data"]["speed"])
+                player1_power.append(data_list[0]["data"]["power"])
+                player2_speeds.append(data_list[1]["data"]["speed"])
+                player2_power.append(data_list[1]["data"]["power"])
+            else:
+                player1_speeds.append(data_list[1]["data"]["speed"])
+                player1_power.append(data_list[1]["data"]["power"])
+                player2_speeds.append(data_list[0]["data"]["speed"])
+                player2_power.append(data_list[0]["data"]["power"])
 
-        socketio.sleep(0.1)
-        countdown -= 1
-    # else:
-    #     top_player = dr.get_best_player(cursor, paswoord)
-
-    #     countdown = 150
-    #     while countdown > 0:
-    #         data_list = [{"data": data} for data in device_data.items()]
-
-    #         # (p1_dist / 15) * (3600 / 1000)
-
-    #         emit("B2F_data", data_list, broadcast=True)
-
-    #         player1_speeds.append(data_list[0]["data"]["speed"])
-    #         player1_power.append(data_list[0]["data"]["power"])
-
-    #         socketio.sleep(0.1)
-    #         countdown -= 1
-
-    device_data.clear()
-
-    p1_top_speed = max(player1_speeds)
-    p1_dist = (get_average(player1_speeds) * (1000 / 3600)) * 15
-    p1_avg_power = get_average(player1_power)
-
-    p2_top_speed = max(player2_speeds)
-    p2_dist = (get_average(player2_speeds) * (1000 / 3600)) * 15
-    p2_avg_power = get_average(player2_power)
-
-    combined_data = {
-        "spelers": [
-            {
-                "achternaam": jsonObject["spelers"][0]["achternaam"],
-                "voornaam": jsonObject["spelers"][0]["voornaam"],
-                "email": jsonObject["spelers"][0]["email"],
-                "winnaar": False,
-            },
-            {
-                "achternaam": jsonObject["spelers"][1]["achternaam"],
-                "voornaam": jsonObject["spelers"][1]["voornaam"],
-                "email": jsonObject["spelers"][1]["email"],
-                "winnaar": False,
-            },
-        ],
-        "metingen": [
-            {
-                "maxSnelheid": round(p1_top_speed, 2),
-                "afstand": round(p1_dist, 2),
-                "gemVermogen": round(p1_avg_power, 2),
-            },
-            {
-                "maxSnelheid": round(p2_top_speed, 2),
-                "afstand": round(p2_dist, 2),
-                "gemVermogen": round(p2_avg_power, 2),
-            },
-        ],
-    }
-
-    if p1_dist > p2_dist:
-        combined_data["spelers"][0]["winnaar"] = True
+            socketio.sleep(0.1)
+            countdown -= 1
     else:
-        combined_data["spelers"][1]["winnaar"] = True
+        top_player = dr.get_best_player(cursor, paswoord)
 
-    db.opslaan_db(
-        combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord
-    )
+        print(top_player)
 
-    print("saved db")
+        countdown = 150
+        while countdown > 0:
+            data_list = [{"data": data} for data in device_data.items()]
+
+            print(data_list)
+
+            # (p1_dist / 15) * (3600 / 1000)
+
+            # emit("B2F_data", data_list, broadcast=True)
+
+            # player1_speeds.append(data_list[0]["data"]["speed"])
+            # player1_power.append(data_list[0]["data"]["power"])
+
+            # socketio.sleep(0.1)
+            countdown -= 1
+
+    # device_data.clear()
+
+    # p1_top_speed = max(player1_speeds)
+    # p1_dist = (get_average(player1_speeds) * (1000 / 3600)) * 15
+    # p1_avg_power = get_average(player1_power)
+
+    # p2_top_speed = max(player2_speeds)
+    # p2_dist = (get_average(player2_speeds) * (1000 / 3600)) * 15
+    # p2_avg_power = get_average(player2_power)
+
+    # combined_data = {
+    #     "spelers": [
+    #         {
+    #             "achternaam": jsonObject["spelers"][0]["achternaam"],
+    #             "voornaam": jsonObject["spelers"][0]["voornaam"],
+    #             "email": jsonObject["spelers"][0]["email"],
+    #             "winnaar": False,
+    #         },
+    #         {
+    #             "achternaam": jsonObject["spelers"][1]["achternaam"],
+    #             "voornaam": jsonObject["spelers"][1]["voornaam"],
+    #             "email": jsonObject["spelers"][1]["email"],
+    #             "winnaar": False,
+    #         },
+    #     ],
+    #     "metingen": [
+    #         {
+    #             "maxSnelheid": round(p1_top_speed, 2),
+    #             "afstand": round(p1_dist, 2),
+    #             "gemVermogen": round(p1_avg_power, 2),
+    #         },
+    #         {
+    #             "maxSnelheid": round(p2_top_speed, 2),
+    #             "afstand": round(p2_dist, 2),
+    #             "gemVermogen": round(p2_avg_power, 2),
+    #         },
+    #     ],
+    # }
+
+    # if p1_dist > p2_dist:
+    #     combined_data["spelers"][0]["winnaar"] = True
+    # else:
+    #     combined_data["spelers"][1]["winnaar"] = True
+
+    # db.opslaan_db(
+    #     combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord
+    # )
+
+    # print("saved db")
 
 
 async def scan_for_ble_devices():

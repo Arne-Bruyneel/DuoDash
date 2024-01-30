@@ -80,36 +80,36 @@ const showLeaderboard = function (leads) {
     </div>`;
   });
   htmlKlasseRechts.innerHTML = htmlStringRechts;
-  if (leads.length > 10) {
-    console.log(leads[10])
-    spelers = leads[10][1];
-    positie = leads[10][0];
+  if (leads.length > 9) {
+    console.log(leads[9])
+    spelers = leads[9][1];
+    positie = leads[9][0];
     console.log(spelers);
-    console.log(leads[10][0]);
+    console.log(leads[9][0]);
     htmlString11 = `
     <div class="c-klasse c-klasse--speler">
     <div class="c-klasseBegin c-klasseBegin--tien">
-      <div class="c-klasseNummer">${leads[10][0]}.</div>
+      <div class="c-klasseNummer">${leads[9][5]}.</div>
+      <div class="c-klasseNaam">${leads[9][1]} ${leads[9][2][0]}.</div>
+    </div>
+    <div class="c-klasseEind">
+      <div class="c-klasseAfstand">${leads[9][3]}m</div>
+      <div class="c-klasseSnelheid">${leads[9][4]} km/u</div>
+    </div>
+    </div>`;
+  }
+  htmlKlasseRechts.innerHTML += htmlString11;
+  if (leads.length > 10) {
+    console.log(leads[10])
+    htmlString12 = `
+    <div class="c-klasse c-klasse--speler">
+    <div class="c-klasseBegin c-klasseBegin--tien">
+      <div class="c-klasseNummer">${leads[10][5]}.</div>
       <div class="c-klasseNaam">${leads[10][1]} ${leads[10][2][0]}.</div>
     </div>
     <div class="c-klasseEind">
       <div class="c-klasseAfstand">${leads[10][3]}m</div>
       <div class="c-klasseSnelheid">${leads[10][4]} km/u</div>
-    </div>
-    </div>`;
-  }
-  htmlKlasseRechts.innerHTML += htmlString11;
-  if (leads.length > 11) {
-    console.log(leads[11])
-    htmlString12 = `
-    <div class="c-klasse c-klasse--speler">
-    <div class="c-klasseBegin c-klasseBegin--tien">
-      <div class="c-klasseNummer">${leads[11][0]}.</div>
-      <div class="c-klasseNaam">${leads[11][1]} ${leads[11][2][0]}.</div>
-    </div>
-    <div class="c-klasseEind">
-      <div class="c-klasseAfstand">${leads[11][3]}m</div>
-      <div class="c-klasseSnelheid">${leads[11][4]} km/u</div>
     </div>
     </div>`;
   }
@@ -508,7 +508,10 @@ function fetchResultData() {
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
-const laadInit = function () { };
+const laadInit = function () {
+  console.log('clearies')
+  localStorage.clear();
+};
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
