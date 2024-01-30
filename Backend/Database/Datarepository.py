@@ -9,12 +9,15 @@ class Datarepository:
         return result[0] if result else None
 
     def insert_speler(cursor, speler, paswoord):
+        if speler["voornaam"].lower() == "computer" or speler["achternaam"].lower() == "computer":
+            return None  # Or a default value indicating no insertion
         cursor.execute(f"PRAGMA key = '{paswoord}';")
         cursor.execute(
             "INSERT INTO spelers (achternaam, voornaam, email) VALUES (?, ?, ?)",
             (speler["achternaam"], speler["voornaam"], speler["email"]),
         )
         return cursor.lastrowid
+
 
     def insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord):
         for meting in metingen_data:
@@ -30,6 +33,8 @@ class Datarepository:
                         meting["gemVermogen"],
                     ),
                 )
+            else:
+                return False
 
     def update_winnaar(cursor, speler_id, wedstrijd_id, paswoord):
         cursor.execute(f"PRAGMA key = '{paswoord}';")
