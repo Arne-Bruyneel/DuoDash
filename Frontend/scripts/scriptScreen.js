@@ -15,17 +15,15 @@ const showLeaderboard = function (leads) {
   let htmlPodium1 = document.querySelector('.js-podium1');
   let htmlPodium2 = document.querySelector('.js-podium2');
   let htmlPodium3 = document.querySelector('.js-podium3');
-  // let htmlKlasse10 = document.querySelector('.js-klasse10');
-  // let htmlKlasse11 = document.querySelector('.js-klasse11');
   let htmlKlasseLinks = document.querySelector('.js-klasselinks');
   let htmlKlasseRechts = document.querySelector('.js-klasserechts');
-  let htmlString1 = ""
-  let htmlString2 = ""
-  let htmlString3 = ""
-  // let htmlString11 = ""
-  // let htmlString12 = ""
+  let htmlString1 = '';
+  let htmlString2 = '';
+  let htmlString3 = '';
+  let htmlString11 = '';
+  let htmlString12 = '';
 
-  console.log(leads)
+  console.log(leads);
 
   if (leads.length > 0) {
     htmlString1 = `<div class="c-klasseNaam">${leads[0][1]} ${leads[0][2][0]}.</div> 
@@ -45,16 +43,6 @@ const showLeaderboard = function (leads) {
       <div class="c-klasseSnelheid">${leads[2][4]} km/u</div>`;
   }
 
-  // if (leads.length > 10) {
-  //   // spelers = leads[10].speler
-  //   // positie = leads[10].positie
-  //   // console.log(spelers)
-  //   console.log(leads[10].positie) 
-  //   htmlString11 =  `<div class="c-klasseNaam">${leads[10].naam}</div>
-  //   <div class="c-klasseAfstand">${leads[10].afstand}</div>
-  //   <div class="c-klasseSnelheid">${leads[10].snelheid} km/u</div>`;
-  // }
-
   htmlPodium1.innerHTML = htmlString1;
   htmlPodium2.innerHTML = htmlString2;
   htmlPodium3.innerHTML = htmlString3;
@@ -65,11 +53,11 @@ const showLeaderboard = function (leads) {
     htmlStringLinks += `<div class="c-klasse">
         <div class="c-klasseBegin">
             <div class="c-klasseNummer">${index + 4}.</div>
-            <div class="c-klasseNaam">${lead.naam}</div>
+            <div class="c-klasseNaam">${lead[1]} ${lead[2][0]}.</div>
         </div>
         <div class="c-klasseEind">
-            <div class="c-klasseAfstand">${lead.afstand}</div>
-            <div class="c-klasseSnelheid">${lead.snelheid} km/u</div>
+            <div class="c-klasseAfstand">${lead[3]}</div>
+            <div class="c-klasseSnelheid">${lead[4]} km/u</div>
         </div>
     </div>`;
   });
@@ -83,16 +71,51 @@ const showLeaderboard = function (leads) {
     htmlStringRechts += `<div class="c-klasse">
       <div class="${rankClass}">
         <div class="c-klasseNummer">${index + 8}.</div>
-        <div class="c-klasseNaam">${lead.naam}</div>
+        <div class="c-klasseNaam">${lead[1]} ${lead[2][0]}.</div>
       </div>
       <div class="c-klasseEind">
-        <div class="c-klasseAfstand">${lead.afstand}</div>
-        <div class="c-klasseSnelheid">${lead.snelheid} km/u</div>
+        <div class="c-klasseAfstand">${lead[3]}</div>
+        <div class="c-klasseSnelheid">${lead[4]} km/u</div>
       </div>
     </div>`;
   });
   htmlKlasseRechts.innerHTML = htmlStringRechts;
+  if (leads.length > 10) {
+    console.log(leads[10])
+    spelers = leads[10][1];
+    positie = leads[10][0];
+    console.log(spelers);
+    console.log(leads[10][0]);
+    htmlString11 = `
+    <div class="c-klasse c-klasse--speler">
+    <div class="c-klasseBegin c-klasseBegin--tien">
+      <div class="c-klasseNummer">${leads[10][0]}.</div>
+      <div class="c-klasseNaam">${leads[10][1]} ${leads[10][2][0]}.</div>
+    </div>
+    <div class="c-klasseEind">
+      <div class="c-klasseAfstand">${leads[10][3]}m</div>
+      <div class="c-klasseSnelheid">${leads[10][4]} km/u</div>
+    </div>
+    </div>`;
+  }
+  htmlKlasseRechts.innerHTML += htmlString11;
+  if (leads.length > 11) {
+    console.log(leads[11])
+    htmlString12 = `
+    <div class="c-klasse c-klasse--speler">
+    <div class="c-klasseBegin c-klasseBegin--tien">
+      <div class="c-klasseNummer">${leads[11][0]}.</div>
+      <div class="c-klasseNaam">${leads[11][1]} ${leads[11][2][0]}.</div>
+    </div>
+    <div class="c-klasseEind">
+      <div class="c-klasseAfstand">${leads[11][3]}m</div>
+      <div class="c-klasseSnelheid">${leads[11][4]} km/u</div>
+    </div>
+    </div>`;
+  }
+  htmlKlasseRechts.innerHTML += htmlString12;
 };
+
 
 const showPlayer1Setup = function (player1) {
   document.querySelector('.js-speler1nk').style.display = 'none';
@@ -100,8 +123,8 @@ const showPlayer1Setup = function (player1) {
   document.querySelector('.js-kader1').style.display = 'flex';
   localStorage.setItem('voornaam1', player1.voornaam);
   localStorage.setItem('kleur1', player1.kleur);
-  localStorage.setItem('emailSpeler1', player1.email)
-  localStorage.setItem('achternaamSpeler1', player1.achternaam)
+  localStorage.setItem('emailSpeler1', player1.email);
+  localStorage.setItem('achternaamSpeler1', player1.achternaam);
   document.querySelector('.js-speler1naam').innerHTML = player1.voornaam;
   document.querySelector(
     '.js-avatar1'
@@ -114,8 +137,8 @@ const showPlayer2Setup = function (player2) {
   document.querySelector('.js-kader2').style.display = 'flex';
   localStorage.setItem('voornaam2', player2.voornaam);
   localStorage.setItem('kleur2', player2.kleur);
-  localStorage.setItem('emailSpeler2', player2.email)
-  localStorage.setItem('achternaamSpeler2', player2.achternaam)
+  localStorage.setItem('emailSpeler2', player2.email);
+  localStorage.setItem('achternaamSpeler2', player2.achternaam);
   document.querySelector('.js-speler2naam').innerHTML = player2.voornaam;
   document.querySelector(
     '.js-avatar2'
@@ -147,25 +170,24 @@ const showCountdown = function () {
       console.log('Countdown finished!');
 
       const data = {
-        "map": localStorage.getItem('theMap'),
-        "type:": localStorage.getItem('chosenSpelvorm'),
-        "spelers": [
+        map: localStorage.getItem('theMap'),
+        'type:': localStorage.getItem('chosenSpelvorm'),
+        spelers: [
           {
-            "achternaam": localStorage.getItem('achternaamSpeler1'),
-            "voornaam": localStorage.getItem('voornaam1'),
-            "email": localStorage.getItem('emailSpeler1'),
+            achternaam: localStorage.getItem('achternaamSpeler1'),
+            voornaam: localStorage.getItem('voornaam1'),
+            email: localStorage.getItem('emailSpeler1'),
           },
           {
-            "achternaam": localStorage.getItem('achternaamSpeler2'),
-            "voornaam": localStorage.getItem('voornaam2'),
-            "email": localStorage.getItem('emailSpeler2'),
+            achternaam: localStorage.getItem('achternaamSpeler2'),
+            voornaam: localStorage.getItem('voornaam2'),
+            email: localStorage.getItem('emailSpeler2'),
           },
-        ]
+        ],
       };
 
       socketio.emit('FS2B_start_game', data);
       window.location.href = 'raceScreen.html';
-      conso
     },
     true
   );
@@ -213,8 +235,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-    'kleur1'
-  )}.png" alt="Rood">
+                          'kleur1'
+                        )}.png" alt="Rood">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -222,20 +244,23 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[0].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${result[0].snelheid
-    } km/u</div>
+                                <div class="c-klasseSnelheid">${
+                                  result[0].snelheid
+                                } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[0].afstand
-    } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
+                                  result[0].afstand
+                                } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${result[0].wattage
-    } W</div>
+                                <div class="c-klasseWatt">${
+                                  result[0].wattage
+                                } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -256,8 +281,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-    'kleur2'
-  )}.png" alt="Blauw">
+                          'kleur2'
+                        )}.png" alt="Blauw">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -265,20 +290,23 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[1].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${result[1].snelheid
-    } km/u</div>
+                                <div class="c-klasseSnelheid">${
+                                  result[1].snelheid
+                                } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[1].afstand
-    } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
+                                  result[1].afstand
+                                } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${result[1].wattage
-    } W</div>
+                                <div class="c-klasseWatt">${
+                                  result[1].wattage
+                                } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -332,7 +360,7 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
       if (showFinalCountdown && timeLeft <= 3.5) {
-        socketio.emit('FS2B_play_countdownmuziek')
+        socketio.emit('FS2B_play_countdownmuziek');
         document.querySelector('.js-spring').style.display = 'none';
         countdownElement.style.display = 'none'; // Hide the countdown
         aftelElement.style.display = 'flex'; // Show the countdown
@@ -357,8 +385,6 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
 
 // #region ***  Data Access - get___                     ***********
 
-
-
 const getPlayer1Setup = function (player1) {
   showPlayer1Setup(player1);
 };
@@ -368,7 +394,7 @@ const getPlayer2Setup = function (player2) {
 };
 
 const getResult = function (data) {
-  console.log(data)
+  console.log(data);
   if (!data || !data.metingen) {
     console.error('Data is not defined or malformed', data);
     return;
@@ -476,7 +502,7 @@ socketio.on('B2F_bl_disconnect', function () {
 // #endregion
 
 function fetchLeaderboardData() {
-  handleData(`http://${lanIP}/api/v1/leaderboard`,   showLeaderboard);
+  handleData(`http://${lanIP}/api/v1/leaderboard`, showLeaderboard);
 }
 
 function fetchLeaderboardDataWithAllPlayers() {
@@ -489,7 +515,7 @@ function fetchResultData() {
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
-const laadInit = function () { };
+const laadInit = function () {};
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
@@ -549,7 +575,7 @@ const raceInit = function () {
   let map = localStorage.getItem('theMap');
   let htmlImg = document.querySelector('.c-background__url');
   htmlImg.style.background = `url(../../img/Achtergronden/Moving/${map}Twee.svg)`;
-  console.log(map)
+  console.log(map);
   htmlImg.style.backgroundSize = 'auto 100%';
   let htmlNaam1 = document.querySelector('.js-naam1');
   let htmlNaam2 = document.querySelector('.js-naam2');
@@ -559,8 +585,8 @@ const raceInit = function () {
   let kleur2 = localStorage.getItem('kleur2');
   htmlNaam1.innerHTML = localStorage.getItem('voornaam1');
   htmlNaam2.innerHTML = localStorage.getItem('voornaam2');
-  console.log(localStorage.getItem('voornaam1'))
-  console.log(localStorage.getItem('voornaam2'))
+  console.log(localStorage.getItem('voornaam1'));
+  console.log(localStorage.getItem('voornaam2'));
   avatar1.src = `../../img/fietser1_${kleur1}.png`;
   avatar2.src = `../../img/fietser1_${kleur2}.png`;
   if (localStorage.getItem('chosenSpelvorm') === 'solo') {
@@ -576,22 +602,22 @@ const resultInit = function () {
 };
 
 const leaderboardInit = function () {
-  if(localStorage.getItem('theMap') === null){
+  if (localStorage.getItem('theMap') === null) {
     showMap('Palmbomen');
-  }else{
-    showMap(localStorage.getItem('theMap'));
-  const player1Name = localStorage.getItem('voornaamSpeler1');
-  const player2Name = localStorage.getItem('voornaamSpeler2');
-  console.log('player1: ', player1Name);
-  console.log('Player2: ', player2Name);
-
-  if (player1Name && player2Name) {
-    fetchLeaderboardDataWithAllPlayers();
   } else {
+    showMap(localStorage.getItem('theMap'));
+    const player1Name = localStorage.getItem('voornaamSpeler1');
+    const player2Name = localStorage.getItem('voornaamSpeler2');
+    console.log('player1: ', player1Name);
+    console.log('Player2: ', player2Name);
+
+    if (player1Name && player2Name) {
+      fetchLeaderboardDataWithAllPlayers();
+    } else {
+      fetchLeaderboardData();
     }
-  fetchLeaderboardData();
   }
-}
+};
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
