@@ -984,7 +984,7 @@ body {
 }
 
 .c-overlay--start{
-    z-index: 0;
+    z-index: 2;
 }
 
 /*---------------------START-----------------------*/
@@ -999,6 +999,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 5;
 }
 
 .c-titelScherm{
@@ -1039,6 +1040,7 @@ body {
     left: 0;
     height: 4rem;
     padding: .5rem;
+    z-index: 5;
 }
 
 .c-logoHowest{
@@ -1046,16 +1048,16 @@ body {
     bottom: 0;
     right: 0;
     padding: 1rem;
+    z-index: 5;
 }
-
 
 .c-beweegFiets{
     position: absolute;
     bottom: 4rem;
     left: -20rem;
-    animation: beweegFiets 20s infinite;
+    animation: beweegFiets 15s infinite;
     animation-delay: 3s;
-    z-index: -1;
+    z-index: 1;
 }
 
 @keyframes beweegFiets{
@@ -1066,7 +1068,8 @@ body {
 
 
 .cyclist{
-    height: 260px;
+    height: 16.25rem;
+    width: 17.327rem;
     width: calc(8317px / 30);
     background: url(../img/Game/rood.png);
     animation: cycle 1s steps(30) infinite;
