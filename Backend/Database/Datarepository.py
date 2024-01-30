@@ -1,4 +1,4 @@
-class Datarepository:   
+class Datarepository:
     def get_speler_id(cursor, speler, paswoord):
         cursor.execute(f"PRAGMA key = '{paswoord}';")
         cursor.execute(
@@ -9,12 +9,15 @@ class Datarepository:
         return result[0] if result else None
 
     def insert_speler(cursor, speler, paswoord):
+        if speler["voornaam"].lower() == "computer" or speler["achternaam"].lower() == "computer":
+            return None  # Or a default value indicating no insertion
         cursor.execute(f"PRAGMA key = '{paswoord}';")
         cursor.execute(
             "INSERT INTO spelers (achternaam, voornaam, email) VALUES (?, ?, ?)",
             (speler["achternaam"], speler["voornaam"], speler["email"]),
         )
         return cursor.lastrowid
+
 
     def insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord):
         for meting in metingen_data:
@@ -30,6 +33,8 @@ class Datarepository:
                         meting["gemVermogen"],
                     ),
                 )
+            else:
+                return False
 
     def update_winnaar(cursor, speler_id, wedstrijd_id, paswoord):
         cursor.execute(f"PRAGMA key = '{paswoord}';")
@@ -60,9 +65,68 @@ class Datarepository:
         players = cursor.execute(query).fetchall()
         return players
 
+    def get_all_players(cursor, paswoord):
+        cursor.execute(f"PRAGMA key = '{paswoord}';")
+        query = """
+        SELECT 
+            s.id, 
+            s.voornaam, 
+            s.achternaam, 
+            MAX(m.afstand) AS max_afstand,
+            MAX(m.maxSnelheid) AS max_snelheid
+        FROM 
+            spelers s
+        JOIN 
+            metingen m ON s.id = m.speler_id
+        GROUP BY 
+            s.id, s.voornaam, s.achternaam
+        ORDER BY 
+            max_afstand DESC
+        """
+        players = cursor.execute(query).fetchall()
+        return players
+
+    def get_top_5(cursor, paswoord):
+        cursor.execute(f"PRAGMA key = '{paswoord}';")
+        query = """
+        SELECT 
+            s.id, 
+            s.voornaam, 
+            s.achternaam, 
+            s.email,
+            MAX(m.afstand) AS max_afstand,
+            MAX(m.maxSnelheid) AS max_snelheid
+        FROM 
+            spelers s
+        JOIN 
+            metingen m ON s.id = m.speler_id
+        GROUP BY 
+            s.id, s.voornaam, s.achternaam
+        ORDER BY 
+            max_afstand DESC
+        LIMIT 6;
+        """
+        players = cursor.execute(query).fetchall()
+        return players
+
     def get_best_player(cursor, paswoord):
-        pass
-
-
-
-
+        cursor.execute(f"PRAGMA key = '{paswoord}';")
+        query = """
+        SELECT 
+            s.id, 
+            s.voornaam, 
+            s.achternaam, 
+            MAX(m.afstand) AS max_afstand,
+            MAX(m.maxSnelheid) AS max_snelheid
+        FROM 
+            spelers s
+        JOIN 
+            metingen m ON s.id = m.speler_id
+        GROUP BY 
+            s.id, s.voornaam, s.achternaam
+        ORDER BY 
+            max_afstand DESC
+        LIMIT 11;
+        """
+        players = cursor.execute(query).fetchall()
+        return players

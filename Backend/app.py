@@ -13,6 +13,7 @@ import threading
 from bleak import BleakScanner, BleakClient
 from dotenv import load_dotenv
 import os
+from playsound import playsound
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -48,8 +49,59 @@ def hello():
 def leaderboard():
     if request.method == "GET":
         result = jsonify(dr.get_leaderboard(conn, paswoord))
-        print(f'leaderboard: {result.json}')
+        print(f"leaderboard: {result.json}")
         return result
+
+
+@app.route("/api/v1/leaderboardAll", methods=["GET"])
+def leaderboardAll():
+    if request.method == "GET":
+        all_players = dr.get_all_players(cursor, paswoord)
+        # print(f'all_players: {all_players}')
+        metingen = combined_data["metingen"]
+        print(f"metingen: {metingen}")
+
+        result = []
+        i = 0
+        for player in all_players:
+            print(player[3])
+            player_id = player[0]
+
+            if i < 10:
+                result.append(player)
+            else:
+                for meting in combined_data["metingen"]:
+                    print(
+                        "data",
+                        meting["speler_id"],
+                        player_id,
+                        meting["afstand"],
+                        player[3],
+                    )
+                    if (
+                        meting["speler_id"] == player_id
+                        and meting["afstand"] == player[3]
+                    ):
+                        # player.append(i + 1)
+                        # result2 = player + (i+1,)
+                        result.append(player + (i + 1,))
+            i += 1
+
+        print(result)
+        print(len(result))
+
+        return jsonify(result)
+    else:
+        return jsonify({"error": "Method not allowed"}), 405
+
+
+@app.route("/api/v1/top5", methods=["GET"])
+def top5():
+    if request.method == "GET":
+        result = jsonify(dr.get_top_5(conn, paswoord))
+        return result
+    else:
+        return jsonify({"error": "Method not allowed"}), 405
 
 
 @app.route("/api/v1/results", methods=["GET"])
@@ -71,25 +123,30 @@ def results():
 def initial_connection():
     print("A new client connected")
 
+
 @socketio.on("FT2B_new_game")
 def new_game(json=None):
     print("new game")
     emit("B2FS_new_game", broadcast=True)
+
 
 @socketio.on("FT2B_go_to_instructions")
 def go_to_instructions(json=None):
     print("go to instructions")
     emit("B2FS_go_to_instructions", broadcast=True)
 
+
 @socketio.on("FT2B_leaderboard")
 def leaderboard(json=None):
     print("leaderboard pressed")
     emit("B2FS_leaderboard", broadcast=True)
 
+
 @socketio.on("FS2B_go_to_choice")
 def go_to_choice(json=None):
     print("go to choice")
     emit("B2FT_go_to_choice", broadcast=True)
+
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
@@ -100,6 +157,7 @@ def start_countdown(json=None):
 @socketio.on("FT2B_show_map")
 def show_map(jsonObject):
     emit("B2FS_show_map", {"data": jsonObject}, broadcast=True)
+
 
 @socketio.on("FT2B_go_to_countdown")
 def go_to_countdown(json=None):
@@ -140,7 +198,7 @@ def start_bluetooth_scan():
 
 @socketio.on("F2B_connect")
 def handle_connect(jsonObject):
-    global device_left 
+    global device_left
     print("F2B_connect")
     device_address1 = jsonObject["devices"][0]
     device_address2 = jsonObject["devices"][1]
@@ -174,128 +232,101 @@ def startgame(jsonObject):
     player1_power = []
     player2_power = []
 
-    if jsonObject["type"] == "duo":
+    # DUO AND SOLO WILL BE RESOLVED WITH HOTFIX FOR DEMO
+    # if jsonObject["type"] == "duo":
+    countdown = 150
+    while countdown > 0:
+        data_list = [
+            {
+                "side": "left" if identifier == device_left else "right",
+                "data": data,
+            }
+            for identifier, data in device_data.items()
+        ]
 
-        countdown = 150
-        while countdown > 0:
-            data_list = [
-                {
-                    "side": "left" if identifier == device_left else "right",
-                    "data": data,
-                }
-                for identifier, data in device_data.items()
-            ]
+        emit("B2F_data", data_list, broadcast=True)
 
-            emit("B2F_data", data_list, broadcast=True)
-
-            if data_list[0]["side"] == "left":
-                player1_speeds.append(data_list[0]["data"]["speed"])
-                player1_power.append(data_list[0]["data"]["power"])
-                player2_speeds.append(data_list[1]["data"]["speed"])
-                player2_power.append(data_list[1]["data"]["power"])
-            else:
-                player1_speeds.append(data_list[1]["data"]["speed"])
-                player1_power.append(data_list[1]["data"]["power"])
-                player2_speeds.append(data_list[0]["data"]["speed"])
-                player2_power.append(data_list[0]["data"]["power"])
-
-            socketio.sleep(0.1)
-            countdown -= 1
-
-        device_data.clear()
-
-        p1_top_speed = max(player1_speeds)
-        p1_dist = (get_average(player1_speeds) * (1000/3600)) * 15
-        p1_avg_power = get_average(player1_power)
-
-        p2_top_speed = max(player2_speeds)
-        p2_dist =  (get_average(player2_speeds) * (1000/3600)) * 15
-        p2_avg_power = get_average(player2_power)
-
-        combined_data = {
-            "spelers": [
-                {
-                    "id": 1,
-                    "achternaam": jsonObject["spelers"][0]["achternaam"],
-                    "voornaam": jsonObject["spelers"][0]["voornaam"],
-                    "email": jsonObject["spelers"][0]["email"],
-                    "winnaar": False,
-                },
-                {
-                    "id": 2,
-                    "achternaam": jsonObject["spelers"][1]["achternaam"],
-                    "voornaam": jsonObject["spelers"][1]["voornaam"],
-                    "email": jsonObject["spelers"][1]["email"],
-                    "winnaar": False,
-                },
-            ],
-            "metingen": [
-                {"speler_id": 1, "maxSnelheid": round(p1_top_speed, 2), "afstand": round(p1_dist, 2), "gemVermogen": round(p1_avg_power, 2)},
-                {"speler_id": 2, "maxSnelheid": round(p2_top_speed, 2), "afstand": round(p2_dist, 2), "gemVermogen": round(p2_avg_power, 2)},
-            ],
-        }
-
-    else:
-        countdown = 150
-        while countdown > 0:
-            data_list = [
-                {
-                    "data": data,
-                }
-                for identifier, data in device_data.items()
-            ]
-
-            emit("B2F_data", data_list, broadcast=True)
-
+        if data_list[0]["side"] == "left":
             player1_speeds.append(data_list[0]["data"]["speed"])
             player1_power.append(data_list[0]["data"]["power"])
+            player2_speeds.append(data_list[1]["data"]["speed"])
+            player2_power.append(data_list[1]["data"]["power"])
+        else:
+            player1_speeds.append(data_list[1]["data"]["speed"])
+            player1_power.append(data_list[1]["data"]["power"])
+            player2_speeds.append(data_list[0]["data"]["speed"])
+            player2_power.append(data_list[0]["data"]["power"])
 
-            socketio.sleep(0.1)
-            countdown -= 1
+        socketio.sleep(0.1)
+        countdown -= 1
+    # else:
+    #     top_player = dr.get_best_player(cursor, paswoord)
 
-        device_data.clear()
+    #     countdown = 150
+    #     while countdown > 0:
+    #         data_list = [{"data": data} for data in device_data.items()]
 
-        p1_top_speed = max(player1_speeds)
-        p1_dist = (get_average(player1_speeds) * (1000/3600)) * 15
-        p1_avg_power = get_average(player1_power)
+    #         # (p1_dist / 15) * (3600 / 1000)
 
-        # p2_top_speed = max(player2_speeds)
-        # p2_dist =  (get_average(player2_speeds) * (1000/3600)) * 15
-        # p2_avg_power = get_average(player2_power)
+    #         emit("B2F_data", data_list, broadcast=True)
 
+    #         player1_speeds.append(data_list[0]["data"]["speed"])
+    #         player1_power.append(data_list[0]["data"]["power"])
+
+    #         socketio.sleep(0.1)
+    #         countdown -= 1
+
+    device_data.clear()
+
+    p1_top_speed = max(player1_speeds)
+    p1_dist = (get_average(player1_speeds) * (1000 / 3600)) * 15
+    p1_avg_power = get_average(player1_power)
+
+    p2_top_speed = max(player2_speeds)
+    p2_dist = (get_average(player2_speeds) * (1000 / 3600)) * 15
+    p2_avg_power = get_average(player2_power)
+
+    combined_data = {
+        "spelers": [
+            {
+                "id": 1,
+                "achternaam": jsonObject["spelers"][0]["achternaam"],
+                "voornaam": jsonObject["spelers"][0]["voornaam"],
+                "email": jsonObject["spelers"][0]["email"],
+                "winnaar": False,
+            },
+            {
+                "id": 2,
+                "achternaam": jsonObject["spelers"][1]["achternaam"],
+                "voornaam": jsonObject["spelers"][1]["voornaam"],
+                "email": jsonObject["spelers"][1]["email"],
+                "winnaar": False,
+            },
+        ],
+        "metingen": [
+            {
+                "speler_id": 1,
+                "maxSnelheid": round(p1_top_speed, 2),
+                "afstand": round(p1_dist, 2),
+                "gemVermogen": round(p1_avg_power, 2),
+            },
+            {
+                "speler_id": 2,
+                "maxSnelheid": round(p2_top_speed, 2),
+                "afstand": round(p2_dist, 2),
+                "gemVermogen": round(p2_avg_power, 2),
+            },
+        ],
+    }
 
     if p1_dist > p2_dist:
         combined_data["spelers"][0]["winnaar"] = True
     else:
         combined_data["spelers"][1]["winnaar"] = True
 
-    print(combined_data)
-
-    combined_data = {
-        "spelers": [
-            {
-                "id": 1,
-                "achternaam": "Doe",
-                "voornaam": "John",
-                "email": "john.doe@example.com",
-                "winnaar": True,
-            },
-            {
-                "id": 2,
-                "achternaam": "Smith",
-                "voornaam": "Jane",
-                "email": "jane.smith@example.com",
-                "winnaar": False,
-            },
-        ],
-        "metingen": [
-            {"speler_id": 1, "maxSnelheid": 15.5, "afstand": 250.75, "gemVermogen": 120.35},
-            {"speler_id": 2, "maxSnelheid": 12.8, "afstand": 180.45, "gemVermogen": 95.6},
-        ],
-    }
-
-
-    db.opslaan_db(combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord)
+    db.opslaan_db(
+        combined_data["spelers"], combined_data["metingen"], conn, cursor, paswoord
+    )
 
     print("saved db")
 
@@ -392,9 +423,11 @@ def get_average(list_of_values):
     return sum(list_of_values) / len(list_of_values)
 
 
-def check_heartbeat():
-    while True:
-        print("checking heartbeat")
+# NOT USED ANYMORE
+# def check_heartbeat():
+#     while True:
+#         print("checking heartbeat")
+
 
 #         if len(device_data) > 0:
 #             for device_identifier, data in device_data.items():

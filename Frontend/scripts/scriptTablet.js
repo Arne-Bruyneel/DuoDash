@@ -337,6 +337,7 @@ const mapInit = function () {
 
 const startInit = function () {
   console.log('start');
+  socketio.emit('FT2B_play_wachtmuziek')
   let htmlStart = document.querySelector('.js-start');
   let htmlTrophy = document.querySelector('.js-trophy');
   htmlTrophy.addEventListener('click', function () {
@@ -426,10 +427,71 @@ const connectieInit = function () {
   console.log('connectie');
   document.querySelector('.js-loader').style.display = 'none';
   document.querySelector('.js-connect__list').style.display = 'none';
+  document.querySelector('.js-connect').style.display = 'none';
+  // document.querySelector('.js-start').style.display = 'none';
   document.querySelector('.js-scan').addEventListener('click', function () {
+    socketio.emit("F2B_start_bluetooth_scan");
     document.querySelector('.js-loader').style.display = 'block';
   });
 }
+
+const listenConnectPress = function () {
+  var arr = []
+
+  for (const device of document.querySelectorAll(".js-devices .js-device")) {
+    if (device.value == 'Speler 1') {
+      arr.push("L" + device.dataset.address);
+    } else {
+      arr.push("R" + device.dataset.address);
+    }
+  }
+
+  socketio.emit("F2B_connect", {"devices": arr});
+};
+
+const showDeviceData = function(jsonObject) {
+  try {
+
+    let htmlString = ''
+
+    for (const device of jsonObject.devices) {
+      let name = device["name"]
+
+      htmlString += `<li class="c-connect__fiets">${name.split(': ')[1]}<select class="c-connect__select js-device" data-address="${device["address"]}">
+          <option></option>
+          <option>Speler 1</option>
+          <option>Speler 2</option>
+          <option>Non actief</option>
+        </select>
+      </li>`
+    }
+
+    document.querySelector('.js-loader').style.display = 'none';
+
+    document.querySelector('.js-devices').innerHTML = htmlString;
+
+    document.querySelector('.js-connect').style.display = 'block';
+
+    const connectButton = document.querySelector('.js-connect');
+    connectButton.addEventListener('click', listenConnectPress);
+
+  } catch(error) {
+    console.error(`Er ging iets mis met pol: ${error}`);
+  }
+}
+
+socketio.on('B2F_devices', function (jsonObject) {
+  showDeviceData(jsonObject)
+});
+
+socketio.on('B2F_connected', function () {
+  window.location.href = 'startTablet.html';
+});
+
+socketio.on('B2F_bl_disconnect', function () {
+  console.log('verbinding verbroken met fietsen via bluetooth');
+  window.location.href = 'bikeConnectionTablet.html';
+});
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
