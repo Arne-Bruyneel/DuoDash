@@ -148,7 +148,7 @@ const showCountdown = function () {
 
       const data = {
         "map": localStorage.getItem('theMap'),
-        "type:": localStorage.getItem('chosenSpelvorm'),
+        "type": localStorage.getItem('chosenSpelvorm'),
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
@@ -165,7 +165,6 @@ const showCountdown = function () {
 
       socketio.emit('FS2B_start_game', data);
       window.location.href = 'raceScreen.html';
-      conso
     },
     true
   );
