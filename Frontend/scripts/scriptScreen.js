@@ -28,21 +28,21 @@ const showLeaderboard = function (leads) {
   console.log(leads)
 
   if (leads.length > 0) {
-    htmlString1 = `<div class="c-klasseNaam">${leads[0].naam}</div> 
-      <div class="c-klasseAfstand">${leads[0].afstand}</div>
-      <div class="c-klasseSnelheid">${leads[0].snelheid} km/u</div>`;
+    htmlString1 = `<div class="c-klasseNaam">${leads[0][1]} ${leads[0][2][0]}.</div> 
+      <div class="c-klasseAfstand">${leads[0][3]}</div>
+      <div class="c-klasseSnelheid">${leads[0][4]} km/u</div>`;
   }
 
   if (leads.length > 1) {
-    htmlString2 = `<div class="c-klasseNaam">${leads[1].naam}</div>
-      <div class="c-klasseAfstand">${leads[1].afstand}</div>
-      <div class="c-klasseSnelheid">${leads[1].snelheid} km/u</div>`;
+    htmlString2 = `<div class="c-klasseNaam">${leads[1][1]} ${leads[1][2][0]}.</div>
+      <div class="c-klasseAfstand">${leads[1][3]}</div>
+      <div class="c-klasseSnelheid">${leads[1][4]} km/u</div>`;
   }
 
   if (leads.length > 2) {
-    htmlString3 = `<div class="c-klasseNaam">${leads[2].naam}</div>
-      <div class="c-klasseAfstand">${leads[2].afstand}</div>
-      <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
+    htmlString3 = `<div class="c-klasseNaam">${leads[2][1]} ${leads[2][2][0]}.</div>
+      <div class="c-klasseAfstand">${leads[2][3]}</div>
+      <div class="c-klasseSnelheid">${leads[2][4]} km/u</div>`;
   }
 
   // if (leads.length > 10) {
