@@ -84,6 +84,14 @@ def leaderboardAll():
     else:
         return jsonify({"error": "Method not allowed"}), 405
 
+@app.route("/api/v1/top5", methods=["GET"])
+def top5():
+    if request.method == "GET":
+        result = jsonify(dr.get_top_5(conn, paswoord))
+        return result
+    else:
+        return jsonify({"error": "Method not allowed"}), 405
+
 
 @app.route("/api/v1/results", methods=["GET"])
 def results():

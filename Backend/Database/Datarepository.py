@@ -84,6 +84,29 @@ class Datarepository:
         players = cursor.execute(query).fetchall()
         return players
 
+    def get_top_5(cursor, paswoord):
+        cursor.execute(f"PRAGMA key = '{paswoord}';")
+        query = """
+        SELECT 
+            s.id, 
+            s.voornaam, 
+            s.achternaam, 
+            s.email,
+            MAX(m.afstand) AS max_afstand,
+            MAX(m.maxSnelheid) AS max_snelheid
+        FROM 
+            spelers s
+        JOIN 
+            metingen m ON s.id = m.speler_id
+        GROUP BY 
+            s.id, s.voornaam, s.achternaam
+        ORDER BY 
+            max_afstand DESC
+        LIMIT 6;
+        """
+        players = cursor.execute(query).fetchall()
+        return players
+
 
 
 
