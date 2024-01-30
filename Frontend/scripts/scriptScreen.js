@@ -15,11 +15,15 @@ const showLeaderboard = function (leads) {
   let htmlPodium1 = document.querySelector('.js-podium1');
   let htmlPodium2 = document.querySelector('.js-podium2');
   let htmlPodium3 = document.querySelector('.js-podium3');
+  // let htmlKlasse10 = document.querySelector('.js-klasse10');
+  // let htmlKlasse11 = document.querySelector('.js-klasse11');
   let htmlKlasseLinks = document.querySelector('.js-klasselinks');
   let htmlKlasseRechts = document.querySelector('.js-klasserechts');
   let htmlString1 = ""
   let htmlString2 = ""
   let htmlString3 = ""
+  // let htmlString11 = ""
+  // let htmlString12 = ""
 
   console.log(leads)
 
@@ -41,9 +45,21 @@ const showLeaderboard = function (leads) {
       <div class="c-klasseSnelheid">${leads[2].snelheid} km/u</div>`;
   }
 
+  // if (leads.length > 10) {
+  //   // spelers = leads[10].speler
+  //   // positie = leads[10].positie
+  //   // console.log(spelers)
+  //   console.log(leads[10].positie) 
+  //   htmlString11 =  `<div class="c-klasseNaam">${leads[10].naam}</div>
+  //   <div class="c-klasseAfstand">${leads[10].afstand}</div>
+  //   <div class="c-klasseSnelheid">${leads[10].snelheid} km/u</div>`;
+  // }
+
   htmlPodium1.innerHTML = htmlString1;
   htmlPodium2.innerHTML = htmlString2;
   htmlPodium3.innerHTML = htmlString3;
+  // htmlKlasse10.innerHTML = htmlString11;
+
   let htmlStringLinks = '';
   leads.slice(3, 7).forEach((lead, index) => {
     htmlStringLinks += `<div class="c-klasse">
@@ -62,7 +78,7 @@ const showLeaderboard = function (leads) {
     return rank === 10 ? 'c-klasseBegin c-klasseBegin--tien' : 'c-klasseBegin';
   };
   let htmlStringRechts = '';
-  leads.slice(7, 10).forEach((lead, index) => {
+  leads.slice(7, 9).forEach((lead, index) => {
     const rankClass = getRankClass(index + 8);
     htmlStringRechts += `<div class="c-klasse">
       <div class="${rankClass}">
@@ -132,6 +148,7 @@ const showCountdown = function () {
 
       const data = {
         "map": localStorage.getItem('theMap'),
+        "type:": localStorage.getItem('chosenSpelvorm'),
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
@@ -310,14 +327,12 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
     : null;
 
   let timerId = setInterval(() => {
-    if(timeLeft === 3){
-      socketio.emit('FS2B_play_countdownmuziek')
-    }
-    else if (timeLeft > 0) {
+    if (timeLeft > 0) {
       console.log(timeLeft + ' seconds remaining');
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
       if (showFinalCountdown && timeLeft <= 3.5) {
+        socketio.emit('FS2B_play_countdownmuziek')
         document.querySelector('.js-spring').style.display = 'none';
         countdownElement.style.display = 'none'; // Hide the countdown
         aftelElement.style.display = 'flex'; // Show the countdown
@@ -342,25 +357,7 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
 
 // #region ***  Data Access - get___                     ***********
 
-const getLeaderboard = function (leaderboardData) {
-  console.log(leaderboardData)
-  //sort data
-  leaderboardData.sort(function (a, b) {
-    return b[3] - a[3];
-  });
-  const formattedLeaderboard = leaderboardData.map((player) => {
-    return {
-      naam: player[1] + ' ' + player[2].charAt(0) + '.',
-      afstand: player[3] + ' m',
-      snelheid: parseFloat(player[4]).toFixed(1),
-    };
-  });
 
-  console.log(formattedLeaderboard)
-
-  // displayen van de data
-  showLeaderboard(formattedLeaderboard);
-};
 
 const getPlayer1Setup = function (player1) {
   showPlayer1Setup(player1);
@@ -479,7 +476,11 @@ socketio.on('B2F_bl_disconnect', function () {
 // #endregion
 
 function fetchLeaderboardData() {
-  handleData(`http://${lanIP}/api/v1/leaderboard`, getLeaderboard);
+  handleData(`http://${lanIP}/api/v1/leaderboard`,   showLeaderboard);
+}
+
+function fetchLeaderboardDataWithAllPlayers() {
+  handleData(`http://${lanIP}/api/v1/leaderboardAll`, showLeaderboard);
 }
 
 function fetchResultData() {
@@ -579,9 +580,18 @@ const leaderboardInit = function () {
     showMap('Palmbomen');
   }else{
     showMap(localStorage.getItem('theMap'));
-  }
+  const player1Name = localStorage.getItem('voornaamSpeler1');
+  const player2Name = localStorage.getItem('voornaamSpeler2');
+  console.log('player1: ', player1Name);
+  console.log('Player2: ', player2Name);
+
+  if (player1Name && player2Name) {
+    fetchLeaderboardDataWithAllPlayers();
+  } else {
+    }
   fetchLeaderboardData();
-};
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM loaded');
@@ -597,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resultInit();
   } else if (htmlBody.classList.contains('js-leaderboardInit')) {
     console.log('leaderboard init');
-    fetchLeaderboardData();
+    leaderboardInit();
   }
 });
 // #endregion

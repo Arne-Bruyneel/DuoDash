@@ -817,6 +817,7 @@ input:-webkit-autofill:active{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .c-connect__doe{
@@ -875,8 +876,10 @@ input:-webkit-autofill:active{
 
 /* HTML: <div class="loader"></div> */
 .loader {
-    width: 50px;
-    padding: 8px;
+    width: 3.125rem;
+    padding: .625rem;
+    position: absolute;
+    top: calc(50% - 4rem);
     aspect-ratio: 1;
     border-radius: 50%;
     background: var(--color-font);
@@ -962,7 +965,7 @@ body {
     display: block;
     animation: move 15s infinite linear;
     height: 100vh;
-    z-index: -1;
+    z-index: -5;
 }
 
 @keyframes move{
@@ -1044,6 +1047,41 @@ body {
     right: 0;
     padding: 1rem;
 }
+
+
+.c-beweegFiets{
+    position: absolute;
+    bottom: 4rem;
+    left: -20rem;
+    animation: beweegFiets 20s infinite;
+    animation-delay: 3s;
+    z-index: -1;
+}
+
+@keyframes beweegFiets{
+    0% {transform: translateX(0);}
+    30% {transform: translateX(150rem);}
+    100% {transform: translateX(150rem);}
+}
+
+
+.cyclist{
+    height: 260px;
+    width: calc(8317px / 30);
+    background: url(../img/Game/rood.png);
+    animation: cycle 1s steps(30) infinite;
+}
+
+@keyframes cycle{
+    from{
+        background-position: 0;
+    }
+    to{
+        background-position: -8317px;
+    }
+}
+
+
 
 
 /*---------------------LEADERBOARD-----------------------*/
