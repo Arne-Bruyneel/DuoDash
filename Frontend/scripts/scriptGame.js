@@ -26,27 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let targetX1 = 0;
     let currentX2 = 0;
     let targetX2 = 0;
- 
+
     const bike1Image = new Image();
-    bike1Image.src = '../../img/Game/rood.png';
+    bike1Image.src = `../../img/Game/${localStorage.getItem("kleur1")}.png`;
     const bike2Image = new Image();
-    bike2Image.src = '../../img/Game/blauw.png';
- 
+    bike2Image.src = `../../img/Game/${localStorage.getItem("kleur2")}.png`;
+
     function isOverlapping(x1, x2, width) {
         return Math.abs(x1 - x2) < width;
     }
 
     function drawRectangles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
         const overlapping = isOverlapping(currentX1, currentX2, imgWidth);
-    
+
         ctx.globalAlpha = overlapping && currentX1 < currentX2 ? 0.5 : 1;
         ctx.drawImage(bike1Image, spriteFrameWidth * currentFrame1, 0, spriteFrameWidth, spriteFrameHeight, currentX1, yPos, imgWidth, imgHeight);
-    
+
         ctx.globalAlpha = overlapping && currentX2 < currentX1 ? 0.5 : 1;
         ctx.drawImage(bike2Image, spriteFrameWidth * currentFrame2, 0, spriteFrameWidth, spriteFrameHeight, currentX2, yPos, imgWidth, imgHeight);
-    
+
         ctx.globalAlpha = 1;
     }
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentFrame1 = (currentFrame1 + 1) % 30;
             frameAccumulator1 -= 1;
         }
-    
+
         frameAccumulator2 += animationSpeed2;
         if (frameAccumulator2 >= 1) {
             currentFrame2 = (currentFrame2 + 1) % 30;
@@ -113,11 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (device["side"] == 'left') {
                 left.innerHTML = speed + " km/u";
                 moveRectangle(1, speed);
-                setAnimationSpeed(1, speed * 3); 
+                setAnimationSpeed(1, speed * 3);
             } else {
                 right.innerHTML = speed + " km/u";
                 moveRectangle(2, speed);
-                setAnimationSpeed(2, speed * 3); 
+                setAnimationSpeed(2, speed * 3);
             }
         }
     });

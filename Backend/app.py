@@ -13,7 +13,6 @@ import threading
 from bleak import BleakScanner, BleakClient
 from dotenv import load_dotenv
 import os
-from playsound import playsound
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -60,11 +59,14 @@ def leaderboardAll():
         # print(f'all_players: {all_players}')
         metingen = combined_data["metingen"]
         print(f"metingen: {metingen}")
+        print('all')
+        print(all_players)
 
         result = []
         i = 0
         for player in all_players:
-            print(player[3])
+            print("--------------------------------------")
+            print(player)
             player_id = player[0]
 
             if i < 10:
@@ -108,8 +110,6 @@ def top5():
 def results():
     if request.method == "GET":
         try:
-            print("API")
-            print(combined_data)
             return combined_data
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -132,51 +132,60 @@ def new_game(json=None):
 
 @socketio.on("FT2B_go_to_instructions")
 def go_to_instructions(json=None):
+    device_data.clear()
     print("go to instructions")
     emit("B2FS_go_to_instructions", broadcast=True)
 
 
 @socketio.on("FT2B_leaderboard")
 def leaderboard(json=None):
+    device_data.clear()
     print("leaderboard pressed")
     emit("B2FS_leaderboard", broadcast=True)
 
 
 @socketio.on("FS2B_go_to_choice")
 def go_to_choice(json=None):
+    device_data.clear()
     print("go to choice")
     emit("B2FT_go_to_choice", broadcast=True)
 
 
 @socketio.on("FT2B_start_countdown")
 def start_countdown(json=None):
+    device_data.clear()
     print("start countdown")
     emit("B2FS_start_countdown", broadcast=True)
 
 
 @socketio.on("FT2B_show_map")
 def show_map(jsonObject):
+    device_data.clear()
     emit("B2FS_show_map", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_go_to_countdown")
 def go_to_countdown(json=None):
+    device_data.clear()
     emit("B2FS_go_to_countdown", broadcast=True)
 
 
 @socketio.on("FT2B_show_player1_setup")
 def show_player1(jsonObject):
+    device_data.clear()
     print("show player 1")
     emit("B2FS_show_player1_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player2_setup")
 def show_player2(jsonObject):
+    device_data.clear()
     emit("B2FS_show_player2_setup", {"data": jsonObject}, broadcast=True)
 
 
 @socketio.on("FT2B_show_player_setup")
 def show_player(jsonObject):
+    device_data.clear()
     emit("B2FS_show_player_setup", {"data": jsonObject}, broadcast=True)
 
 
@@ -191,7 +200,7 @@ def start_bluetooth_scan():
         if "KICKR BIKE" in device["name"]:
             devices.append(device)
 
-    emit("B2F_devices", {"devices": devices})
+    emit("B2F_devices", {"devices": devices}, broadcast=True)
 
     print("emitjes gedaan")
 
@@ -224,6 +233,8 @@ def handle_connect(jsonObject):
 def startgame(jsonObject):
     print("game started")
 
+    device_data.clear()
+    
     global device_left
     global combined_data
 
@@ -289,14 +300,12 @@ def startgame(jsonObject):
     combined_data = {
         "spelers": [
             {
-                "id": 1,
                 "achternaam": jsonObject["spelers"][0]["achternaam"],
                 "voornaam": jsonObject["spelers"][0]["voornaam"],
                 "email": jsonObject["spelers"][0]["email"],
                 "winnaar": False,
             },
             {
-                "id": 2,
                 "achternaam": jsonObject["spelers"][1]["achternaam"],
                 "voornaam": jsonObject["spelers"][1]["voornaam"],
                 "email": jsonObject["spelers"][1]["email"],
@@ -305,13 +314,11 @@ def startgame(jsonObject):
         ],
         "metingen": [
             {
-                "speler_id": 1,
                 "maxSnelheid": round(p1_top_speed, 2),
                 "afstand": round(p1_dist, 2),
                 "gemVermogen": round(p1_avg_power, 2),
             },
             {
-                "speler_id": 2,
                 "maxSnelheid": round(p2_top_speed, 2),
                 "afstand": round(p2_dist, 2),
                 "gemVermogen": round(p2_avg_power, 2),

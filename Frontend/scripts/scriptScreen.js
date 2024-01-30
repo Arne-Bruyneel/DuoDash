@@ -237,8 +237,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-                          'kleur1'
-                        )}.png" alt="Rood">
+    'kleur1'
+  )}.png" alt="Rood">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -246,23 +246,20 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[0].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${
-                                  result[0].snelheid
-                                } km/u</div>
+                                <div class="c-klasseSnelheid">${result[0].snelheid
+    } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
-                                  result[0].afstand
-                                } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[0].afstand
+    } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${
-                                  result[0].wattage
-                                } W</div>
+                                <div class="c-klasseWatt">${result[0].wattage
+    } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -283,8 +280,8 @@ const showResult = function (result, winnaar) {
   <div class="c-boog">
                     <div class="c-rondje">
                         <img class="c-avatar" src="../../img/fietser1_${localStorage.getItem(
-                          'kleur2'
-                        )}.png" alt="Blauw">
+    'kleur2'
+  )}.png" alt="Blauw">
                     </div>
                 </div>
                 <div class="c-kader">
@@ -292,23 +289,20 @@ const showResult = function (result, winnaar) {
                         <div class="c-klasseNaam">${result[1].naam}</div>
                         <div class="c-getalletjes">
                             <div class="c-getal">
-                                <div class="c-klasseSnelheid">${
-                                  result[1].snelheid
-                                } km/u</div>
+                                <div class="c-klasseSnelheid">${result[1].snelheid
+    } km/u</div>
                                 <div>Max. snelheid</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal c-getal--winnaar">
-                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${
-                                  result[1].afstand
-                                } m</div>
+                                <div class="c-klasseAfstand c-klasseAfstand--winnaar">${result[1].afstand
+    } m</div>
                                 <div>Afstand</div>
                             </div>
                             <div class="c-streepje"></div>
                             <div class="c-getal">
-                                <div class="c-klasseWatt">${
-                                  result[1].wattage
-                                } W</div>
+                                <div class="c-klasseWatt">${result[1].wattage
+    } W</div>
                                 <div>Gem. wattage</div>
                             </div>
                         </div>
@@ -352,7 +346,7 @@ const showWinnaar = function (result, winnaar) {
 function startCountdown(duration, callback, showFinalCountdown = false) {
   let timeLeft = duration;
   let countdownElement = document.querySelector('.js-countdown');
-  let htmlMusic = document.querySelector('.js-music');
+  // let htmlMusic = document.querySelector('.js-music');
   let aftelElement = showFinalCountdown
     ? document.querySelector('.js-aftel')
     : null;
@@ -363,7 +357,7 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
       if (showFinalCountdown && timeLeft <= 3.8) {
-        htmlMusic.src = `../../../Backend/Music/countdown_muziek.ogg`;
+        // htmlMusic.src = `../../../Backend/Music/countdown_muziek.ogg`;
         document.querySelector('.js-spring').style.display = 'none';
         countdownElement.style.display = 'none'; // Hide the countdown
         aftelElement.style.display = 'flex'; // Show the countdown
@@ -404,27 +398,23 @@ const getResult = function (data) {
   }
 
   let result = [];
-  data.metingen.forEach((meting) => {
-    //speler voor meting zoeken
-    let speler = data.spelers.find((speler) => speler.id === meting.speler_id);
 
-    if (speler) {
-      result.push({
-        id: speler.id,
-        naam: speler.voornaam + ' ' + speler.achternaam.charAt(0) + '.',
-        afstand: meting.afstand,
-        snelheid: meting.maxSnelheid,
-        wattage: meting.gemVermogen,
-      });
-    } else {
-      console.error('No player found for meting:', meting);
-    }
-  });
+  for (let i = 0; i < data.metingen.length; i++) {
+    result.push({
+      naam: data.spelers[i].voornaam + ' ' + data.spelers[i].achternaam.charAt(0) + '.',
+      afstand: data.metingen[i].afstand,
+      snelheid: data.metingen[i].maxSnelheid,
+      wattage: data.metingen[i].gemVermogen,
+    });
+  }
+
+  console.log(result)
 
   let winners = data.spelers.filter((speler) => speler.winnaar);
 
   showResult(result, winners);
 };
+
 // #endregion
 
 // #region ***  Event Listeners - listenTo___            ***********
@@ -518,7 +508,7 @@ function fetchResultData() {
 
 // #region ***  Init / DOMContentLoaded                  ***********
 
-const laadInit = function () {};
+const laadInit = function () { };
 
 const countdownInit = function () {
   let map = localStorage.getItem('theMap');
@@ -568,15 +558,15 @@ const countdownInit = function () {
 const raceInit = function () {
   console.info('race init');
   let map = localStorage.getItem('theMap');
-  let htmlMusic = document.querySelector('.js-music');
-  if(map === 'Palmbomen'){
-    htmlMusic.src = `../../../Backend/Music/palmbomen_muziek.ogg`;
-  } else if(map === 'Jungle'){
-    htmlMusic.src = `../../../Backend/Music/jungle_muziek.ogg`;
-  } else if(map === 'Water'){
-    htmlMusic.src = `../../../Backend/Music/water_muziek.ogg`;
-  }
-  
+  // // let htmlMusic = document.querySelector('.js-music');
+  // if (map === 'Palmbomen') {
+  //   htmlMusic.src = `../../../Backend/Music/palmbomen_muziek.ogg`;
+  // } else if (map === 'Jungle') {
+  //   htmlMusic.src = `../../../Backend/Music/jungle_muziek.ogg`;
+  // } else if (map === 'Water') {
+  //   htmlMusic.src = `../../../Backend/Music/water_muziek.ogg`;
+  // }
+
   startCountdown(
     14,
     () => {
@@ -618,8 +608,8 @@ const leaderboardInit = function () {
     showMap('Palmbomen');
   } else {
     showMap(localStorage.getItem('theMap'));
-    const player1Name = localStorage.getItem('voornaamSpeler1');
-    const player2Name = localStorage.getItem('voornaamSpeler2');
+    const player1Name = localStorage.getItem('voornaam1');
+    const player2Name = localStorage.getItem('voornaam2');
     console.log('player1: ', player1Name);
     console.log('Player2: ', player2Name);
 

@@ -9,6 +9,7 @@ def opslaan_db(spelers_data, metingen_data, conn, cursor, paswoord):
 
         with conn:
             try:
+                countinsert = 0
                 cursor.execute(f"PRAGMA key = '{paswoord}';")
                 if paswoord is None:
                     raise EnvironmentError("Database password not set in environment variables")
@@ -20,7 +21,12 @@ def opslaan_db(spelers_data, metingen_data, conn, cursor, paswoord):
                     if speler_id is None:
                         speler_id = dr.insert_speler(cursor, speler, paswoord)
 
-                    dr.insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord)
+                    dr.insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord, countinsert)
+
+                    countinsert += 1
+
+                    if countinsert > 1:
+                        countinsert = 0
 
                     if speler["winnaar"]:
                         dr.update_winnaar(cursor, speler_id, wedstrijd_id, paswoord)

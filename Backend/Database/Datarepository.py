@@ -18,23 +18,22 @@ class Datarepository:
         )
         return cursor.lastrowid
 
+    def insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord,     countinsert):
 
-    def insert_metingen(cursor, speler_id, wedstrijd_id, metingen_data, paswoord):
-        for meting in metingen_data:
-            if meting["speler_id"] == speler_id:
-                cursor.execute(f"PRAGMA key = '{paswoord}';")
-                cursor.execute(
-                    "INSERT INTO metingen (speler_id, wedstrijd_id, maxSnelheid, afstand, gemVermogen) VALUES (?, ?, ?, ?, ?)",
-                    (
-                        speler_id,
-                        wedstrijd_id,
-                        meting["maxSnelheid"],
-                        meting["afstand"],
-                        meting["gemVermogen"],
-                    ),
-                )
-            else:
-                return False
+        # if meting["speler_id"] == speler_id:
+        cursor.execute(f"PRAGMA key = '{paswoord}';")
+        cursor.execute(
+            "INSERT INTO metingen (speler_id, wedstrijd_id, maxSnelheid, afstand, gemVermogen) VALUES (?, ?, ?, ?, ?)",
+            (
+                speler_id,
+                wedstrijd_id,
+                metingen_data[countinsert]["maxSnelheid"],
+                metingen_data[countinsert]["afstand"],
+                metingen_data[countinsert]["gemVermogen"],
+            ),
+        )
+        # else:
+        #     return False
 
     def update_winnaar(cursor, speler_id, wedstrijd_id, paswoord):
         cursor.execute(f"PRAGMA key = '{paswoord}';")
