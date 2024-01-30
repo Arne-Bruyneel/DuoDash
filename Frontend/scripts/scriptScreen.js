@@ -148,6 +148,7 @@ const showCountdown = function () {
 
       const data = {
         "map": localStorage.getItem('theMap'),
+        "type:": localStorage.getItem('chosenSpelvorm'),
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
@@ -326,14 +327,12 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
     : null;
 
   let timerId = setInterval(() => {
-    if(timeLeft === 3){
-      socketio.emit('FS2B_play_countdownmuziek')
-    }
-    else if (timeLeft > 0) {
+    if (timeLeft > 0) {
       console.log(timeLeft + ' seconds remaining');
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
       if (showFinalCountdown && timeLeft <= 3.5) {
+        socketio.emit('FS2B_play_countdownmuziek')
         document.querySelector('.js-spring').style.display = 'none';
         countdownElement.style.display = 'none'; // Hide the countdown
         aftelElement.style.display = 'flex'; // Show the countdown
@@ -469,7 +468,7 @@ socketio.on('B2FS_show_result', function () {
   window.location.href = 'resultScreen.html';
 });
 
-socketio.on('B2FS_bl_disconnect', function () {
+socketio.on('B2F_bl_disconnect', function () {
   console.log('verbinding verbroken met fietsen via bluetooth');
   window.location.href = 'ConnectionLostScreen.html';
 });
