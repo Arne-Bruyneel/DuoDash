@@ -1066,6 +1066,20 @@ body {
     100% {transform: translateX(150rem);}
 }
 
+.c-beweegFiets--2{
+    position: absolute;
+    bottom: 4rem;
+    left: -20rem;
+    animation: beweegFiets2 20s infinite;
+    z-index: 1;
+}
+
+@keyframes beweegFiets2{
+    0% {transform: translateX(0);}
+    50% {transform: translateX(150rem);}
+    100% {transform: translateX(150rem);}
+}
+
 
 .cyclist{
     height: 16.25rem;
@@ -1073,6 +1087,10 @@ body {
     width: calc(8317px / 30);
     background: url(../img/Game/rood.png);
     animation: cycle 1s steps(30) infinite;
+}
+
+.cyclist--2{
+    background: url(../img/Game/geel.png);
 }
 
 @keyframes cycle{
