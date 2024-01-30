@@ -170,9 +170,9 @@ const showCountdown = function () {
       console.log('Countdown finished!');
 
       const data = {
-        map: localStorage.getItem('theMap'),
-        'type:': localStorage.getItem('chosenSpelvorm'),
-        spelers: [
+        "map": localStorage.getItem('theMap'),
+        "type": localStorage.getItem('chosenSpelvorm'),
+        "spelers": [
           {
             achternaam: localStorage.getItem('achternaamSpeler1'),
             voornaam: localStorage.getItem('voornaam1'),
