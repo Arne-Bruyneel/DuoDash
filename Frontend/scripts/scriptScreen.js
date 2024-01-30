@@ -170,9 +170,9 @@ const showCountdown = function () {
       console.log('Countdown finished!');
 
       const data = {
-        map: localStorage.getItem('theMap'),
-        'type:': localStorage.getItem('chosenSpelvorm'),
-        spelers: [
+        "map": localStorage.getItem('theMap'),
+        "type": localStorage.getItem('chosenSpelvorm'),
+        "spelers": [
           {
             achternaam: localStorage.getItem('achternaamSpeler1'),
             voornaam: localStorage.getItem('voornaam1'),
@@ -350,6 +350,7 @@ const showWinnaar = function (result, winnaar) {
 function startCountdown(duration, callback, showFinalCountdown = false) {
   let timeLeft = duration;
   let countdownElement = document.querySelector('.js-countdown');
+  let htmlMusic = document.querySelector('.js-music');
   let aftelElement = showFinalCountdown
     ? document.querySelector('.js-aftel')
     : null;
@@ -359,8 +360,8 @@ function startCountdown(duration, callback, showFinalCountdown = false) {
       console.log(timeLeft + ' seconds remaining');
 
       // Only update the aftelElement if showFinalCountdown is true and timeLeft is 3 or less
-      if (showFinalCountdown && timeLeft <= 3.5) {
-        socketio.emit('FS2B_play_countdownmuziek');
+      if (showFinalCountdown && timeLeft <= 3.8) {
+        htmlMusic.src = `../../../Backend/Music/countdown_muziek.ogg`;
         document.querySelector('.js-spring').style.display = 'none';
         countdownElement.style.display = 'none'; // Hide the countdown
         aftelElement.style.display = 'flex'; // Show the countdown
@@ -564,6 +565,16 @@ const countdownInit = function () {
 
 const raceInit = function () {
   console.info('race init');
+  let map = localStorage.getItem('theMap');
+  let htmlMusic = document.querySelector('.js-music');
+  if(map === 'Palmbomen'){
+    htmlMusic.src = `../../../Backend/Music/palmbomen_muziek.ogg`;
+  } else if(map === 'Jungle'){
+    htmlMusic.src = `../../../Backend/Music/jungle_muziek.ogg`;
+  } else if(map === 'Water'){
+    htmlMusic.src = `../../../Backend/Music/water_muziek.ogg`;
+  }
+  
   startCountdown(
     14,
     () => {
@@ -572,7 +583,6 @@ const raceInit = function () {
     },
     false
   );
-  let map = localStorage.getItem('theMap');
   let htmlImg = document.querySelector('.c-background__url');
   htmlImg.style.background = `url(../../img/Achtergronden/Moving/${map}Twee.svg)`;
   console.log(map);

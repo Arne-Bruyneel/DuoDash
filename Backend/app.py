@@ -13,6 +13,7 @@ import threading
 from bleak import BleakScanner, BleakClient
 from dotenv import load_dotenv
 import os
+from playsound import playsound
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -229,6 +230,7 @@ def startgame(jsonObject):
     player2_speeds = []
     player1_power = []
     player2_power = []
+    print(jsonObject["type"])
 
     if jsonObject["type"] == "duo":
         countdown = 150

@@ -1054,18 +1054,47 @@ body {
 .c-beweegFiets{
     position: absolute;
     bottom: 4rem;
-    left: -20rem;
-    animation: beweegFiets 15s infinite;
+    left: -25rem;
+    animation: beweegFiets 25s infinite;
     animation-delay: 3s;
     z-index: 1;
 }
 
 @keyframes beweegFiets{
     0% {transform: translateX(0);}
-    30% {transform: translateX(150rem);}
+    25% {transform: translateX(150rem);}
     100% {transform: translateX(150rem);}
 }
 
+.c-beweegFiets--2{
+    position: absolute;
+    bottom: 4rem;
+    left: -25rem;
+    animation: beweegFiets2 30s infinite;
+    animation-delay: 5s;
+    z-index: 1;
+}
+
+@keyframes beweegFiets2{
+    0% {transform: translateX(0);}
+    45% {transform: translateX(150rem);}
+    100% {transform: translateX(150rem);}
+}
+
+.c-peleton{
+    position: absolute;
+    bottom: 4rem;
+    left: -25rem;
+    z-index: 1;
+    animation: peleton 40s infinite;
+    animation-delay: 10s;
+}
+
+@keyframes peleton{
+    0% {transform: translateX(0);}
+    10% {transform: translateX(160rem);}
+    100% {transform: translateX(160rem);}
+}
 
 .cyclist{
     height: 16.25rem;
@@ -1073,6 +1102,40 @@ body {
     width: calc(8317px / 30);
     background: url(../img/Game/rood.png);
     animation: cycle 1s steps(30) infinite;
+}
+
+.cyclist--2{
+    position: absolute;
+    bottom: 0rem;
+    background: url(../img/Game/geel.png);
+}
+
+.cyclist--3{
+    position: absolute;
+    bottom: 0rem;
+    left: -5rem;
+    background: url(../img/Game/blauw.png);
+}
+
+.cyclist--4{
+    bottom: 0rem;
+    position: absolute;
+    left: -10rem;
+    background: url(../img/Game/groen.png);
+}
+
+.cyclist--5{
+    bottom: 0rem;
+    left: -20rem;
+    position: absolute;
+    background: url(../img/Game/paars.png);
+}
+
+.cyclist--6{
+    bottom: 0rem;
+    position: absolute;
+    left: 4rem;
+    background: url(../img/Game/wit.png);
 }
 
 @keyframes cycle{
@@ -1083,8 +1146,6 @@ body {
         background-position: -8317px;
     }
 }
-
-
 
 
 /*---------------------LEADERBOARD-----------------------*/
@@ -1724,6 +1785,66 @@ svg {
     80% {opacity: 0;}
     100% {opacity: 1;}
 }
+
+
+/*-------------------TOP-5------------------*/
+
+.c-bodytablet--top{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-mainTop{
+    width: calc(100% - 12rem);
+    height: 18.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-table{
+    height: 100%;
+    width: 100%;
+    font-size: var(--font-size-bigtext);
+    font-weight: var(--font-weight-text);
+
+    @media (max-width: 992px) {
+        font-size: var(--font-size-smailltext);
+    }
+}
+
+.c-table__naam{
+    text-align: start;
+    padding-left: 1rem;
+    width: 30rem;
+}
+
+.c-table__mail{
+    text-align: center;
+    width: 32rem;
+    padding: 0 .5rem;
+}
+
+.c-table__afstand{
+    text-align: center;
+}
+
+.c-table__titel{
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.c-table__nummer{
+    border-right: 2px solid var(--color-primary);
+    width: 4rem;
+}
+
+.c-table__kleur{
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
 
 /*---------------------------------------/*
  # UTILITIES

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 5 spelers</title>
+    <link rel="stylesheet" href="../css/screen.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/bike.png">
+    <script src="../scripts/dataHandler.js"></script>
+    <script src="../scripts/scriptTopVijf.js"></script>
+</head>
+
+<body class="c-bodytablet c-bodytablet--top">
+
+    <script>
+        var password = "XaTaAmAr2004";
+        (function passcodeprotect() {
+           var passcode = prompt("Wachtwoord:");
+           while (passcode !== password) {
+              alert("Foutief wachtwoord, probeer opnieuw");
+              return passcodeprotect();
+           }
+        }());
+        alert('Welkom op de top 5 pagina!');
+     </script>
+
+
+    <h1 class="c-titelspeler">Top 5 spelers</h1>
+    <main class="c-mainTop">
+        <table class="c-table">
+            <tr class="c-table__rij">
+                <th class="c-table__titel c-table__nummer"></th>
+                <th class="c-table__titel">Naam</th>
+                <th class="c-table__titel">E-mail</th>
+                <th class="c-table__titel">Afstand</th>
+            </tr>
+            <tr class="c-table__kleur js-tableRij">
+                <th class="c-table__nummer">1.</th>
+                <td class="c-table__naam">Maria Anders</td>
+                <td class="c-table__mail">mail</td>
+                <td class="c-table__afstand">566 m</td>
+            </tr>
+            <tr class="js-tableRij2">
+                <th class="c-table__nummer">2.</th>
+                <td class="c-table__naam">Francisco Chang</td>
+                <td class="c-table__mail">mail</td>
+                <td class="c-table__afstand">567 m</td>
+            </tr>
+            <tr class="c-table__kleur js-tableRij3">
+                <th class="c-table__nummer">3.</th>
+                <td class="c-table__naam">Francisco Chang</td>
+                <td class="c-table__mail">mail</td>
+                <td class="c-table__afstand">567 m</td>
+            </tr>
+            <tr class="js-tableRij4">
+                <th class="c-table__nummer">4.</th>
+                <td class="c-table__naam">Francisco Chang</td>
+                <td class="c-table__mail">mail</td>
+                <td class="c-table__afstand">230 m</td>
+            </tr>
+            <tr class="c-table__kleur js-tableRij5">
+                <th class="c-table__nummer">5.</th>
+                <td class="c-table__naam">Francisco Chang</td>
+                <td class="c-table__mail">mail</td>
+                <td class="c-table__afstand">123 m</td>
+            </tr>
+        </table>
+
+    </main>
+
+</body>
+
+</html>
