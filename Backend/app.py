@@ -13,6 +13,7 @@ import threading
 from bleak import BleakScanner, BleakClient
 from dotenv import load_dotenv
 import os
+from playsound import playsound
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
