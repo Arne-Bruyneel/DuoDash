@@ -148,6 +148,7 @@ const showCountdown = function () {
 
       const data = {
         "map": localStorage.getItem('theMap'),
+        "type:": localStorage.getItem('chosenSpelvorm'),
         "spelers": [
           {
             "achternaam": localStorage.getItem('achternaamSpeler1'),
